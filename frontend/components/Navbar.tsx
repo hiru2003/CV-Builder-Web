@@ -9,7 +9,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg text-slate-900">
           <FileText size={24} className="text-blue-600" />
-          <span>CVBuilder</span>
+          <span>CV Builder</span>
         </Link>
         
         <div className="flex items-center gap-6">

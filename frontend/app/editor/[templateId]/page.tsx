@@ -76,7 +76,7 @@ export default function EditorPage() {
             <ChevronLeft size={18} /> Back
           </button>
           <div className="w-px h-6 bg-slate-200 hidden sm:block"></div>
-          <h1 className="text-lg font-bold text-slate-800 hidden sm:block">Resume Builder</h1>
+          <h1 className="text-lg font-bold text-slate-800 hidden sm:block">CV Builder</h1>
         </div>
         
         <div className="flex items-center gap-3">

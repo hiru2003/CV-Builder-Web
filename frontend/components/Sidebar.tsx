@@ -21,7 +21,7 @@ export function Sidebar() {
     <aside className="w-64 bg-slate-50 border-r border-slate-200 flex flex-col h-screen sticky top-0">
       {/* Logo */}
       <div className="p-6 border-b border-slate-200">
-        <h1 className="text-2xl font-bold text-slate-900">Resume Builder</h1>
+        <h1 className="text-2xl font-bold text-slate-900">CV Builder</h1>
         <p className="text-sm text-slate-500 mt-1">Create your perfect resume</p>
       </div>
 

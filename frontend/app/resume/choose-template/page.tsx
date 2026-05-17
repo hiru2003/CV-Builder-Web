@@ -18,7 +18,7 @@ export default function ChooseTemplate() {
             <div className="w-8 h-8 bg-[#00A3FF] rounded-lg flex items-center justify-center transform rotate-12">
               <FileCheck size={20} className="text-white transform -rotate-12" />
             </div>
-            <span>BetterCV</span>
+            <span>CV Builder</span>
           </Link>
           
           <div className="hidden md:flex items-center gap-4 text-sm font-medium">
