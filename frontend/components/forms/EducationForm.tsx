@@ -1,163 +1,128 @@
 'use client';
 
-import React from 'react';
-import { useResume } from '@/contexts/ResumeContext';
-import { useForm } from 'react-hook-form';
-import { Education } from '@/lib/types';
-import { Trash2, Plus } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { useCVStore } from '@/store/useCVStore';
+import { CVData } from '@/types/cv';
+import { Plus, Trash2 } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
-export function EducationForm() {
-  const { state, dispatch } = useResume();
+export const EducationForm = () => {
+  const { data, setEducation } = useCVStore();
+  
+  const { register, control, watch } = useForm<{ education: CVData['education'] }>({
+    defaultValues: {
+      education: data.education.length > 0 ? data.education : [{
+        id: uuidv4(),
+        institution: '',
+        degree: '',
+        field: '',
+        startDate: '',
+        endDate: '',
+        current: false,
+        score: '',
+      }],
+    },
+  });
 
-  const handleAddEducation = () => {
-    const newEducation: Education = {
-      id: uuidv4(),
-      school: '',
-      degree: '',
-      field: '',
-      graduationDate: '',
-      description: '',
-    };
-    dispatch({
-      type: 'ADD_EDUCATION',
-      payload: newEducation,
-    });
-  };
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'education',
+  });
 
-  const handleDeleteEducation = (id: string) => {
-    dispatch({
-      type: 'DELETE_EDUCATION',
-      payload: id,
+  useEffect(() => {
+    const subscription = watch((value) => {
+      if (value.education) {
+        setEducation(value.education as CVData['education']);
+      }
     });
-  };
+    return () => subscription.unsubscribe();
+  }, [watch, setEducation]);
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Education</h1>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold text-slate-800">Education</h2>
         <button
-          onClick={handleAddEducation}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          type="button"
+          onClick={() => append({ id: uuidv4(), institution: '', degree: '', field: '', startDate: '', endDate: '', current: false, score: '' })}
+          className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-md transition-colors"
         >
-          <Plus size={18} />
-          Add Education
+          <Plus size={16} /> Add Education
         </button>
       </div>
-
-      <div className="space-y-6">
-        {state.education.map((edu) => (
-          <EducationItem
-            key={edu.id}
-            education={edu}
-            onDelete={handleDeleteEducation}
-          />
+      
+      <div className="space-y-8">
+        {fields.map((field, index) => (
+          <div key={field.id} className="p-5 border border-slate-200 rounded-xl bg-slate-50 relative group">
+            <button
+              type="button"
+              onClick={() => remove(index)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors"
+            >
+              <Trash2 size={18} />
+            </button>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+              <div className="space-y-1 md:col-span-2">
+                <label className="text-sm font-medium text-slate-700">Institution</label>
+                <input 
+                  {...register(`education.${index}.institution`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                  placeholder="e.g. Harvard University"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700">Degree</label>
+                <input 
+                  {...register(`education.${index}.degree`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                  placeholder="e.g. Bachelor of Science"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700">Field of Study</label>
+                <input 
+                  {...register(`education.${index}.field`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                  placeholder="e.g. Computer Science"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700">Start Date</label>
+                <input 
+                  {...register(`education.${index}.startDate`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                  placeholder="e.g. Sep 2018"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700 flex justify-between">
+                  End Date
+                  <label className="flex items-center gap-1 text-xs text-slate-500 font-normal cursor-pointer">
+                    <input type="checkbox" {...register(`education.${index}.current`)} className="rounded" />
+                    Current
+                  </label>
+                </label>
+                <input 
+                  {...register(`education.${index}.endDate`)}
+                  disabled={watch(`education.${index}.current`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white disabled:bg-slate-100 disabled:text-slate-400"
+                  placeholder="e.g. May 2022"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700">Score / GPA (Optional)</label>
+                <input 
+                  {...register(`education.${index}.score`)}
+                  className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                  placeholder="e.g. 3.8/4.0"
+                />
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   );
-}
-
-function EducationItem({
-  education,
-  onDelete,
-}: {
-  education: Education;
-  onDelete: (id: string) => void;
-}) {
-  const { dispatch } = useResume();
-  const { register, watch } = useForm<Education>({
-    defaultValues: education,
-  });
-
-  const values = watch();
-  React.useEffect(() => {
-    const hasChanged = JSON.stringify(values) !== JSON.stringify(education);
-    if (hasChanged) {
-      const timer = setTimeout(() => {
-        dispatch({
-          type: 'UPDATE_EDUCATION',
-          payload: values,
-        });
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [values, dispatch, education]);
-
-  return (
-    <div className="border border-slate-200 rounded-lg p-6">
-      <div className="flex justify-between mb-4">
-        <h3 className="text-lg font-semibold text-slate-900">
-          {values.school || 'School Name'}
-        </h3>
-        <button
-          onClick={() => onDelete(education.id)}
-          className="text-red-600 hover:text-red-800 transition-colors"
-        >
-          <Trash2 size={20} />
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            School/University
-          </label>
-          <input
-            type="text"
-            {...register('school')}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            placeholder="University of California"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Degree
-          </label>
-          <input
-            type="text"
-            {...register('degree')}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            placeholder="Bachelor of Science"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Field of Study
-          </label>
-          <input
-            type="text"
-            {...register('field')}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            placeholder="Computer Science"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Graduation Date
-          </label>
-          <input
-            type="month"
-            {...register('graduationDate')}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">
-          Additional Information
-        </label>
-        <textarea
-          {...register('description')}
-          rows={3}
-          className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-          placeholder="GPA, honors, relevant coursework, etc."
-        />
-      </div>
-    </div>
-  );
-}
+};
