@@ -58,10 +58,10 @@ export default function EditorPage() {
 
   const tabs = [
     { id: 'personal', label: 'Personal Details' },
-    { id: 'summary', label: 'Summary' },
     { id: 'experience', label: 'Experience' },
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
+    { id: 'summary', label: 'Summary' },
   ];
 
   return (
@@ -134,10 +134,10 @@ export default function EditorPage() {
           <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-white custom-scrollbar">
             <div className="max-w-2xl mx-auto">
               {activeTab === 'personal' && <PersonalInfoForm />}
-              {activeTab === 'summary' && <SummaryForm />}
               {activeTab === 'experience' && <ExperienceForm />}
               {activeTab === 'education' && <EducationForm />}
               {activeTab === 'skills' && <SkillsForm />}
+              {activeTab === 'summary' && <SummaryForm />}
             </div>
           </div>
         </div>
