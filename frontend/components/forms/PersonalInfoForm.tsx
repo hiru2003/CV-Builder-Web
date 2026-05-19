@@ -9,7 +9,7 @@ import { Check } from 'lucide-react';
 export const PersonalInfoForm = () => {
   const { data, updatePersonal, template } = useCVStore();
   
-  const { register, watch, formState: { errors } } = useForm<PersonalInfo>({
+  const { register, watch, formState: { errors, touchedFields } } = useForm<PersonalInfo>({
     defaultValues: data.personal,
     mode: 'onChange',
   });
@@ -18,7 +18,9 @@ export const PersonalInfoForm = () => {
 
   const isValidAndNotEmpty = (fieldName: keyof PersonalInfo) => {
     const val = values[fieldName];
-    return val && typeof val === 'string' && val.trim() !== '' && !errors[fieldName];
+    const isTouched = touchedFields[fieldName];
+    const hasInitialValue = data.personal[fieldName] && data.personal[fieldName] !== '';
+    return (isTouched || hasInitialValue) && val && typeof val === 'string' && val.trim() !== '' && !errors[fieldName];
   };
 
   const showPhotoOption = template === 'modern' || template === 'creative';

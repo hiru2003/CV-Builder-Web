@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useCVStore } from '@/store/useCVStore';
-import { X } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 
 export const SkillsForm = () => {
   const { data, setSkills } = useCVStore();
   const [inputValue, setInputValue] = useState('');
+  const [hasBeenTouched, setHasBeenTouched] = useState(false);
   
   // Local state to avoid jumping inputs
   const [skills, setLocalSkills] = useState<string[]>(data.skills);
@@ -23,6 +24,7 @@ export const SkillsForm = () => {
         setLocalSkills([...skills, newSkill]);
       }
       setInputValue('');
+      setHasBeenTouched(false);
     }
   };
 
@@ -36,13 +38,19 @@ export const SkillsForm = () => {
       <div className="space-y-4">
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">Add a skill</label>
-          <input 
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="e.g. React.js (Press Enter to add)"
-          />
+          <div className="relative">
+            <input 
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={() => setHasBeenTouched(true)}
+              className="w-full p-2 pr-9 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="e.g. React.js (Press Enter to add)"
+            />
+            {hasBeenTouched && inputValue.trim().length >= 2 && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
         </div>
         
         <div className="flex flex-wrap gap-2 pt-2">
