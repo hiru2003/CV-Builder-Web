@@ -62,6 +62,31 @@ export const useCVStore = create<CVState>()(
     }),
     {
       name: 'cv-storage',
+      merge: (persistedState: any, currentState: CVState) => {
+        if (!persistedState) return currentState;
+        
+        const mergedState = { ...currentState, ...persistedState };
+        
+        if (mergedState.data && Array.isArray(mergedState.data.experience)) {
+          mergedState.data.experience = mergedState.data.experience.map((exp: any) => ({
+            ...exp,
+            description: typeof exp.description === 'string'
+              ? exp.description.split(',').map((d: string) => d.trim()).filter(Boolean)
+              : (Array.isArray(exp.description) ? exp.description : [])
+          }));
+        }
+
+        if (mergedState.data && Array.isArray(mergedState.data.projects)) {
+          mergedState.data.projects = mergedState.data.projects.map((proj: any) => ({
+            ...proj,
+            technologies: typeof proj.technologies === 'string'
+              ? proj.technologies.split(',').map((t: string) => t.trim()).filter(Boolean)
+              : (Array.isArray(proj.technologies) ? proj.technologies : [])
+          }));
+        }
+
+        return mergedState;
+      },
     }
   )
 );

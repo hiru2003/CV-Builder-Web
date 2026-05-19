@@ -48,7 +48,7 @@ export const ExperienceForm = () => {
         const descArray = storeVal as any;
         hasInitialValue = Array.isArray(descArray) ? (descArray.length > 0 && descArray[0] !== '') : (descArray && descArray !== '');
       } else {
-        hasInitialValue = storeVal && storeVal !== '';
+        hasInitialValue = !!(storeVal && storeVal !== '');
       }
     }
     
@@ -68,7 +68,14 @@ export const ExperienceForm = () => {
   useEffect(() => {
     const subscription = watch((value) => {
       if (value.experience) {
-        setExperience(value.experience as CVData['experience']);
+        // Convert comma-separated descriptions or paragraphs to array if it is a string
+        const processedExperience = value.experience.map((exp: any) => ({
+          ...exp,
+          description: typeof exp.description === 'string'
+            ? exp.description.split(',').map((d: string) => d.trim()).filter(Boolean)
+            : (Array.isArray(exp.description) ? exp.description : [])
+        }));
+        setExperience(processedExperience as CVData['experience']);
       }
     });
     return () => subscription.unsubscribe();
