@@ -4,13 +4,22 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCVStore } from '@/store/useCVStore';
 import { PersonalInfo } from '@/types/cv';
+import { Check } from 'lucide-react';
 
 export const PersonalInfoForm = () => {
   const { data, updatePersonal, template } = useCVStore();
   
-  const { register, watch } = useForm<PersonalInfo>({
+  const { register, watch, formState: { errors } } = useForm<PersonalInfo>({
     defaultValues: data.personal,
+    mode: 'onChange',
   });
+
+  const values = watch();
+
+  const isValidAndNotEmpty = (fieldName: keyof PersonalInfo) => {
+    const val = values[fieldName];
+    return val && typeof val === 'string' && val.trim() !== '' && !errors[fieldName];
+  };
 
   const showPhotoOption = template === 'modern' || template === 'creative';
 
@@ -45,60 +54,146 @@ export const PersonalInfoForm = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">Full Name</label>
-          <input 
-            {...register('fullName')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="e.g. John Doe"
-          />
+          <div className="relative">
+            <input 
+              {...register('fullName', { required: 'Full Name is required' })}
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.fullName ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="e.g. John Doe"
+            />
+            {isValidAndNotEmpty('fullName') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.fullName && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.fullName.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">Job Title</label>
-          <input 
-            {...register('jobTitle')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="e.g. Software Engineer"
-          />
+          <div className="relative">
+            <input 
+              {...register('jobTitle', { required: 'Job Title is required' })}
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.jobTitle ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="e.g. Software Engineer"
+            />
+            {isValidAndNotEmpty('jobTitle') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.jobTitle && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.jobTitle.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">Email</label>
-          <input 
-            {...register('email')}
-            type="email"
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="john@example.com"
-          />
+          <div className="relative">
+            <input 
+              {...register('email', { 
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              })}
+              type="email"
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.email ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="john@example.com"
+            />
+            {isValidAndNotEmpty('email') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.email && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.email.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">Phone</label>
-          <input 
-            {...register('phone')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="+1 234 567 890"
-          />
+          <div className="relative">
+            <input 
+              {...register('phone', {
+                pattern: {
+                  value: /^[+]?[0-9\s-]{7,15}$/,
+                  message: 'Invalid phone number format'
+                }
+              })}
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.phone ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="+1 234 567 890"
+            />
+            {isValidAndNotEmpty('phone') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.phone && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.phone.message}</p>
+          )}
         </div>
         <div className="space-y-1 md:col-span-2">
           <label className="text-sm font-medium text-slate-700">Address</label>
-          <input 
-            {...register('address')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="City, Country"
-          />
+          <div className="relative">
+            <input 
+              {...register('address')}
+              className={`w-full p-2 pr-9 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+              placeholder="City, Country"
+            />
+            {isValidAndNotEmpty('address') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">LinkedIn URL</label>
-          <input 
-            {...register('linkedin')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="linkedin.com/in/johndoe"
-          />
+          <div className="relative">
+            <input 
+              {...register('linkedin', {
+                pattern: {
+                  value: /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/i,
+                  message: 'Must be a valid LinkedIn URL'
+                }
+              })}
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.linkedin ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="linkedin.com/in/johndoe"
+            />
+            {isValidAndNotEmpty('linkedin') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.linkedin && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.linkedin.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-slate-700">GitHub URL</label>
-          <input 
-            {...register('github')}
-            className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="github.com/johndoe"
-          />
+          <div className="relative">
+            <input 
+              {...register('github', {
+                pattern: {
+                  value: /^(https?:\/\/)?(www\.)?github\.com\/.*$/i,
+                  message: 'Must be a valid GitHub URL'
+                }
+              })}
+              className={`w-full p-2 pr-9 border rounded-md focus:ring-2 focus:outline-none ${
+                errors.github ? 'border-red-500 focus:ring-red-200' : 'border-slate-300 focus:ring-blue-500'
+              }`}
+              placeholder="github.com/johndoe"
+            />
+            {isValidAndNotEmpty('github') && (
+              <Check size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 stroke-[3px]" />
+            )}
+          </div>
+          {errors.github && (
+            <p className="text-xs text-red-500 font-medium mt-1">{errors.github.message}</p>
+          )}
         </div>
         {showPhotoOption && (
           <div className="space-y-2 md:col-span-2">
