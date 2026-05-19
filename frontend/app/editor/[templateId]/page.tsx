@@ -74,42 +74,51 @@ export default function EditorPage() {
   return (
     <div className="h-screen flex flex-col bg-white overflow-hidden font-sans">
       {/* Top Navbar */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-20">
-        <div className="flex items-center gap-4">
+      <header className="h-auto min-h-[64px] py-3 sm:py-0 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 shrink-0 z-20 overflow-x-auto hide-scrollbar">
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           <button 
             onClick={() => router.push('/resume/choose-template')}
-            className="text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1 text-sm font-medium"
+            className="w-10 h-10 sm:w-auto sm:h-auto sm:px-0 flex items-center justify-center sm:justify-start text-slate-500 hover:text-slate-800 hover:bg-slate-100 sm:hover:bg-transparent rounded-full sm:rounded-none transition-colors gap-1 text-sm font-medium"
+            title="Back"
           >
-            <ChevronLeft size={18} /> Back
+            <ChevronLeft size={20} /> <span className="hidden sm:inline">Back</span>
           </button>
           <div className="w-px h-6 bg-slate-200 hidden sm:block"></div>
-          <h1 className="text-lg font-bold text-slate-800 hidden sm:block">CV Builder</h1>
+          <h1 className="text-lg font-bold text-slate-800 hidden lg:block">CV Builder</h1>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-4 sm:ml-0">
           <button 
             onClick={() => router.push('/resume/choose-template')}
-            className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:bg-slate-50 px-3 py-2 rounded-md transition-colors border border-slate-200"
+            className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+            title="Change Template"
           >
-            <LayoutTemplate size={16} /> Change Template
+            <LayoutTemplate size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Template</span>
           </button>
+          
           <button 
             onClick={reset}
-            className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 px-3 py-2 rounded-md transition-colors border border-slate-200"
+            className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-red-600 bg-white hover:bg-red-50 border border-slate-200 hover:border-red-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+            title="Reset Data"
           >
-            <RefreshCcw size={16} /> Reset
+            <RefreshCcw size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Reset</span>
           </button>
+
           <button 
             onClick={handleExportPDF}
             disabled={isExporting}
-            className="flex items-center gap-2 text-sm font-medium text-white bg-[#00A3FF] hover:bg-[#008AE6] disabled:bg-blue-300 px-4 py-2 rounded-md transition-all shadow-sm"
+            className="flex items-center justify-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-[#00A3FF] to-[#007BFF] hover:from-[#008AE6] hover:to-[#0069D9] disabled:from-blue-300 disabled:to-blue-400 px-4 sm:px-5 py-2 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
           >
             {isExporting ? (
               <span className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> Generating...
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> 
+                <span className="hidden sm:inline">Generating...</span>
               </span>
             ) : (
-              <><Download size={16} /> Download PDF</>
+              <>
+                <Download size={18} className="sm:w-4 sm:h-4" /> 
+                <span>Download<span className="hidden sm:inline"> PDF</span></span>
+              </>
             )}
           </button>
         </div>
