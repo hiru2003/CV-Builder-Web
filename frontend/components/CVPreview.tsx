@@ -18,6 +18,27 @@ const templates = {
 
 export const CVPreview = () => {
   const { data, template } = useCVStore();
+  const [scale, setScale] = React.useState(0.7);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        // Mobile: container is 100% width minus padding
+        setScale(Math.min(0.7, (width - 32) / 794));
+      } else if (width < 1024) {
+        // Tablet/MD screens
+        setScale(Math.min(0.7, (width - 48) / 794));
+      } else {
+        // Desktop
+        setScale(0.7);
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const SelectedTemplate = templates[template] || ModernTemplate;
 
@@ -29,9 +50,9 @@ export const CVPreview = () => {
           style={{
             width: '210mm',
             height: '297mm',
-            transform: 'scale(0.7)',
+            transform: `scale(${scale})`,
             transformOrigin: 'top center',
-            marginBottom: '-89.1mm', // Compensate for 0.7 scale (297 * 0.3)
+            marginBottom: `-${297 * (1 - scale)}mm`, // Compensate for scale zoom out
           }}
           id="cv-preview-container"
         >

@@ -10,14 +10,20 @@ import { SummaryForm } from '@/components/forms/SummaryForm';
 import { ExperienceForm } from '@/components/forms/ExperienceForm';
 import { EducationForm } from '@/components/forms/EducationForm';
 import { SkillsForm } from '@/components/forms/SkillsForm';
+import { AdditionalSectionsForm } from '@/components/forms/AdditionalSectionsForm';
+import { LanguagesForm } from '@/components/forms/LanguagesForm';
+import { CertificationsForm } from '@/components/forms/CertificationsForm';
+import { ProjectsForm } from '@/components/forms/ProjectsForm';
 import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw } from 'lucide-react';
 
 export default function EditorPage() {
   const params = useParams();
   const router = useRouter();
   const { setTemplate, reset, template } = useCVStore();
-  const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills'>('personal');
+  const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'additional'>('personal');
+  const [subView, setSubView] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [mobileView, setMobileView] = useState<'edit' | 'preview'>('edit');
 
   useEffect(() => {
     if (params.templateId) {
@@ -62,6 +68,7 @@ export default function EditorPage() {
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
     { id: 'summary', label: 'Summary' },
+    { id: 'additional', label: 'Add Section' },
   ];
 
   return (
@@ -108,11 +115,37 @@ export default function EditorPage() {
         </div>
       </header>
 
+      {/* Mobile Toggle Control */}
+      <div className="lg:hidden p-3 bg-slate-50 border-b border-slate-200">
+        <div className="flex p-1 bg-slate-200/60 rounded-xl max-w-sm mx-auto w-full border border-slate-200">
+          <button
+            onClick={() => setMobileView('edit')}
+            className={`flex-1 py-2 text-sm font-bold text-center rounded-lg transition-all ${
+              mobileView === 'edit' 
+                ? 'bg-white text-[#00A3FF] shadow-sm' 
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => setMobileView('preview')}
+            className={`flex-1 py-2 text-sm font-bold text-center rounded-lg transition-all ${
+              mobileView === 'preview' 
+                ? 'bg-white text-[#00A3FF] shadow-sm' 
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+
       {/* Main Workspace */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         
         {/* Left Side: Forms */}
-        <div className="w-full lg:w-[45%] flex flex-col bg-white border-r border-slate-200 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div className={`w-full lg:w-[45%] ${mobileView === 'edit' ? 'flex' : 'hidden lg:flex'} flex-col bg-white border-r border-slate-200 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]`}>
           {/* Form Tabs Navigation */}
           <div className="flex overflow-x-auto border-b border-slate-100 p-2 gap-1 hide-scrollbar bg-slate-50">
             {tabs.map(tab => (
@@ -138,12 +171,35 @@ export default function EditorPage() {
               {activeTab === 'education' && <EducationForm />}
               {activeTab === 'skills' && <SkillsForm />}
               {activeTab === 'summary' && <SummaryForm />}
+              {activeTab === 'additional' && (
+                <>
+                  {subView === null && <AdditionalSectionsForm onSelectSection={setSubView} />}
+                  {subView === 'languages' && <LanguagesForm onBack={() => setSubView(null)} />}
+                  {subView === 'certifications' && <CertificationsForm onBack={() => setSubView(null)} />}
+                  {subView === 'projects' && <ProjectsForm onBack={() => setSubView(null)} />}
+                  {['awards', 'social', 'references', 'hobbies'].includes(subView || '') && (
+                    <div className="text-center py-16 bg-slate-50 rounded-2xl border border-slate-200">
+                      <div className="w-16 h-16 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Settings size={32} />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-800 mb-2">Coming Soon</h3>
+                      <p className="text-slate-500 mb-6 max-w-sm mx-auto">This section is currently under development. Please check back later.</p>
+                      <button 
+                        onClick={() => setSubView(null)} 
+                        className="px-6 py-2.5 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-50 transition-colors shadow-sm"
+                      >
+                        Back to Additional Sections
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
 
         {/* Right Side: Live Preview */}
-        <div className="hidden lg:flex lg:w-[55%] bg-[#F8FAFC] overflow-hidden relative">
+        <div className={`${mobileView === 'preview' ? 'flex w-full' : 'hidden'} lg:flex lg:w-[55%] bg-[#F8FAFC] overflow-hidden relative`}>
           <div className="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-500 border border-slate-200 shadow-sm flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> Live Preview
           </div>
