@@ -43,58 +43,7 @@ export async function POST(request: Request) {
     const host = request.headers.get('host');
     const baseUrl = `${protocol}://${host}`;
 
-    // Navigate to a blank page first
-    await page.goto('about:blank');
 
-    // Generate the HTML shell
-    // We load the Tailwind CDN to ensure all classes work exactly as they do in the app
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <script src="https://cdn.tailwindcss.com"></script>
-          <script src="https://unpkg.com/lucide@latest"></script>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap');
-            
-            body { 
-              margin: 0; 
-              padding: 0; 
-              background: white; 
-              font-family: 'Inter', sans-serif;
-            }
-            .font-serif {
-              font-family: 'Merriweather', serif;
-            }
-            
-            /* A4 Print Reset */
-            @page {
-              size: A4;
-              margin: 0;
-            }
-            
-            #cv-root {
-              width: 210mm;
-              height: 297mm;
-              overflow: hidden;
-            }
-          </style>
-        </head>
-        <body>
-          <div id="cv-root">
-             <!-- We will inject the rendered HTML here via page.evaluate -->
-             <div style="padding: 40px; text-align: center; font-family: sans-serif;">
-                <h2>Generating PDF...</h2>
-                <p>If you see this in the final PDF, the React render failed to inject.</p>
-             </div>
-          </div>
-        </body>
-      </html>
-    `;
-
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
 
     // Since we can't easily compile the React component to an HTML string inside this API route 
     // (because it relies on Lucide-react and Tailwind which are client-side in this setup),
@@ -120,7 +69,7 @@ export async function POST(request: Request) {
 
     await browser.close();
 
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(pdfBuffer as any, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',

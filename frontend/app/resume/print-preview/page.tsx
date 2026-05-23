@@ -8,6 +8,9 @@ import { ClassicTemplate } from '@/components/templates/ClassicTemplate';
 import { CreativeTemplate } from '@/components/templates/CreativeTemplate';
 import { MinimalTemplate } from '@/components/templates/MinimalTemplate';
 import { ExecutiveTemplate } from '@/components/templates/ExecutiveTemplate';
+import { ATSSimpleTemplate } from '@/components/templates/ATSSimpleTemplate';
+import { ATSProfessionalTemplate } from '@/components/templates/ATSProfessionalTemplate';
+import { ATSModernTemplate } from '@/components/templates/ATSModernTemplate';
 
 const templates = {
   modern: ModernTemplate,
@@ -15,9 +18,12 @@ const templates = {
   creative: CreativeTemplate,
   minimal: MinimalTemplate,
   executive: ExecutiveTemplate,
+  ats_simple: ATSSimpleTemplate,
+  ats_professional: ATSProfessionalTemplate,
+  ats_modern: ATSModernTemplate,
 };
 
-export default function PrintPreviewPage() {
+function PrintPreviewContent() {
   const searchParams = useSearchParams();
   const templateId = (searchParams.get('template') || 'modern') as TemplateType;
   const [data, setData] = useState<CVData | null>(null);
@@ -41,5 +47,13 @@ export default function PrintPreviewPage() {
     <div className="w-[210mm] h-[297mm] bg-white overflow-hidden m-0 p-0">
       <SelectedTemplate data={data} />
     </div>
+  );
+}
+
+export default function PrintPreviewPage() {
+  return (
+    <React.Suspense fallback={<div>Loading print preview...</div>}>
+      <PrintPreviewContent />
+    </React.Suspense>
   );
 }

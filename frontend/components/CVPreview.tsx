@@ -7,6 +7,9 @@ import { ClassicTemplate } from './templates/ClassicTemplate';
 import { CreativeTemplate } from './templates/CreativeTemplate';
 import { MinimalTemplate } from './templates/MinimalTemplate';
 import { ExecutiveTemplate } from './templates/ExecutiveTemplate';
+import { ATSSimpleTemplate } from './templates/ATSSimpleTemplate';
+import { ATSProfessionalTemplate } from './templates/ATSProfessionalTemplate';
+import { ATSModernTemplate } from './templates/ATSModernTemplate';
 
 const templates = {
   modern: ModernTemplate,
@@ -14,6 +17,9 @@ const templates = {
   creative: CreativeTemplate,
   minimal: MinimalTemplate,
   executive: ExecutiveTemplate,
+  ats_simple: ATSSimpleTemplate,
+  ats_professional: ATSProfessionalTemplate,
+  ats_modern: ATSModernTemplate,
 };
 
 export const CVPreview = () => {

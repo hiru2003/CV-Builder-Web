@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useCVStore } from '@/store/useCVStore';

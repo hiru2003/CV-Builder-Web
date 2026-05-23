@@ -65,7 +65,7 @@ export interface CVData {
   languages: Language[];
 }
 
-export type TemplateType = 'modern' | 'classic' | 'creative' | 'minimal' | 'executive';
+export type TemplateType = 'modern' | 'classic' | 'creative' | 'minimal' | 'executive' | 'ats_simple' | 'ats_professional' | 'ats_modern';
 
 export const initialCVData: CVData = {
   personal: {

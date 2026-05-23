@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useCVStore } from '@/store/useCVStore';
@@ -5,7 +7,7 @@ import { CVData } from '@/types/cv';
 import { Plus, Trash2, Check, ArrowLeft } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
-export const ProjectsForm = ({ onBack }: { onBack: () => void }) => {
+export const ProjectsForm = ({ onBack }: { onBack?: () => void }) => {
   const { data, setProjects } = useCVStore();
   
   const { register, control, watch, formState: { errors, touchedFields } } = useForm<{ projects: CVData['projects'] }>({
@@ -72,9 +74,11 @@ export const ProjectsForm = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <button onClick={onBack} className="p-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600 transition-colors">
-          <ArrowLeft size={18} />
-        </button>
+        {onBack && (
+          <button onClick={onBack} className="p-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600 transition-colors">
+            <ArrowLeft size={18} />
+          </button>
+        )}
         <h2 className="text-xl font-bold text-slate-800">Projects</h2>
       </div>
       

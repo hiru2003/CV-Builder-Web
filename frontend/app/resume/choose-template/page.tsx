@@ -22,6 +22,98 @@ export default function ChooseTemplate() {
 
   const templates: TemplateItem[] = [
     {
+      id: 'ats_simple',
+      name: 'ATS Simple',
+      href: '/editor/ats_simple',
+      hasPhoto: false,
+      tags: ['ats'],
+      component: (
+        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-center font-sans text-[6px]">
+          <div className="text-[14px] font-bold mb-1 uppercase">YOUR NAME</div>
+          <div className="text-[6px] text-[#007BFF] font-semibold mb-3">Job Title</div>
+          <div className="flex justify-center gap-2 mb-4 text-[5px] text-slate-400">
+            <span>email@address.com</span><span>•</span><span>(123) 456-7890</span><span>•</span><span>City, ST</span>
+          </div>
+          <div className="h-0.5 bg-slate-200 w-full mb-3"></div>
+          
+          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1.5 border-b border-slate-200 pb-0.5">Professional Summary</div>
+          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
+
+          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1.5 border-b border-slate-200 pb-0.5">Work Experience</div>
+          <div className="flex justify-between font-bold text-slate-800 mb-1">
+            <span>Job Title — Company Name</span>
+            <span>2020 - Present</span>
+          </div>
+          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+        </div>
+      )
+    },
+    {
+      id: 'ats_professional',
+      name: 'ATS Professional',
+      href: '/editor/ats_professional',
+      hasPhoto: false,
+      tags: ['ats'],
+      component: (
+        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-left font-sans text-[6px]">
+          <div className="text-[14px] font-bold mb-1 uppercase">YOUR NAME</div>
+          <div className="text-[6px] text-slate-500 font-medium mb-3">Job Title</div>
+          <div className="flex gap-3 mb-4 text-[5px] text-slate-400">
+            <span>email@address.com</span><span>(123) 456-7890</span><span>City, ST</span>
+          </div>
+          
+          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-wider mb-1.5 border-b-2 border-slate-800 pb-0.5">Professional Summary</div>
+          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
+
+          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-wider mb-1.5 border-b-2 border-slate-800 pb-0.5">Experience</div>
+          <div className="flex justify-between font-bold text-slate-800 mb-0.5">
+            <span>Job Title</span>
+            <span>2020 - Present</span>
+          </div>
+          <div className="text-slate-500 mb-1">Company Name</div>
+          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+        </div>
+      )
+    },
+    {
+      id: 'ats_modern',
+      name: 'ATS Modern',
+      href: '/editor/ats_modern',
+      hasPhoto: false,
+      tags: ['ats'],
+      component: (
+        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-left font-sans text-[6px]">
+          <div className="flex justify-between items-start mb-4 border-b-2 border-slate-100 pb-3">
+            <div>
+              <div className="text-[14px] font-black uppercase text-slate-900">YOUR NAME</div>
+              <div className="text-[6px] text-indigo-600 font-semibold mt-0.5">Job Title</div>
+            </div>
+            <div className="text-right text-[5px] text-slate-400 space-y-0.5">
+              <div>email@address.com</div>
+              <div>(123) 456-7890</div>
+            </div>
+          </div>
+          
+          <div className="text-[8px] font-bold text-indigo-700 uppercase tracking-wider mb-1.5">Summary</div>
+          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
+
+          <div className="text-[8px] font-bold text-indigo-700 uppercase tracking-wider mb-1.5">Experience</div>
+          <div className="flex justify-between font-bold text-slate-800 mb-0.5">
+            <span>Job Title</span>
+            <span className="text-indigo-600 bg-indigo-50/50 px-1 rounded">2020 - Present</span>
+          </div>
+          <div className="text-slate-500 mb-1">Company Name</div>
+          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
+          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+        </div>
+      )
+    },
+    {
       id: 'modern',
       name: 'Modern',
       href: '/editor/modern',
@@ -210,6 +302,7 @@ export default function ChooseTemplate() {
         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-12 mb-12 border-b border-slate-100 pb-2">
           <Tab active={activeTab === 'all'} onClick={() => setActiveTab('all')} icon={<Folder size={18} />} label="All Templates" />
           <Tab active={activeTab === 'photo'} onClick={() => setActiveTab('photo')} icon={<Image size={18} />} label="With Photo" />
+          <Tab active={activeTab === 'ats'} onClick={() => setActiveTab('ats')} icon={<ShieldCheck size={18} />} label="ATS CV" />
           <Tab active={activeTab === 'classic'} onClick={() => setActiveTab('classic')} icon={<Star size={18} />} label="Classic" />
           <Tab active={activeTab === 'creative'} onClick={() => setActiveTab('creative')} icon={<Palette size={18} />} label="Creative" />
           <Tab active={activeTab === 'minimal'} onClick={() => setActiveTab('minimal')} icon={<FileText size={18} />} label="Minimal" />
