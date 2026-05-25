@@ -14,7 +14,9 @@ import { AdditionalSectionsForm } from '@/components/forms/AdditionalSectionsFor
 import { LanguagesForm } from '@/components/forms/LanguagesForm';
 import { CertificationsForm } from '@/components/forms/CertificationsForm';
 import { ProjectsForm } from '@/components/forms/ProjectsForm';
-import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw } from 'lucide-react';
+import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut } from 'lucide-react';
+import { supabase } from '@/lib/supabaseClient';
+import { AuthModal } from '@/components/AuthModal';
 
 export default function EditorPage() {
   const params = useParams();
@@ -24,6 +26,8 @@ export default function EditorPage() {
   const [subView, setSubView] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [mobileView, setMobileView] = useState<'edit' | 'preview'>('edit');
+  const [user, setUser] = useState<any>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     if (params.templateId) {
@@ -31,15 +35,77 @@ export default function EditorPage() {
     }
   }, [params.templateId, setTemplate]);
 
+  useEffect(() => {
+    // Check active session
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const handleExportPDF = async () => {
+    const currentUser = user || (await supabase.auth.getUser()).data.user;
+
+    if (!currentUser) {
+      setShowAuthModal(true);
+      return;
+    }
+
     setIsExporting(true);
     try {
+      const cvData = useCVStore.getState().data;
+      const currentTemplate = useCVStore.getState().template;
+
+      // Sync with Supabase Database
+      // Check if user already has a saved resume
+      const { data: existingResumes, error: fetchError } = await supabase
+        .from('resumes')
+        .select('id')
+        .eq('user_id', currentUser.id)
+        .limit(1);
+
+      if (fetchError) throw fetchError;
+
+      if (existingResumes && existingResumes.length > 0) {
+        // Update existing resume record
+        const { error: updateError } = await supabase
+          .from('resumes')
+          .update({
+            template: currentTemplate,
+            data: cvData,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', existingResumes[0].id);
+
+        if (updateError) throw updateError;
+      } else {
+        // Insert new resume record
+        const { error: insertError } = await supabase
+          .from('resumes')
+          .insert({
+            user_id: currentUser.id,
+            template: currentTemplate,
+            data: cvData,
+          });
+
+        if (insertError) throw insertError;
+      }
+
+      // Generate PDF download
       const response = await fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          data: useCVStore.getState().data, 
-          template: useCVStore.getState().template 
+          data: cvData, 
+          template: currentTemplate 
         }),
       });
 
@@ -49,14 +115,14 @@ export default function EditorPage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `resume-${useCVStore.getState().data.personal.fullName.replace(/\s+/g, '-').toLowerCase() || 'draft'}.pdf`;
+      a.download = `resume-${cvData.personal.fullName.replace(/\s+/g, '-').toLowerCase() || 'draft'}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      console.error('Export error:', error);
-      alert('Failed to generate PDF. Make sure the API route is running properly.');
+      console.error('Export/Save error:', error);
+      alert('Failed to save your CV to the cloud or generate PDF.');
     } finally {
       setIsExporting(false);
     }
@@ -103,6 +169,24 @@ export default function EditorPage() {
           >
             <RefreshCcw size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Reset</span>
           </button>
+
+          {user && (
+            <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
+              <span className="hidden xl:inline text-xs text-slate-500 font-medium max-w-[120px] truncate" title={user.email}>
+                {user.email}
+              </span>
+              <button 
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  reset();
+                }}
+                className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+                title="Sign Out"
+              >
+                <LogOut size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Sign Out</span>
+              </button>
+            </div>
+          )}
 
           <button 
             onClick={handleExportPDF}
@@ -216,6 +300,16 @@ export default function EditorPage() {
         </div>
         
       </div>
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => {
+          setTimeout(() => {
+            handleExportPDF();
+          }, 300);
+        }}
+      />
     </div>
   );
 }
