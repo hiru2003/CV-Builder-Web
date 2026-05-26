@@ -12,6 +12,8 @@ export const ExperienceForm = () => {
   const { data, setExperience } = useCVStore();
   const { toast } = useToast();
   const [generatingIndex, setGeneratingIndex] = useState<number | null>(null);
+  const [tone, setTone] = useState<'action-oriented' | 'technical' | 'results-driven'>('action-oriented');
+  const [mode, setMode] = useState<'generate' | 'refine'>('generate');
   
   const { register, control, watch, setValue, formState: { errors, touchedFields } } = useForm<{ experience: CVData['experience'] }>({
     defaultValues: {
@@ -49,6 +51,14 @@ export const ExperienceForm = () => {
       return;
     }
 
+    if (mode === 'refine' && (!item.description || (Array.isArray(item.description) ? item.description.join('').trim() === '' : item.description.trim() === ''))) {
+      toast({
+        title: 'Draft Required',
+        description: 'Please write a draft in the description textarea first, then click "Polish Draft" to let AI enhance it.',
+      });
+      return;
+    }
+
     setGeneratingIndex(index);
     try {
       const response = await fetch('/api/generate', {
@@ -63,6 +73,8 @@ export const ExperienceForm = () => {
             company: item.company,
             skills: data.skills,
             currentDescription: Array.isArray(item.description) ? item.description.join(', ') : item.description,
+            tone,
+            mode,
           },
         }),
       });
@@ -76,7 +88,7 @@ export const ExperienceForm = () => {
         setValue(`experience.${index}.description` as any, resData.text, { shouldDirty: true, shouldValidate: true });
         toast({
           title: 'Success',
-          description: 'Experience description enhanced successfully!',
+          description: mode === 'refine' ? 'AI polished your experience draft successfully!' : 'Experience description enhanced successfully!',
         });
       }
     } catch (err: any) {
@@ -276,15 +288,59 @@ export const ExperienceForm = () => {
                     {generatingIndex === index ? (
                       <>
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        <span>Enhancing...</span>
+                        <span>{mode === 'refine' ? 'Polishing...' : 'Enhancing...'}</span>
                       </>
                     ) : (
                       <>
                         <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                        <span>Enhance with AI</span>
+                        <span>{mode === 'refine' ? 'Polish Draft' : 'Enhance with AI'}</span>
                       </>
                     )}
                   </button>
+                </div>
+
+                <div className="bg-slate-100 border border-slate-200 p-2 rounded-md flex flex-wrap gap-3 items-center justify-between text-[10px] text-slate-500 mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-slate-600">Tone:</span>
+                      <select
+                        value={tone}
+                        onChange={(e) => setTone(e.target.value as any)}
+                        className="p-0.5 border border-slate-300 rounded bg-white text-slate-700 focus:outline-none"
+                      >
+                        <option value="action-oriented">Action-Oriented</option>
+                        <option value="technical">Technical</option>
+                        <option value="results-driven">Results-Driven</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-slate-600">Mode:</span>
+                      <div className="flex bg-slate-200 rounded p-0.5 border border-slate-300">
+                        <button
+                          type="button"
+                          onClick={() => setMode('generate')}
+                          className={`px-1.5 py-0.5 rounded transition-all text-[9px] ${
+                            mode === 'generate'
+                              ? 'bg-white font-semibold text-slate-700 shadow-sm'
+                              : 'text-slate-500'
+                          }`}
+                        >
+                          Write New
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setMode('refine')}
+                          className={`px-1.5 py-0.5 rounded transition-all text-[9px] ${
+                            mode === 'refine'
+                              ? 'bg-white font-semibold text-slate-700 shadow-sm'
+                              : 'text-slate-500'
+                          }`}
+                        >
+                          Polish Draft
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative">
                   <textarea 

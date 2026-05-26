@@ -10,6 +10,8 @@ export const SummaryForm = () => {
   const { data, updateSummary } = useCVStore();
   const { toast } = useToast();
   const [isGenerating, setIsGenerating] = useState(false);
+  const [tone, setTone] = useState<'professional' | 'technical' | 'executive' | 'creative'>('professional');
+  const [mode, setMode] = useState<'generate' | 'refine'>('generate');
   
   const { register, watch, setValue, formState: { errors, touchedFields } } = useForm<{ summary: string }>({
     defaultValues: { summary: data.summary },
@@ -30,6 +32,14 @@ export const SummaryForm = () => {
   const isValidAndNotEmpty = (touchedFields.summary || hasInitialValue) && value && value.trim() !== '' && !errors.summary;
 
   const handleGenerateAI = async () => {
+    if (mode === 'refine' && (!value || value.trim() === '')) {
+      toast({
+        title: 'Draft Required',
+        description: 'Please write a draft in the textarea first, then click "Polish Draft" to let AI enhance it.',
+      });
+      return;
+    }
+
     setIsGenerating(true);
     try {
       const response = await fetch('/api/generate', {
@@ -43,6 +53,8 @@ export const SummaryForm = () => {
             jobTitle: data.personal.jobTitle,
             skills: data.skills,
             currentSummary: value,
+            tone,
+            mode,
           },
         }),
       });
@@ -56,7 +68,7 @@ export const SummaryForm = () => {
         setValue('summary', resData.text, { shouldDirty: true, shouldValidate: true });
         toast({
           title: 'Success',
-          description: 'AI professional summary generated successfully!',
+          description: mode === 'refine' ? 'AI polished your summary draft successfully!' : 'AI professional summary generated successfully!',
         });
       }
     } catch (err: any) {
@@ -84,16 +96,62 @@ export const SummaryForm = () => {
           {isGenerating ? (
             <>
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
-              <span>Generating...</span>
+              <span>{mode === 'refine' ? 'Polishing...' : 'Generating...'}</span>
             </>
           ) : (
             <>
               <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Generate with AI</span>
+              <span>{mode === 'refine' ? 'Polish Draft' : 'Generate with AI'}</span>
             </>
           )}
         </button>
       </div>
+
+      <div className="bg-slate-50 border border-slate-200 p-3 rounded-lg flex flex-wrap gap-4 items-center justify-between text-xs text-slate-600">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5">
+            <span className="font-semibold text-slate-700">Tone:</span>
+            <select
+              value={tone}
+              onChange={(e) => setTone(e.target.value as any)}
+              className="p-1 border border-slate-300 rounded bg-white font-medium text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            >
+              <option value="professional">Professional (Standard)</option>
+              <option value="technical">Technical (Engineering)</option>
+              <option value="executive">Executive (Leadership)</option>
+              <option value="creative">Creative (Innovative)</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="font-semibold text-slate-700">Mode:</span>
+            <div className="flex bg-slate-200 rounded p-0.5 border border-slate-300">
+              <button
+                type="button"
+                onClick={() => setMode('generate')}
+                className={`px-2 py-0.5 rounded transition-all ${
+                  mode === 'generate'
+                    ? 'bg-white font-semibold text-slate-800 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                Write New
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode('refine')}
+                className={`px-2 py-0.5 rounded transition-all ${
+                  mode === 'refine'
+                    ? 'bg-white font-semibold text-slate-800 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                Polish Draft
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="space-y-2">
         <label className="text-sm font-medium text-slate-700">Write a short summary about your professional background and goals.</label>
         <div className="relative">
