@@ -253,74 +253,97 @@ export default function ChooseTemplate() {
   });
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-slate-50/50 font-sans relative overflow-hidden bg-line-grid">
+      {/* Glow Blur Effect */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-tr from-[#00A3FF]/8 to-indigo-500/8 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="sticky top-0 z-50 border-b border-slate-200/60 backdrop-blur-md bg-white/75 shrink-0">
         <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-slate-800">
-            <div className="w-8 h-8 bg-[#00A3FF] rounded-lg flex items-center justify-center transform rotate-12">
-              <FileCheck size={20} className="text-white transform -rotate-12" />
+          <Link href="/" className="flex items-center gap-2.5 font-black text-xl text-slate-800 tracking-tight">
+            <div className="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-[#00A3FF] rounded-xl flex items-center justify-center shadow-md">
+              <FileCheck size={20} className="text-white" />
             </div>
-            <span>CV Builder</span>
+            <span>CV <span className="bg-gradient-to-r from-[#00A3FF] to-indigo-600 bg-clip-text text-transparent">Builder</span></span>
           </Link>
           
-          <div className="hidden md:flex items-center gap-4 text-sm font-medium">
-            <div className="flex items-center gap-2 text-[#00A3FF]">
-              <div className="w-6 h-6 rounded-full bg-[#00A3FF] text-white flex items-center justify-center text-xs">1</div>
+          <div className="hidden md:flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+            <div className="flex items-center gap-2 text-indigo-600 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full shadow-sm">
+              <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">1</div>
               <span>Choose template</span>
             </div>
-            <div className="w-12 h-px bg-slate-200"></div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs">2</div>
-              <span>Enter your details</span>
+            <div className="w-8 h-px bg-slate-200"></div>
+            <div className="flex items-center gap-2 opacity-65">
+              <div className="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">2</div>
+              <span>Enter details</span>
             </div>
-            <div className="w-12 h-px bg-slate-200"></div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs">3</div>
-              <span>Download resume</span>
+            <div className="w-8 h-px bg-slate-200"></div>
+            <div className="flex items-center gap-2 opacity-65">
+              <div className="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">3</div>
+              <span>Download CV</span>
             </div>
           </div>
           
-          <div className="w-[120px] hidden md:block"></div>
+          <div className="w-[150px] hidden md:block"></div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-[1200px] mx-auto px-6 py-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#2C3E50] mb-4">Resume templates</h1>
-        <p className="text-lg text-slate-500 mb-4 max-w-2xl mx-auto">
-          Simple to use and ready in minutes resume templates — give it a try for free now!
+      <main className="max-w-[1300px] mx-auto px-6 py-16 text-center relative z-10">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-5 tracking-tight leading-tight">
+          Select a <span className="bg-gradient-to-r from-indigo-600 to-[#00A3FF] bg-clip-text text-transparent">Resume Template</span>
+        </h1>
+        <p className="text-lg text-slate-500 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
+          Choose from our recruiter-approved templates, optimized to pass through ATS filters and win interviews.
         </p>
-        <button 
-          onClick={() => router.push('/editor/modern')}
-          className="text-[#00A3FF] font-semibold hover:underline border border-transparent hover:border-[#00A3FF]/20 px-3 py-1 rounded transition-all"
-        >
-          Choose later
-        </button>
+        
+        <div className="flex justify-center">
+          <button 
+            onClick={() => router.push('/editor/modern')}
+            className="px-6 py-2.5 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-sm rounded-xl transition-all shadow-sm flex items-center gap-2 group"
+          >
+            Choose later & start editing
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </button>
+        </div>
 
-        {/* Tabs / Columns */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-12 mb-12 border-b border-slate-100 pb-2">
-          <Tab active={activeTab === 'all'} onClick={() => setActiveTab('all')} icon={<Folder size={18} />} label="All Templates" />
-          <Tab active={activeTab === 'photo'} onClick={() => setActiveTab('photo')} icon={<Image size={18} />} label="With Photo" />
-          <Tab active={activeTab === 'ats'} onClick={() => setActiveTab('ats')} icon={<ShieldCheck size={18} />} label="ATS CV" />
-          <Tab active={activeTab === 'classic'} onClick={() => setActiveTab('classic')} icon={<Star size={18} />} label="Classic" />
-          <Tab active={activeTab === 'creative'} onClick={() => setActiveTab('creative')} icon={<Palette size={18} />} label="Creative" />
-          <Tab active={activeTab === 'minimal'} onClick={() => setActiveTab('minimal')} icon={<FileText size={18} />} label="Minimal" />
-          <Tab active={activeTab === 'modern'} onClick={() => setActiveTab('modern')} icon={<UserSquare size={18} />} label="Modern" />
-          <Tab active={activeTab === 'executive'} onClick={() => setActiveTab('executive')} icon={<Briefcase size={18} />} label="Executive" />
+        {/* Tabs Tray (Glassmorphism container) */}
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mt-16 mb-16 bg-slate-200/50 p-1.5 rounded-2xl border border-slate-200/60 max-w-[960px] mx-auto backdrop-blur-sm shadow-sm">
+          <Tab active={activeTab === 'all'} onClick={() => setActiveTab('all')} icon={<Folder size={16} />} label="All Styles" />
+          <Tab active={activeTab === 'photo'} onClick={() => setActiveTab('photo')} icon={<Image size={16} />} label="With Photo" />
+          <Tab active={activeTab === 'ats'} onClick={() => setActiveTab('ats')} icon={<ShieldCheck size={16} />} label="ATS Approved" />
+          <Tab active={activeTab === 'classic'} onClick={() => setActiveTab('classic')} icon={<Star size={16} />} label="Classic" />
+          <Tab active={activeTab === 'creative'} onClick={() => setActiveTab('creative')} icon={<Palette size={16} />} label="Creative" />
+          <Tab active={activeTab === 'minimal'} onClick={() => setActiveTab('minimal')} icon={<FileText size={16} />} label="Minimalist" />
+          <Tab active={activeTab === 'modern'} onClick={() => setActiveTab('modern')} icon={<UserSquare size={16} />} label="Modern" />
+          <Tab active={activeTab === 'executive'} onClick={() => setActiveTab('executive')} icon={<Briefcase size={16} />} label="Executive" />
         </div>
 
         {/* Grid */}
         {filteredTemplates.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {filteredTemplates.map(template => (
-              <TemplateCardWrapper key={template.id} href={template.href} name={template.name}>
+              <TemplateCardWrapper 
+                key={template.id} 
+                href={template.href} 
+                name={template.name}
+                badge={
+                  template.id === 'ats_simple' ? 'ATS Approved' :
+                  template.id === 'ats_professional' ? 'Recruiter Choice' :
+                  template.id === 'ats_modern' ? 'Highly Recommended' :
+                  template.id === 'modern' ? 'Most Popular' :
+                  template.id === 'classic' ? 'Standard' :
+                  template.id === 'creative' ? 'Creative Style' :
+                  template.id === 'minimal' ? 'Minimalist' :
+                  template.id === 'executive' ? 'Executive' : undefined
+                }
+              >
                 {template.component}
               </TemplateCardWrapper>
             ))}
           </div>
         ) : (
-          <div className="py-20 text-slate-400 text-lg">
+          <div className="py-24 bg-white border border-slate-200/60 rounded-3xl shadow-sm text-slate-400 font-medium max-w-xl mx-auto">
             No templates found matching this category.
           </div>
         )}
@@ -333,23 +356,23 @@ function Tab({ icon, label, active = false, onClick }: { icon: React.ReactNode, 
   return (
     <button 
       onClick={onClick}
-      className={`flex items-center gap-2 pb-3 border-b-2 px-3 cursor-pointer transition-all duration-200 outline-none ${
+      className={`flex items-center gap-2 py-2.5 px-4.5 rounded-xl cursor-pointer transition-all duration-200 outline-none text-xs md:text-sm font-bold ${
         active 
-          ? 'border-[#00A3FF] text-[#00A3FF] font-bold' 
-          : 'border-transparent text-slate-400 hover:text-[#00A3FF] hover:border-slate-200'
+          ? 'bg-white text-indigo-600 shadow-sm border border-slate-200/50' 
+          : 'text-slate-500 hover:text-slate-900 hover:bg-white/40'
       }`}
     >
-      {icon}
-      <span className="whitespace-nowrap text-sm md:text-base">{label}</span>
+      <span className={active ? 'text-[#00A3FF]' : 'text-slate-400'}>{icon}</span>
+      <span className="whitespace-nowrap">{label}</span>
     </button>
   );
 }
 
-function TemplateCardWrapper({ children, href, name }: { children: React.ReactNode, href: string, name: string }) {
+function TemplateCardWrapper({ children, href, name, badge }: { children: React.ReactNode, href: string, name: string, badge?: string }) {
   return (
-    <div className="group relative flex flex-col h-[520px]">
-      <div className="bg-[#F8FAFC] p-6 sm:p-8 rounded-xl flex items-center justify-center border border-slate-100 hover:border-[#00A3FF]/30 transition-all cursor-pointer h-full overflow-hidden shadow-sm hover:shadow-md">
-        <div className="w-full h-full relative shadow-sm transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-xl bg-white flex items-center justify-center pointer-events-none rounded overflow-hidden">
+    <div className="group relative flex flex-col h-[530px] bg-white rounded-2xl border border-slate-200/70 p-4 transition-all duration-300 hover:shadow-[0_22px_50px_rgba(79,70,229,0.11)] hover:-translate-y-1 hover:border-slate-300">
+      <div className="bg-slate-50/70 rounded-xl flex items-center justify-center border border-slate-100 transition-all cursor-pointer h-[430px] overflow-hidden relative">
+        <div className="w-[85%] h-[85%] relative shadow-md transition-transform duration-500 group-hover:scale-[1.03] bg-white flex items-center justify-center pointer-events-none rounded-md overflow-hidden border border-slate-100">
            {children}
         </div>
         <Link href={href} className="absolute inset-0 z-10">
@@ -357,13 +380,23 @@ function TemplateCardWrapper({ children, href, name }: { children: React.ReactNo
         </Link>
         
         {/* Overlay Button */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
-          <div className="px-6 py-3 bg-[#00A3FF] text-white font-semibold rounded-full shadow-lg whitespace-nowrap">
+        <div className="absolute inset-0 bg-slate-950/15 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center pointer-events-none">
+          <div className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-[#00A3FF] text-white font-bold text-xs tracking-wide uppercase rounded-xl shadow-lg transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
             Use This Template
           </div>
         </div>
+
+        {/* Badge */}
+        {badge && (
+          <div className="absolute top-4 left-4 z-20 bg-slate-900/90 text-white font-extrabold tracking-wide uppercase text-[8px] px-2.5 py-1.5 rounded-lg shadow-sm border border-white/10 backdrop-blur-sm">
+            {badge}
+          </div>
+        )}
       </div>
-      <div className="mt-4 font-bold text-slate-700 text-lg text-left pl-1">{name}</div>
+      <div className="mt-4 flex items-center justify-between pl-1">
+        <div className="font-extrabold text-slate-800 text-base">{name}</div>
+        <span className="text-[10px] text-indigo-500 font-extrabold bg-indigo-50 border border-indigo-100/50 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Free</span>
+      </div>
     </div>
   );
 }

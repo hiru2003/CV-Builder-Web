@@ -152,70 +152,73 @@ export default function EditorPage() {
   return (
     <div className="h-screen flex flex-col bg-white overflow-hidden font-sans">
       {/* Top Navbar */}
-      <header className="h-auto min-h-[64px] py-3 sm:py-0 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 shrink-0 z-20 overflow-x-auto hide-scrollbar">
+      <header className="sticky top-0 z-50 h-auto min-h-[68px] py-3 sm:py-0 border-b border-slate-200/50 backdrop-blur-md bg-white/80 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.01)]">
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           <button 
             onClick={() => router.push('/resume/choose-template')}
-            className="w-10 h-10 sm:w-auto sm:h-auto sm:px-0 flex items-center justify-center sm:justify-start text-slate-500 hover:text-slate-800 hover:bg-slate-100 sm:hover:bg-transparent rounded-full sm:rounded-none transition-colors gap-1 text-sm font-medium"
-            title="Back"
+            className="flex items-center justify-center text-slate-500 hover:text-slate-900 bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 px-3.5 py-1.8 rounded-xl transition-all gap-1 text-xs font-bold uppercase tracking-wider shadow-sm"
+            title="Back to templates"
           >
-            <ChevronLeft size={20} /> <span className="hidden sm:inline">Back</span>
+            <ChevronLeft size={16} /> <span>Back</span>
           </button>
           <div className="w-px h-6 bg-slate-200 hidden sm:block"></div>
-          <h1 className="text-lg font-bold text-slate-800 hidden lg:block">CV Builder</h1>
+          <h1 className="text-base font-extrabold text-slate-800 tracking-tight hidden lg:flex items-center gap-2">
+            <span>CV Editor</span>
+            <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100/50 px-2 py-0.5 rounded-full uppercase tracking-wider">Workspace</span>
+          </h1>
         </div>
         
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-4 sm:ml-0">
+        <div className="flex items-center gap-2.5 shrink-0 ml-4 sm:ml-0">
           <button 
             onClick={() => router.push('/resume/choose-template')}
-            className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+            className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm"
             title="Change Template"
           >
-            <LayoutTemplate size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Template</span>
+            <LayoutTemplate size={16} /> <span>Template</span>
           </button>
 
           {/* Font Selector Dropdown (Styled native select to bypass overflow clipping) */}
-          <div className="flex items-center gap-2 text-sm font-semibold text-slate-600 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-full sm:rounded-lg transition-all shadow-sm">
-            <Type size={18} className="sm:w-4 sm:h-4 text-slate-500 shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm">
+            <Type size={16} className="text-slate-450 shrink-0" />
             <select
               value={font}
               onChange={(e) => setFont(e.target.value)}
-              className="bg-transparent text-sm font-semibold text-slate-600 hover:text-indigo-600 outline-none cursor-pointer pr-1 border-none p-0 focus:ring-0"
+              className="bg-transparent text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 outline-none cursor-pointer pr-1 border-none p-0 focus:ring-0"
             >
-              <option value="inter">Inter (Sans)</option>
-              <option value="outfit">Outfit (Modern)</option>
+              <option value="inter">Inter</option>
+              <option value="outfit">Outfit</option>
               <option value="montserrat">Montserrat</option>
               <option value="roboto">Roboto</option>
-              <option value="merriweather">Merriweather (Serif)</option>
-              <option value="playfair">Playfair Display</option>
-              <option value="lora">Lora (Serif)</option>
+              <option value="merriweather">Merriweather</option>
+              <option value="playfair">Playfair</option>
+              <option value="lora">Lora</option>
               <option value="times">Times New Roman</option>
-              <option value="firacode">Fira Code (Mono)</option>
+              <option value="firacode">Fira Code</option>
             </select>
           </div>
           
           <button 
             onClick={reset}
-            className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-red-600 bg-white hover:bg-red-50 border border-slate-200 hover:border-red-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+            className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-rose-600 bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-250 px-3 py-2 rounded-xl transition-all shadow-sm"
             title="Reset Data"
           >
-            <RefreshCcw size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Reset</span>
+            <RefreshCcw size={16} /> <span>Reset</span>
           </button>
 
           {user && (
-            <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
-              <span className="hidden xl:inline text-xs text-slate-500 font-medium max-w-[120px] truncate" title={user.email}>
-                {user.email}
+            <div className="flex items-center gap-2 border-l border-slate-200 pl-2.5">
+              <span className="hidden xl:inline text-xs text-slate-400 font-bold max-w-[100px] truncate" title={user.email}>
+                {user.email.split('@')[0]}
               </span>
               <button 
                 onClick={async () => {
                   await supabase.auth.signOut();
                   reset();
                 }}
-                className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-200 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-sm"
+                className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-250 px-3 py-2 rounded-xl transition-all shadow-sm"
                 title="Sign Out"
               >
-                <LogOut size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Sign Out</span>
+                <LogOut size={16} /> <span>Sign Out</span>
               </button>
             </div>
           )}
@@ -223,17 +226,17 @@ export default function EditorPage() {
           <button 
             onClick={handleExportPDF}
             disabled={isExporting}
-            className="flex items-center justify-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-[#00A3FF] to-[#007BFF] hover:from-[#008AE6] hover:to-[#0069D9] disabled:from-blue-300 disabled:to-blue-400 px-4 sm:px-5 py-2 sm:py-2 rounded-full sm:rounded-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white bg-gradient-to-r from-indigo-600 to-[#00A3FF] hover:from-indigo-700 hover:to-[#008AE6] disabled:from-blue-300 disabled:to-blue-400 px-4.5 py-2.5 rounded-xl transition-all shadow-[0_4px_12px_rgba(79,70,229,0.25)] hover:shadow-[0_6px_18px_rgba(79,70,229,0.35)] transform hover:-translate-y-0.5 active:translate-y-0"
           >
             {isExporting ? (
               <span className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> 
-                <span className="hidden sm:inline">Generating...</span>
+                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> 
+                <span>Generating...</span>
               </span>
             ) : (
               <>
-                <Download size={18} className="sm:w-4 sm:h-4" /> 
-                <span>Download<span className="hidden sm:inline"> PDF</span></span>
+                <Download size={16} /> 
+                <span>Download<span className="hidden sm:inline"> CV</span></span>
               </>
             )}
           </button>
@@ -241,27 +244,27 @@ export default function EditorPage() {
       </header>
 
       {/* Mobile Toggle Control */}
-      <div className="lg:hidden p-3 bg-slate-50 border-b border-slate-200">
-        <div className="flex p-1 bg-slate-200/60 rounded-xl max-w-sm mx-auto w-full border border-slate-200">
+      <div className="lg:hidden p-3 bg-slate-50 border-b border-slate-200/50">
+        <div className="flex p-1 bg-slate-200/60 rounded-xl max-w-sm mx-auto w-full border border-slate-200/50">
           <button
             onClick={() => setMobileView('edit')}
-            className={`flex-1 py-2 text-sm font-bold text-center rounded-lg transition-all ${
+            className={`flex-1 py-2 text-xs font-bold text-center rounded-lg transition-all ${
               mobileView === 'edit' 
-                ? 'bg-white text-[#00A3FF] shadow-sm' 
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-indigo-650 shadow-sm border border-slate-200/20' 
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            Edit
+            Edit Form
           </button>
           <button
             onClick={() => setMobileView('preview')}
-            className={`flex-1 py-2 text-sm font-bold text-center rounded-lg transition-all ${
+            className={`flex-1 py-2 text-xs font-bold text-center rounded-lg transition-all ${
               mobileView === 'preview' 
-                ? 'bg-white text-[#00A3FF] shadow-sm' 
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-indigo-650 shadow-sm border border-slate-200/20' 
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            Preview
+            Live Preview
           </button>
         </div>
       </div>
@@ -272,24 +275,26 @@ export default function EditorPage() {
         {/* Left Side: Forms */}
         <div className={`w-full lg:w-[45%] ${mobileView === 'edit' ? 'flex' : 'hidden lg:flex'} flex-col bg-white border-r border-slate-200 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]`}>
           {/* Form Tabs Navigation */}
-          <div className="flex overflow-x-auto border-b border-slate-100 p-2 gap-1 hide-scrollbar bg-slate-50">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2.5 text-sm font-semibold rounded-lg whitespace-nowrap transition-colors ${
-                  activeTab === tab.id 
-                    ? 'bg-white text-[#00A3FF] shadow-sm border border-slate-200' 
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700 border border-transparent'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div className="p-3 bg-slate-50/50 border-b border-slate-200/50 shrink-0">
+            <div className="flex gap-0.5 bg-slate-200/50 p-1 rounded-xl border border-slate-200/40 w-full overflow-x-auto hide-scrollbar">
+              {tabs.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`px-3 py-2 text-xs font-extrabold uppercase tracking-wider rounded-lg whitespace-nowrap transition-all ${
+                    activeTab === tab.id 
+                      ? 'bg-white text-indigo-600 shadow-sm border border-slate-200/20' 
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  {tab.label.split(' ')[0]}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Form Content Area */}
-          <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-white custom-scrollbar">
+          <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-white custom-scrollbar editor-form-container">
             <div className="max-w-2xl mx-auto">
               {activeTab === 'personal' && <PersonalInfoForm />}
               {activeTab === 'experience' && <ExperienceForm />}
@@ -323,10 +328,11 @@ export default function EditorPage() {
           </div>
         </div>
 
-        {/* Right Side: Live Preview */}
-        <div className={`${mobileView === 'preview' ? 'flex w-full' : 'hidden'} lg:flex lg:w-[55%] bg-[#F8FAFC] overflow-hidden relative`}>
-          <div className="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-500 border border-slate-200 shadow-sm flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> Live Preview
+        {/* Right Side: Live Preview (Figma-style dark workbench with dot grid) */}
+        <div className={`${mobileView === 'preview' ? 'flex w-full' : 'hidden'} lg:flex lg:w-[55%] bg-[#0B0F19] overflow-hidden relative bg-dot-grid`}>
+          <div className="absolute top-4 right-4 z-10 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.8 rounded-xl text-[9px] font-extrabold uppercase tracking-widest text-slate-350 border border-white/5 shadow-2xl flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span>Live Previewing</span>
           </div>
           <CVPreview />
         </div>
