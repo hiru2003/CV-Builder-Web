@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { data, template } = body;
+    const { data, template, font } = body;
 
     // Launch puppeteer
     const browser = await puppeteer.launch({
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     // Let's create a temporary hidden route: /editor/print that reads from sessionStorage
     // and we inject the data into sessionStorage via puppeteer before loading the page.
     
-    const printUrl = `${baseUrl}/resume/print-preview?template=${template}`;
+    const printUrl = `${baseUrl}/resume/print-preview?template=${template}&font=${font || 'inter'}`;
     
     await page.evaluateOnNewDocument((cvData) => {
       localStorage.setItem('print-cv-data', JSON.stringify(cvData));

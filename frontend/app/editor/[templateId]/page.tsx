@@ -14,14 +14,14 @@ import { AdditionalSectionsForm } from '@/components/forms/AdditionalSectionsFor
 import { LanguagesForm } from '@/components/forms/LanguagesForm';
 import { CertificationsForm } from '@/components/forms/CertificationsForm';
 import { ProjectsForm } from '@/components/forms/ProjectsForm';
-import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut } from 'lucide-react';
+import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
 
 export default function EditorPage() {
   const params = useParams();
   const router = useRouter();
-  const { setTemplate, reset, template } = useCVStore();
+  const { setTemplate, reset, template, font, setFont } = useCVStore();
   const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'additional'>('personal');
   const [subView, setSubView] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
@@ -51,7 +51,7 @@ export default function EditorPage() {
     };
   }, []);
 
-  const syncResumeToDatabase = async (currentUser: any, currentTemplate: string, cvData: any) => {
+  const syncResumeToDatabase = async (currentUser: any, currentTemplate: string, cvData: any, currentFont: string) => {
     // Check if user already has a saved resume
     const { data: existingResumes, error: fetchError } = await supabase
       .from('resumes')
@@ -61,13 +61,18 @@ export default function EditorPage() {
 
     if (fetchError) throw fetchError;
 
+    const payload = {
+      ...cvData,
+      font: currentFont
+    };
+
     if (existingResumes && existingResumes.length > 0) {
       // Update existing resume record
       const { error: updateError } = await supabase
         .from('resumes')
         .update({
           template: currentTemplate,
-          data: cvData,
+          data: payload,
           updated_at: new Date().toISOString(),
         })
         .eq('id', existingResumes[0].id);
@@ -80,7 +85,7 @@ export default function EditorPage() {
         .insert({
           user_id: currentUser.id,
           template: currentTemplate,
-          data: cvData,
+          data: payload,
         });
 
       if (insertError) throw insertError;
@@ -99,16 +104,18 @@ export default function EditorPage() {
     try {
       const cvData = useCVStore.getState().data;
       const currentTemplate = useCVStore.getState().template;
+      const currentFont = useCVStore.getState().font;
 
       // Sync database and trigger PDF export concurrently for maximum performance (no waiting for DB response to start PDF generation)
-      const dbSyncPromise = syncResumeToDatabase(currentUser, currentTemplate, cvData);
+      const dbSyncPromise = syncResumeToDatabase(currentUser, currentTemplate, cvData, currentFont);
       
       const exportPromise = fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           data: cvData, 
-          template: currentTemplate 
+          template: currentTemplate,
+          font: currentFont
         }),
       });
 
@@ -166,6 +173,26 @@ export default function EditorPage() {
           >
             <LayoutTemplate size={18} className="sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Template</span>
           </button>
+
+          {/* Font Selector Dropdown (Styled native select to bypass overflow clipping) */}
+          <div className="flex items-center gap-2 text-sm font-semibold text-slate-600 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-full sm:rounded-lg transition-all shadow-sm">
+            <Type size={18} className="sm:w-4 sm:h-4 text-slate-500 shrink-0" />
+            <select
+              value={font}
+              onChange={(e) => setFont(e.target.value)}
+              className="bg-transparent text-sm font-semibold text-slate-600 hover:text-indigo-600 outline-none cursor-pointer pr-1 border-none p-0 focus:ring-0"
+            >
+              <option value="inter">Inter (Sans)</option>
+              <option value="outfit">Outfit (Modern)</option>
+              <option value="montserrat">Montserrat</option>
+              <option value="roboto">Roboto</option>
+              <option value="merriweather">Merriweather (Serif)</option>
+              <option value="playfair">Playfair Display</option>
+              <option value="lora">Lora (Serif)</option>
+              <option value="times">Times New Roman</option>
+              <option value="firacode">Fira Code (Mono)</option>
+            </select>
+          </div>
           
           <button 
             onClick={reset}

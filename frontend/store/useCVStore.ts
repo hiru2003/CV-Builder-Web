@@ -5,6 +5,7 @@ import { CVData, TemplateType, initialCVData } from '@/types/cv';
 interface CVState {
   data: CVData;
   template: TemplateType;
+  font: string;
   updatePersonal: (data: Partial<CVData['personal']>) => void;
   updateSummary: (summary: string) => void;
   setExperience: (experience: CVData['experience']) => void;
@@ -14,6 +15,7 @@ interface CVState {
   setCertifications: (certifications: CVData['certifications']) => void;
   setLanguages: (languages: CVData['languages']) => void;
   setTemplate: (template: TemplateType) => void;
+  setFont: (font: string) => void;
   reset: () => void;
 }
 
@@ -22,6 +24,7 @@ export const useCVStore = create<CVState>()(
     (set) => ({
       data: initialCVData,
       template: 'modern',
+      font: 'inter',
       updatePersonal: (personalData) =>
         set((state) => ({
           data: {
@@ -58,7 +61,8 @@ export const useCVStore = create<CVState>()(
           data: { ...state.data, languages },
         })),
       setTemplate: (template) => set({ template }),
-      reset: () => set({ data: initialCVData, template: 'modern' }),
+      setFont: (font) => set({ font }),
+      reset: () => set({ data: initialCVData, template: 'modern', font: 'inter' }),
     }),
     {
       name: 'cv-storage',

@@ -23,7 +23,7 @@ const templates = {
 };
 
 export const CVPreview = () => {
-  const { data, template } = useCVStore();
+  const { data, template, font } = useCVStore();
   const [scale, setScale] = React.useState(0.7);
 
   React.useEffect(() => {
@@ -52,7 +52,7 @@ export const CVPreview = () => {
     <div className="w-full h-full bg-slate-100 overflow-auto flex justify-center custom-scrollbar">
       <div className="py-8">
         <div 
-          className="relative shadow-2xl transition-all duration-300 print:shadow-none print:m-0 bg-white"
+          className={`relative shadow-2xl transition-all duration-300 print:shadow-none print:m-0 bg-white font-${font}`}
           style={{
             width: '210mm',
             height: '297mm',

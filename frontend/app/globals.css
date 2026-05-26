@@ -123,3 +123,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Font overrides for CV preview container and children */
+.font-inter, .font-inter * { font-family: 'Inter', sans-serif !important; }
+.font-outfit, .font-outfit * { font-family: 'Outfit', sans-serif !important; }
+.font-montserrat, .font-montserrat * { font-family: 'Montserrat', sans-serif !important; }
+.font-roboto, .font-roboto * { font-family: 'Roboto', sans-serif !important; }
+.font-playfair, .font-playfair * { font-family: 'Playfair Display', serif !important; }
+.font-merriweather, .font-merriweather * { font-family: 'Merriweather', serif !important; }
+.font-lora, .font-lora * { font-family: 'Lora', serif !important; }
+.font-firacode, .font-firacode * { font-family: 'Fira Code', monospace !important; }
+.font-times, .font-times * { font-family: 'Times New Roman', Times, Baskerville, Georgia, serif !important; }
