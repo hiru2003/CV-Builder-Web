@@ -1,16 +1,19 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useCVStore } from '@/store/useCVStore';
 import { CVData } from '@/types/cv';
-import { Plus, Trash2, Check } from 'lucide-react';
+import { Plus, Trash2, Check, Sparkles, Loader2 } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
+import { useToast } from '@/hooks/use-toast';
 
 export const ExperienceForm = () => {
   const { data, setExperience } = useCVStore();
+  const { toast } = useToast();
+  const [generatingIndex, setGeneratingIndex] = useState<number | null>(null);
   
-  const { register, control, watch, formState: { errors, touchedFields } } = useForm<{ experience: CVData['experience'] }>({
+  const { register, control, watch, setValue, formState: { errors, touchedFields } } = useForm<{ experience: CVData['experience'] }>({
     defaultValues: {
       experience: data.experience.length > 0 ? data.experience : [{
         id: uuidv4(),
@@ -32,6 +35,61 @@ export const ExperienceForm = () => {
   });
 
   const formValues = watch();
+
+  const handleEnhanceExperience = async (index: number) => {
+    const list = watch('experience');
+    const item = list?.[index];
+    if (!item) return;
+
+    if (!item.position || !item.company) {
+      toast({
+        title: 'More Context Needed',
+        description: 'Please fill in Company and Position fields to generate tailored experience bullet points.',
+      });
+      return;
+    }
+
+    setGeneratingIndex(index);
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'experience',
+          payload: {
+            position: item.position,
+            company: item.company,
+            skills: data.skills,
+            currentDescription: Array.isArray(item.description) ? item.description.join(', ') : item.description,
+          },
+        }),
+      });
+
+      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error(resData.error || 'Failed to enhance description');
+      }
+
+      if (resData.text) {
+        setValue(`experience.${index}.description` as any, resData.text, { shouldDirty: true, shouldValidate: true });
+        toast({
+          title: 'Success',
+          description: 'Experience description enhanced successfully!',
+        });
+      }
+    } catch (err: any) {
+      console.error(err);
+      toast({
+        title: 'Enhancement Failed',
+        description: err.message || 'An unexpected error occurred.',
+        variant: 'destructive',
+      });
+    } finally {
+      setGeneratingIndex(null);
+    }
+  };
 
   const isValidAndNotEmpty = (index: number, fieldName: 'company' | 'position' | 'location' | 'startDate' | 'endDate' | 'description') => {
     const list = formValues.experience;
@@ -207,7 +265,27 @@ export const ExperienceForm = () => {
                 </div>
               </div>
               <div className="space-y-1 md:col-span-2">
-                <label className="text-sm font-medium text-slate-700">Description (comma separated points)</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="text-sm font-medium text-slate-700">Description (comma separated points)</label>
+                  <button
+                    type="button"
+                    onClick={() => handleEnhanceExperience(index)}
+                    disabled={generatingIndex !== null}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed px-2.5 py-1 rounded-md border border-indigo-100 transition-all duration-200 shadow-sm"
+                  >
+                    {generatingIndex === index ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Enhancing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+                        <span>Enhance with AI</span>
+                      </>
+                    )}
+                  </button>
+                </div>
                 <div className="relative">
                   <textarea 
                     {...register(`experience.${index}.description`)}
