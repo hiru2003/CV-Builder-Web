@@ -14,8 +14,8 @@ export async function POST(request: Request) {
     const { type, payload } = await request.json();
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    // Use gemini-1.5-flash for speed and reliability
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Use gemini-2.5-flash for speed and reliability
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     if (type === 'summary') {
       const { jobTitle, skills, currentSummary } = payload;
