@@ -20,8 +20,8 @@ export function Navbar() {
             Templates
           </a>
           <Link 
-            href="/editor/personal"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            href="/resume/choose-template"
+            className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-[#00A3FF] text-white rounded-xl hover:shadow-[0_4px_12px_rgba(79,70,229,0.2)] hover:-translate-y-0.5 active:translate-y-0 transition-all text-sm font-bold shadow-sm"
           >
             Get Started
           </Link>
