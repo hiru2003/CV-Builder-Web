@@ -51,6 +51,42 @@ export default function EditorPage() {
     };
   }, []);
 
+  const syncResumeToDatabase = async (currentUser: any, currentTemplate: string, cvData: any) => {
+    // Check if user already has a saved resume
+    const { data: existingResumes, error: fetchError } = await supabase
+      .from('resumes')
+      .select('id')
+      .eq('user_id', currentUser.id)
+      .limit(1);
+
+    if (fetchError) throw fetchError;
+
+    if (existingResumes && existingResumes.length > 0) {
+      // Update existing resume record
+      const { error: updateError } = await supabase
+        .from('resumes')
+        .update({
+          template: currentTemplate,
+          data: cvData,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existingResumes[0].id);
+
+      if (updateError) throw updateError;
+    } else {
+      // Insert new resume record
+      const { error: insertError } = await supabase
+        .from('resumes')
+        .insert({
+          user_id: currentUser.id,
+          template: currentTemplate,
+          data: cvData,
+        });
+
+      if (insertError) throw insertError;
+    }
+  };
+
   const handleExportPDF = async () => {
     const currentUser = user || (await supabase.auth.getUser()).data.user;
 
@@ -64,43 +100,10 @@ export default function EditorPage() {
       const cvData = useCVStore.getState().data;
       const currentTemplate = useCVStore.getState().template;
 
-      // Sync with Supabase Database
-      // Check if user already has a saved resume
-      const { data: existingResumes, error: fetchError } = await supabase
-        .from('resumes')
-        .select('id')
-        .eq('user_id', currentUser.id)
-        .limit(1);
-
-      if (fetchError) throw fetchError;
-
-      if (existingResumes && existingResumes.length > 0) {
-        // Update existing resume record
-        const { error: updateError } = await supabase
-          .from('resumes')
-          .update({
-            template: currentTemplate,
-            data: cvData,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existingResumes[0].id);
-
-        if (updateError) throw updateError;
-      } else {
-        // Insert new resume record
-        const { error: insertError } = await supabase
-          .from('resumes')
-          .insert({
-            user_id: currentUser.id,
-            template: currentTemplate,
-            data: cvData,
-          });
-
-        if (insertError) throw insertError;
-      }
-
-      // Generate PDF download
-      const response = await fetch('/api/export', {
+      // Sync database and trigger PDF export concurrently for maximum performance (no waiting for DB response to start PDF generation)
+      const dbSyncPromise = syncResumeToDatabase(currentUser, currentTemplate, cvData);
+      
+      const exportPromise = fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -108,6 +111,8 @@ export default function EditorPage() {
           template: currentTemplate 
         }),
       });
+
+      const [_, response] = await Promise.all([dbSyncPromise, exportPromise]);
 
       if (!response.ok) throw new Error('Failed to generate PDF');
 
