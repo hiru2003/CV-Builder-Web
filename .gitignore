@@ -1,0 +1,15 @@
+# Local Environment variables
+.env*.local
+*.local
+frontend/.env.local
+
+# Dependency directories
+node_modules/
+frontend/node_modules/
+
+# OS files
+.DS_Store
+
+# Build artifacts
+.next/
+frontend/.next/
