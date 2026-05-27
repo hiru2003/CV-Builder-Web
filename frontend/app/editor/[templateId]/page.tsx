@@ -180,6 +180,7 @@ export default function EditorPage() {
           {/* Font Selector Dropdown (Styled native select to bypass overflow clipping) */}
           <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm">
             <Type size={16} className="text-slate-450 shrink-0" />
+            <span>Font:</span>
             <select
               value={font}
               onChange={(e) => setFont(e.target.value)}
