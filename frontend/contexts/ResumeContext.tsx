@@ -13,7 +13,7 @@ const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
 export function ResumeProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(resumeReducer, initialResume);
-
+ 
   return (
     <ResumeContext.Provider value={{ state, dispatch }}>
       {children}
