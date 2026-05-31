@@ -1,16 +1,46 @@
 import { NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import fs from 'fs';
+
+function getLocalChromePath() {
+  const paths = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
+    '/usr/bin/google-chrome'
+  ];
+  for (const path of paths) {
+    if (fs.existsSync(path)) return path;
+  }
+  return null;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { data, template, font, themeColor, spacing, fontSizeAdjust } = body;
 
-    // Launch puppeteer
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
+    let browser;
+
+    if (process.env.NODE_ENV === 'development') {
+      const localPath = getLocalChromePath();
+      if (!localPath) {
+        throw new Error('Local Google Chrome installation not found. Please install Chrome or configure its path in route.ts.');
+      }
+      browser = await puppeteer.launch({
+        headless: true,
+        executablePath: localPath,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+    } else {
+      // In production serverless (Vercel)
+      const chromium = (await import('@sparticuz/chromium')).default;
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
+    }
     const page = await browser.newPage();
 
     // Set A4 paper size for the viewport
