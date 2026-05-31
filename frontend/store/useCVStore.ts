@@ -1,11 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CVData, TemplateType, initialCVData } from '@/types/cv';
+import { CVData, TemplateType, initialCVData, SpacingType, FontSizeAdjustType } from '@/types/cv';
 
 interface CVState {
   data: CVData;
   template: TemplateType;
   font: string;
+  themeColor: string;
+  spacing: SpacingType;
+  fontSizeAdjust: FontSizeAdjustType;
   updatePersonal: (data: Partial<CVData['personal']>) => void;
   updateSummary: (summary: string) => void;
   setExperience: (experience: CVData['experience']) => void;
@@ -16,6 +19,9 @@ interface CVState {
   setLanguages: (languages: CVData['languages']) => void;
   setTemplate: (template: TemplateType) => void;
   setFont: (font: string) => void;
+  setThemeColor: (color: string) => void;
+  setSpacing: (spacing: SpacingType) => void;
+  setFontSizeAdjust: (fontSize: FontSizeAdjustType) => void;
   reset: () => void;
 }
 
@@ -25,6 +31,9 @@ export const useCVStore = create<CVState>()(
       data: initialCVData,
       template: 'modern',
       font: 'inter',
+      themeColor: '#00A3FF',
+      spacing: 'normal',
+      fontSizeAdjust: 'md',
       updatePersonal: (personalData) =>
         set((state) => ({
           data: {
@@ -62,7 +71,10 @@ export const useCVStore = create<CVState>()(
         })),
       setTemplate: (template) => set({ template }),
       setFont: (font) => set({ font }),
-      reset: () => set({ data: initialCVData, template: 'modern', font: 'inter' }),
+      setThemeColor: (themeColor) => set({ themeColor }),
+      setSpacing: (spacing) => set({ spacing }),
+      setFontSizeAdjust: (fontSizeAdjust) => set({ fontSizeAdjust }),
+      reset: () => set({ data: initialCVData, template: 'modern', font: 'inter', themeColor: '#00A3FF', spacing: 'normal', fontSizeAdjust: 'md' }),
     }),
     {
       name: 'cv-storage',

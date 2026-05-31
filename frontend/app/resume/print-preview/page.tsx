@@ -27,6 +27,9 @@ function PrintPreviewContent() {
   const searchParams = useSearchParams();
   const templateId = (searchParams.get('template') || 'modern') as TemplateType;
   const fontId = searchParams.get('font') || 'inter';
+  const themeColor = searchParams.get('themeColor') || '#00A3FF';
+  const spacing = (searchParams.get('spacing') || 'normal') as any;
+  const fontSizeAdjust = (searchParams.get('fontSizeAdjust') || 'md') as any;
   const [data, setData] = useState<CVData | null>(null);
 
   useEffect(() => {
@@ -46,7 +49,12 @@ function PrintPreviewContent() {
 
   return (
     <div className={`w-[210mm] h-[297mm] bg-white overflow-hidden m-0 p-0 font-${fontId}`}>
-      <SelectedTemplate data={data} />
+      <SelectedTemplate 
+        data={data} 
+        themeColor={themeColor} 
+        spacing={spacing} 
+        fontSizeAdjust={fontSizeAdjust} 
+      />
     </div>
   );
 }

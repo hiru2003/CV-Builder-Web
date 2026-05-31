@@ -14,6 +14,7 @@ import { AdditionalSectionsForm } from '@/components/forms/AdditionalSectionsFor
 import { LanguagesForm } from '@/components/forms/LanguagesForm';
 import { CertificationsForm } from '@/components/forms/CertificationsForm';
 import { ProjectsForm } from '@/components/forms/ProjectsForm';
+import { LayoutForm } from '@/components/forms/LayoutForm';
 import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
@@ -29,7 +30,7 @@ export default function EditorPage() {
   const params = useParams();
   const router = useRouter();
   const { setTemplate, reset, template, font, setFont } = useCVStore();
-  const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'additional'>('personal');
+  const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'layout' | 'additional'>('personal');
   const [subView, setSubView] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [mobileView, setMobileView] = useState<'edit' | 'preview'>('edit');
@@ -116,13 +117,20 @@ export default function EditorPage() {
       // Sync database and trigger PDF export concurrently for maximum performance (no waiting for DB response to start PDF generation)
       const dbSyncPromise = syncResumeToDatabase(currentUser, currentTemplate, cvData, currentFont);
       
+      const themeColor = useCVStore.getState().themeColor;
+      const spacing = useCVStore.getState().spacing;
+      const fontSizeAdjust = useCVStore.getState().fontSizeAdjust;
+
       const exportPromise = fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           data: cvData, 
           template: currentTemplate,
-          font: currentFont
+          font: currentFont,
+          themeColor,
+          spacing,
+          fontSizeAdjust
         }),
       });
 
@@ -153,6 +161,7 @@ export default function EditorPage() {
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
     { id: 'summary', label: 'Summary' },
+    { id: 'layout', label: 'Layout & Styling' },
     { id: 'additional', label: 'Add Section' },
   ];
 
@@ -310,6 +319,7 @@ export default function EditorPage() {
               {activeTab === 'education' && <EducationForm />}
               {activeTab === 'skills' && <SkillsForm />}
               {activeTab === 'summary' && <SummaryForm />}
+              {activeTab === 'layout' && <LayoutForm />}
               {activeTab === 'additional' && (
                 <>
                   {subView === null && <AdditionalSectionsForm onSelectSection={setSubView} />}

@@ -67,6 +67,9 @@ export interface CVData {
 
 export type TemplateType = 'modern' | 'classic' | 'creative' | 'minimal' | 'executive' | 'ats_simple' | 'ats_professional' | 'ats_modern';
 
+export type SpacingType = 'compact' | 'normal' | 'loose';
+export type FontSizeAdjustType = 'sm' | 'md' | 'lg';
+
 export const initialCVData: CVData = {
   personal: {
     fullName: '',

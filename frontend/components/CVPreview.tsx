@@ -23,7 +23,7 @@ const templates = {
 };
 
 export const CVPreview = () => {
-  const { data, template, font } = useCVStore();
+  const { data, template, font, themeColor, spacing, fontSizeAdjust } = useCVStore();
   const [scale, setScale] = React.useState(0.7);
 
   React.useEffect(() => {
@@ -62,7 +62,12 @@ export const CVPreview = () => {
           }}
           id="cv-preview-container"
         >
-          <SelectedTemplate data={data} />
+          <SelectedTemplate 
+            data={data} 
+            themeColor={themeColor}
+            spacing={spacing}
+            fontSizeAdjust={fontSizeAdjust}
+          />
         </div>
       </div>
     </div>
