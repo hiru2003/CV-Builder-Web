@@ -17,6 +17,13 @@ import { ProjectsForm } from '@/components/forms/ProjectsForm';
 import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function EditorPage() {
   const params = useParams();
@@ -177,26 +184,27 @@ export default function EditorPage() {
             <LayoutTemplate size={16} /> <span>Template</span>
           </button>
 
-          {/* Font Selector Dropdown (Styled native select to bypass overflow clipping) */}
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm">
-            <Type size={16} className="text-slate-450 shrink-0" />
-            <span>Font:</span>
-            <select
-              value={font}
-              onChange={(e) => setFont(e.target.value)}
-              className="bg-transparent text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 outline-none cursor-pointer pr-1 border-none p-0 focus:ring-0"
+          {/* Font Selector Dropdown */}
+          <Select value={font} onValueChange={setFont}>
+            <SelectTrigger 
+              className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 h-9 rounded-xl transition-all shadow-sm focus:ring-0 focus-visible:ring-0 focus-visible:border-indigo-200 outline-none cursor-pointer"
             >
-              <option value="inter">Inter</option>
-              <option value="outfit">Outfit</option>
-              <option value="montserrat">Montserrat</option>
-              <option value="roboto">Roboto</option>
-              <option value="merriweather">Merriweather</option>
-              <option value="playfair">Playfair</option>
-              <option value="lora">Lora</option>
-              <option value="times">Times New Roman</option>
-              <option value="firacode">Fira Code</option>
-            </select>
-          </div>
+              <Type size={16} className="text-slate-450 shrink-0" />
+              <span>Font:</span>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-white border border-slate-200/80 rounded-xl shadow-lg p-1 z-[100] min-w-[150px] max-h-[300px] overflow-y-auto">
+              <SelectItem value="inter" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Inter</SelectItem>
+              <SelectItem value="outfit" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Outfit</SelectItem>
+              <SelectItem value="montserrat" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Montserrat</SelectItem>
+              <SelectItem value="roboto" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Roboto</SelectItem>
+              <SelectItem value="merriweather" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Merriweather</SelectItem>
+              <SelectItem value="playfair" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Playfair</SelectItem>
+              <SelectItem value="lora" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Lora</SelectItem>
+              <SelectItem value="times" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Times New Roman</SelectItem>
+              <SelectItem value="firacode" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-mono">Fira Code</SelectItem>
+            </SelectContent>
+          </Select>
           
           <button 
             onClick={reset}
