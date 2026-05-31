@@ -20,7 +20,7 @@ export function Navbar() {
             Templates
           </a>
           <Link 
-            href="/resume/choose-template"
+            href="/resume/choose-template?new=true"
             className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-[#00A3FF] text-white rounded-xl hover:shadow-[0_4px_12px_rgba(79,70,229,0.2)] hover:-translate-y-0.5 active:translate-y-0 transition-all text-sm font-bold shadow-sm"
           >
             Get Started

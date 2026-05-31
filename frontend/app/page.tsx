@@ -127,14 +127,14 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in-up delay-400">
               <Link
-                href="/resume/choose-template"
+                href="/resume/choose-template?new=true"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#00A3FF] to-[#008AE6] text-white font-bold text-lg rounded-xl hover:shadow-[0_0_30px_rgba(0,163,255,0.4)] transition-all transform hover:-translate-y-1 group"
               >
                 Create My CV Now 
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </Link>
               <Link
-                href="/resume/choose-template"
+                href="/resume/choose-template?new=true"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg rounded-xl hover:border-[#00A3FF] hover:text-[#00A3FF] transition-all"
               >
                 View Templates
@@ -554,7 +554,7 @@ export default function Home() {
 
               {/* CTA Button */}
               <div className="pt-6 ml-20">
-                <Link href="/resume/choose-template" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
+                <Link href="/resume/choose-template?new=true" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
                   Create My CV Now
                 </Link>
               </div>
@@ -754,7 +754,7 @@ export default function Home() {
         </div>
 
         <div className="text-center mt-16">
-          <Link href="/resume/choose-template" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
+          <Link href="/resume/choose-template?new=true" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
             Build a CV for Free
           </Link>
         </div>
@@ -773,7 +773,7 @@ export default function Home() {
           <div>
             <h4 className="text-white font-bold text-lg mb-6">CV Builder</h4>
             <ul className="space-y-3 text-base">
-              <li><Link href="/resume/choose-template" className="hover:text-white transition-colors">Resume Templates</Link></li>
+              <li><Link href="/resume/choose-template?new=true" className="hover:text-white transition-colors">Resume Templates</Link></li>
               <li><Link href="#" className="hover:text-white transition-colors">Cover Letters</Link></li>
               <li><Link href="#" className="hover:text-white transition-colors">Pricing</Link></li>
               <li><Link href="#" className="hover:text-white transition-colors">Examples</Link></li>

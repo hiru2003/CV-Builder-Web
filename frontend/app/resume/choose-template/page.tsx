@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { 
   Folder, Star, Palette, FileText, UserSquare, Briefcase, ShieldCheck, FileCheck, Image
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCVStore } from '@/store/useCVStore';
 
 interface TemplateItem {
   id: string;
@@ -16,9 +17,17 @@ interface TemplateItem {
   component: React.ReactNode;
 }
 
-export default function ChooseTemplate() {
+function ChooseTemplateContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isNew = searchParams.get('new') === 'true';
   const [activeTab, setActiveTab] = useState<string>('all');
+
+  React.useEffect(() => {
+    if (isNew) {
+      useCVStore.getState().reset();
+    }
+  }, [isNew]);
 
   const templates: TemplateItem[] = [
     {
@@ -490,6 +499,14 @@ export default function ChooseTemplate() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function ChooseTemplate() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-500 font-bold uppercase tracking-wider">Loading...</div>}>
+      <ChooseTemplateContent />
+    </React.Suspense>
   );
 }
 

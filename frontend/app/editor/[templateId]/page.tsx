@@ -25,6 +25,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export default function EditorPage() {
   const params = useParams();
@@ -38,6 +48,8 @@ export default function EditorPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasLoadedFromDB, setHasLoadedFromDB] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
+  const [showConflictDialog, setShowConflictDialog] = useState(false);
+  const [pendingCloudResume, setPendingCloudResume] = useState<any>(null);
 
   useEffect(() => {
     if (params.templateId) {
@@ -80,17 +92,61 @@ export default function EditorPage() {
           if (error) throw error;
 
           if (savedResume) {
-            const { template: savedTemplate, data: payload } = savedResume;
-            const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
-            
-            useCVStore.setState({
-              data: cvData as any,
-              template: savedTemplate as any,
-              font: savedFont || 'inter',
-              themeColor: savedColor || '#00A3FF',
-              spacing: savedSpacing || 'normal',
-              fontSizeAdjust: savedSize || 'md'
-            });
+            const localStore = useCVStore.getState();
+            const hasLocalEdits = 
+              localStore.data.personal.fullName !== '' ||
+              localStore.data.personal.email !== '' ||
+              localStore.data.summary !== '' ||
+              localStore.data.experience.length > 0 ||
+              localStore.data.education.length > 0 ||
+              localStore.data.skills.length > 0 ||
+              localStore.data.projects.length > 0 ||
+              localStore.data.certifications.length > 0 ||
+              localStore.data.languages.length > 0;
+
+            if (hasLocalEdits) {
+              setPendingCloudResume(savedResume);
+              setShowConflictDialog(true);
+            } else {
+              const { template: savedTemplate, data: payload } = savedResume;
+              const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
+              
+              useCVStore.setState({
+                data: cvData as any,
+                template: savedTemplate as any,
+                font: savedFont || 'inter',
+                themeColor: savedColor || '#00A3FF',
+                spacing: savedSpacing || 'normal',
+                fontSizeAdjust: savedSize || 'md'
+              });
+            }
+          } else {
+            // No cloud resume exists. If the user has guest edits, sync them to the database immediately
+            const localStore = useCVStore.getState();
+            const hasLocalEdits = 
+              localStore.data.personal.fullName !== '' ||
+              localStore.data.personal.email !== '' ||
+              localStore.data.summary !== '' ||
+              localStore.data.experience.length > 0 ||
+              localStore.data.education.length > 0 ||
+              localStore.data.skills.length > 0 ||
+              localStore.data.projects.length > 0 ||
+              localStore.data.certifications.length > 0 ||
+              localStore.data.languages.length > 0;
+
+            if (hasLocalEdits) {
+              await syncResumeToDatabase(
+                user,
+                localStore.template,
+                localStore.data,
+                localStore.font,
+                localStore.themeColor,
+                localStore.spacing,
+                localStore.fontSizeAdjust
+              );
+              setSaveStatus('saved');
+              setTimeout(() => setSaveStatus('idle'), 2000);
+            }
           }
         } catch (err) {
           console.error('Error loading saved resume:', err);
@@ -102,6 +158,49 @@ export default function EditorPage() {
     }
   }, [user, hasLoadedFromDB]);
 
+  const handleLoadCloud = () => {
+    if (pendingCloudResume) {
+      const { template: savedTemplate, data: payload } = pendingCloudResume;
+      const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
+      
+      useCVStore.setState({
+        data: cvData as any,
+        template: savedTemplate as any,
+        font: savedFont || 'inter',
+        themeColor: savedColor || '#00A3FF',
+        spacing: savedSpacing || 'normal',
+        fontSizeAdjust: savedSize || 'md'
+      });
+    }
+    setShowConflictDialog(false);
+    setPendingCloudResume(null);
+  };
+
+  const handleKeepLocal = async () => {
+    if (user) {
+      try {
+        setSaveStatus('saving');
+        const store = useCVStore.getState();
+        await syncResumeToDatabase(
+          user,
+          store.template,
+          store.data,
+          store.font,
+          store.themeColor,
+          store.spacing,
+          store.fontSizeAdjust
+        );
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus('idle'), 2000);
+      } catch (err) {
+        console.error('Error syncing local state on conflict resolution:', err);
+        setSaveStatus('idle');
+      }
+    }
+    setShowConflictDialog(false);
+    setPendingCloudResume(null);
+  };
+
   const syncResumeToDatabase = async (
     currentUser: any, 
     currentTemplate: string, 
@@ -111,15 +210,6 @@ export default function EditorPage() {
     spacing: string,
     fontSizeAdjust: string
   ) => {
-    // Check if user already has a saved resume
-    const { data: existingResumes, error: fetchError } = await supabase
-      .from('resumes')
-      .select('id')
-      .eq('user_id', currentUser.id)
-      .limit(1);
-
-    if (fetchError) throw fetchError;
-
     const payload = {
       ...cvData,
       font: currentFont,
@@ -128,30 +218,18 @@ export default function EditorPage() {
       fontSizeAdjust
     };
 
-    if (existingResumes && existingResumes.length > 0) {
-      // Update existing resume record
-      const { error: updateError } = await supabase
-        .from('resumes')
-        .update({
-          template: currentTemplate,
-          data: payload,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', existingResumes[0].id);
+    const { error } = await supabase
+      .from('resumes')
+      .upsert({
+        user_id: currentUser.id,
+        template: currentTemplate,
+        data: payload,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id'
+      });
 
-      if (updateError) throw updateError;
-    } else {
-      // Insert new resume record
-      const { error: insertError } = await supabase
-        .from('resumes')
-        .insert({
-          user_id: currentUser.id,
-          template: currentTemplate,
-          data: payload,
-        });
-
-      if (insertError) throw insertError;
-    }
+    if (error) throw error;
   };
 
   // 2. Auto-save changes to Supabase (debounced)
@@ -485,6 +563,33 @@ export default function EditorPage() {
         </div>
         
       </div>
+
+      <AlertDialog open={showConflictDialog} onOpenChange={setShowConflictDialog}>
+        <AlertDialogContent className="bg-white border border-slate-200 shadow-2xl rounded-2xl max-w-md p-6">
+          <AlertDialogHeader className="space-y-3">
+            <AlertDialogTitle className="text-xl font-extrabold text-slate-800 tracking-tight">
+              Sync Conflict Detected
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-500 text-sm leading-relaxed">
+              We found an existing saved CV in your cloud account. Do you want to load the cloud version or overwrite it with your current unsaved edits?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex flex-col sm:flex-row gap-2 mt-6">
+            <AlertDialogCancel 
+              onClick={handleLoadCloud}
+              className="w-full sm:w-auto h-11 border-slate-200 hover:border-slate-350 hover:bg-slate-50 font-bold rounded-xl text-slate-700 transition-all text-xs uppercase tracking-wider cursor-pointer"
+            >
+              Load Cloud Version
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleKeepLocal}
+              className="w-full sm:w-auto h-11 bg-gradient-to-r from-indigo-600 to-[#00A3FF] hover:from-indigo-700 hover:to-[#008AE6] text-white font-extrabold rounded-xl transition-all shadow-[0_4px_12px_rgba(79,70,229,0.15)] text-xs uppercase tracking-widest cursor-pointer"
+            >
+              Keep My Edits
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <AuthModal
         isOpen={showAuthModal}
