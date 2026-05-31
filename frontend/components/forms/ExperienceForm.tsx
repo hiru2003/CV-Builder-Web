@@ -51,7 +51,7 @@ export const ExperienceForm = () => {
       return;
     }
 
-    if (mode === 'refine' && (!item.description || (Array.isArray(item.description) ? item.description.join('').trim() === '' : item.description.trim() === ''))) {
+    if (mode === 'refine' && (!item.description || (Array.isArray(item.description) ? item.description.join('').trim() === '' : (item.description as any).trim() === ''))) {
       toast({
         title: 'Draft Required',
         description: 'Please write a draft in the description textarea first, then click "Polish Draft" to let AI enhance it.',

@@ -28,25 +28,45 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['ats'],
       component: (
-        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-center font-sans text-[6px]">
-          <div className="text-[14px] font-bold mb-1 uppercase">YOUR NAME</div>
-          <div className="text-[6px] text-[#007BFF] font-semibold mb-3">Job Title</div>
-          <div className="flex justify-center gap-2 mb-4 text-[5px] text-slate-400">
-            <span>email@address.com</span><span>•</span><span>(123) 456-7890</span><span>•</span><span>City, ST</span>
+        <div className="w-full h-full bg-white flex flex-col p-5 shadow-sm border border-slate-200 text-center font-sans text-[5.5px] leading-relaxed">
+          <div className="text-[12px] font-bold mb-0.5 uppercase tracking-wide">ALEX MORGAN</div>
+          <div className="text-[5.5px] text-[#007BFF] font-semibold uppercase tracking-wider mb-2">Senior Software Engineer</div>
+          <div className="flex justify-center gap-1.5 mb-3 text-[4.5px] text-slate-500">
+            <span>alex.morgan@email.com</span><span>•</span><span>(555) 019-2834</span><span>•</span><span>San Francisco, CA</span><span>•</span><span>linkedin.com/in/alexmorgan</span>
           </div>
-          <div className="h-0.5 bg-slate-200 w-full mb-3"></div>
+          <div className="h-[1px] bg-slate-200 w-full mb-2.5"></div>
           
-          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1.5 border-b border-slate-200 pb-0.5">Professional Summary</div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
-
-          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1.5 border-b border-slate-200 pb-0.5">Work Experience</div>
-          <div className="flex justify-between font-bold text-slate-800 mb-1">
-            <span>Job Title — Company Name</span>
-            <span>2020 - Present</span>
+          <div className="text-[7px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1 border-b border-slate-200 pb-0.5">Professional Summary</div>
+          <div className="text-left text-slate-600 mb-2.5 text-[5px] leading-tight">
+            Innovative Senior Software Engineer with 8+ years of experience designing and deploying scalable cloud applications. Proven track record in optimizing backend latency and leading cross-functional teams to build high-impact product features.
           </div>
-          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+
+          <div className="text-[7px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1 border-b border-slate-200 pb-0.5">Work Experience</div>
+          <div className="flex justify-between font-bold text-slate-800 mb-0.5">
+            <span>Senior Software Engineer — TechCorp Inc.</span>
+            <span>2022 - Present</span>
+          </div>
+          <div className="text-left text-slate-600 mb-1 text-[4.8px] leading-tight">
+            • Replatformed core API service to Go/gRPC, boosting speed by 35% and throughput by 50%.<br/>
+            • Scaled AWS infrastructure using Terraform, reducing monthly operational costs by $15k.
+          </div>
+          
+          <div className="flex justify-between font-bold text-slate-800 mb-0.5 mt-1.5">
+            <span>Software Engineer — DevSolutions LLC</span>
+            <span>2019 - 2022</span>
+          </div>
+          <div className="text-left text-slate-600 mb-2 text-[4.8px] leading-tight">
+            • Developed dynamic React web apps, increasing user engagement and click-through rates by 18%.
+          </div>
+
+          <div className="text-[7px] font-bold text-slate-800 uppercase tracking-widest text-left mb-1 border-b border-slate-200 pb-0.5">Education & Skills</div>
+          <div className="flex justify-between text-slate-600 text-[5px] leading-tight">
+            <span className="font-semibold text-slate-800">Stanford University — B.S. in Computer Science</span>
+            <span>2015 - 2019</span>
+          </div>
+          <div className="text-left text-slate-600 mt-1 text-[5px] leading-tight">
+            <span className="font-semibold text-slate-800">Skills:</span> React, TypeScript, Next.js, Node.js, Go, AWS, Docker, Kubernetes, SQL, CI/CD, Git
+          </div>
         </div>
       )
     },
@@ -57,25 +77,46 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['ats'],
       component: (
-        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-left font-sans text-[6px]">
-          <div className="text-[14px] font-bold mb-1 uppercase">YOUR NAME</div>
-          <div className="text-[6px] text-slate-500 font-medium mb-3">Job Title</div>
-          <div className="flex gap-3 mb-4 text-[5px] text-slate-400">
-            <span>email@address.com</span><span>(123) 456-7890</span><span>City, ST</span>
+        <div className="w-full h-full bg-white flex flex-col p-5 shadow-sm border border-slate-200 text-left font-sans text-[5.5px] leading-relaxed">
+          <div className="text-[12px] font-bold mb-0.5 uppercase tracking-wider text-slate-900">ALEX MORGAN</div>
+          <div className="text-[6px] text-slate-500 font-semibold mb-2.5 uppercase tracking-wide">Senior Software Engineer</div>
+          <div className="flex gap-2.5 mb-3 text-[4.5px] text-slate-400">
+            <span>alex.morgan@email.com</span><span>•</span><span>(555) 019-2834</span><span>•</span><span>San Francisco, CA</span><span>•</span><span>github.com/alexmorgan</span>
           </div>
           
-          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-wider mb-1.5 border-b-2 border-slate-800 pb-0.5">Professional Summary</div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
-
-          <div className="text-[8px] font-bold text-slate-800 uppercase tracking-wider mb-1.5 border-b-2 border-slate-800 pb-0.5">Experience</div>
-          <div className="flex justify-between font-bold text-slate-800 mb-0.5">
-            <span>Job Title</span>
-            <span>2020 - Present</span>
+          <div className="text-[7.5px] font-bold text-slate-800 uppercase tracking-wider mb-1 border-b-[1.5px] border-slate-800 pb-0.5">Professional Summary</div>
+          <div className="text-slate-650 mb-2.5 text-[5px] leading-tight">
+            Detail-oriented Senior Software Engineer with a passion for designing resilient software architectures. Expert in TypeScript and microservices with a strong record of driving project deliverables and mentoring engineering teams.
           </div>
-          <div className="text-slate-500 mb-1">Company Name</div>
-          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+
+          <div className="text-[7.5px] font-bold text-slate-800 uppercase tracking-wider mb-1 border-b-[1.5px] border-slate-800 pb-0.5">Experience</div>
+          <div className="flex justify-between font-bold text-slate-900 mb-0.5">
+            <span>Senior Software Engineer</span>
+            <span>2022 - Present</span>
+          </div>
+          <div className="text-[#007BFF] font-semibold mb-1 text-[4.8px]">TechCorp Inc. — San Francisco, CA</div>
+          <div className="text-slate-650 mb-2 text-[4.8px] leading-tight">
+            • Led migration from monorepo to microservices, reducing build times by 50% and improving test coverage by 20%.<br/>
+            • Architected serverless processing pipelines handling over 5 million message payloads daily.
+          </div>
+
+          <div className="flex justify-between font-bold text-slate-900 mb-0.5 mt-1.5">
+            <span>Software Engineer</span>
+            <span>2019 - 2022</span>
+          </div>
+          <div className="text-[#007BFF] font-semibold mb-1 text-[4.8px]">DevSolutions LLC — Austin, TX</div>
+          <div className="text-slate-650 mb-2 text-[4.8px] leading-tight">
+            • Implemented core design system using Tailwind and React, reducing frontend UI churn by 30%.
+          </div>
+
+          <div className="text-[7.5px] font-bold text-slate-800 uppercase tracking-wider mb-1 border-b-[1.5px] border-slate-800 pb-0.5">Education & Skills</div>
+          <div className="flex justify-between text-slate-600 text-[5px] mb-1">
+            <span><span className="font-semibold text-slate-900">B.S. in Computer Science</span> — Stanford University</span>
+            <span>2015 - 2019</span>
+          </div>
+          <div className="text-[5px] text-slate-650 leading-tight">
+            <span className="font-semibold text-slate-800">Technical Skills:</span> React, TypeScript, Next.js, Node.js, Go, Python, AWS, Docker, Kubernetes, SQL, Git, GraphQL
+          </div>
         </div>
       )
     },
@@ -86,30 +127,49 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['ats'],
       component: (
-        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-left font-sans text-[6px]">
-          <div className="flex justify-between items-start mb-4 border-b-2 border-slate-100 pb-3">
+        <div className="w-full h-full bg-white flex flex-col p-5 shadow-sm border border-slate-200 text-left font-sans text-[5.5px] leading-relaxed">
+          <div className="flex justify-between items-start mb-3 border-b-2 border-slate-100 pb-2">
             <div>
-              <div className="text-[14px] font-black uppercase text-slate-900">YOUR NAME</div>
-              <div className="text-[6px] text-indigo-600 font-semibold mt-0.5">Job Title</div>
+              <div className="text-[12px] font-black uppercase tracking-tight text-slate-900">ALEX MORGAN</div>
+              <div className="text-[6px] text-indigo-600 font-bold mt-0.5 uppercase tracking-wider">Senior Software Engineer</div>
             </div>
-            <div className="text-right text-[5px] text-slate-400 space-y-0.5">
-              <div>email@address.com</div>
-              <div>(123) 456-7890</div>
+            <div className="text-right text-[4.8px] text-slate-400 space-y-0.5">
+              <div>alex.morgan@email.com</div>
+              <div>(555) 019-2834</div>
+              <div>SF, CA</div>
             </div>
           </div>
           
-          <div className="text-[8px] font-bold text-indigo-700 uppercase tracking-wider mb-1.5">Summary</div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-4/5 mb-3"></div>
-
-          <div className="text-[8px] font-bold text-indigo-700 uppercase tracking-wider mb-1.5">Experience</div>
-          <div className="flex justify-between font-bold text-slate-800 mb-0.5">
-            <span>Job Title</span>
-            <span className="text-indigo-600 bg-indigo-50/50 px-1 rounded">2020 - Present</span>
+          <div className="text-[7px] font-extrabold text-indigo-700 uppercase tracking-wider mb-1">Summary</div>
+          <div className="text-slate-600 mb-2.5 text-[5px] leading-tight">
+            High-performing Senior Software Engineer with a deep technical focus on reactive client interfaces and fast REST/GraphQL service layer integration. Dedicated to clean architecture, code quality, and agile shipping.
           </div>
-          <div className="text-slate-500 mb-1">Company Name</div>
-          <div className="h-1 bg-slate-200 rounded w-[95%] mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-[90%] mb-3"></div>
+
+          <div className="text-[7px] font-extrabold text-indigo-700 uppercase tracking-wider mb-1">Experience</div>
+          <div className="flex justify-between font-bold text-slate-850 mb-0.5">
+            <span>Senior Software Engineer</span>
+            <span className="text-indigo-600 bg-indigo-50/70 px-1 rounded-[3px] text-[4.5px]">2022 - Present</span>
+          </div>
+          <div className="text-slate-400 font-medium mb-1">TechCorp Inc.</div>
+          <div className="text-slate-600 mb-2 text-[4.8px] leading-tight">
+            • Authored responsive layouts and integrated real-time analytics dashboards using Next.js and WebSockets.<br/>
+            • Decreased customer-reported UI glitches by 45% through robust integration testing.
+          </div>
+
+          <div className="flex justify-between font-bold text-slate-850 mb-0.5 mt-1.5">
+            <span>Software Engineer</span>
+            <span className="text-slate-400 px-1 text-[4.5px]">2019 - 2022</span>
+          </div>
+          <div className="text-slate-400 font-medium mb-1">DevSolutions LLC</div>
+          <div className="text-slate-600 mb-2 text-[4.8px] leading-tight">
+            • Managed feature lifecycle of key user checkout flows, improving conversion by 12%.
+          </div>
+
+          <div className="text-[7px] font-extrabold text-indigo-700 uppercase tracking-wider mb-1">Skills & Education</div>
+          <div className="text-[5px] text-slate-600 leading-tight">
+            <span className="font-semibold text-slate-800">Skills:</span> Next.js, React, Node.js, TypeScript, Python, TailwindCSS, PostgreSQL, AWS, Git, CI/CD<br/>
+            <span className="font-semibold text-slate-800">Stanford University:</span> B.S. in Computer Science (GPA: 3.8/4.0)
+          </div>
         </div>
       )
     },
@@ -120,24 +180,41 @@ export default function ChooseTemplate() {
       hasPhoto: true,
       tags: ['modern'],
       component: (
-        <div className="w-full h-full bg-white flex shadow-sm border border-slate-200 text-[6px]">
-          <div className="w-[30%] bg-slate-50 border-r border-slate-200 p-4">
-            <div className="w-12 h-12 bg-slate-300 rounded-full mx-auto mb-4"></div>
-            <div className="h-2 bg-slate-200 rounded w-full mb-2"></div>
-            <div className="h-2 bg-slate-200 rounded w-4/5 mb-6"></div>
-            <div className="h-1 bg-blue-400 rounded w-full mb-1"></div>
-            <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+        <div className="w-full h-full bg-white flex shadow-sm border border-slate-200 text-[5px] leading-relaxed">
+          <div className="w-[35%] bg-slate-50 border-r border-slate-200 p-3 flex flex-col items-center text-center">
+            <img src="/placeholder-user.jpg" alt="Alex Morgan" className="w-9 h-9 rounded-full mb-2 object-cover border border-indigo-200 bg-slate-100" />
+            <div className="font-extrabold text-slate-800 text-[6.5px] mb-1.5 uppercase tracking-wide">Contact</div>
+            <div className="text-[4.5px] text-slate-500 space-y-0.8 mb-3 break-all w-full text-center">
+              <div>alex.morgan@email.com</div>
+              <div>(555) 019-2834</div>
+              <div>San Francisco, CA</div>
+            </div>
+            <div className="font-extrabold text-slate-800 text-[6.5px] mb-1.5 uppercase tracking-wide">Skills</div>
+            <div className="text-[4.5px] text-slate-600 flex flex-wrap justify-center gap-1">
+              {['React', 'TypeScript', 'Next.js', 'Node.js', 'Go', 'AWS', 'Docker'].map(s => (
+                <span key={s} className="bg-indigo-50 text-indigo-700 px-1 rounded-[2px]">{s}</span>
+              ))}
+            </div>
           </div>
-          <div className="w-[70%] p-4">
-            <div className="text-[12px] font-bold mb-1">YOUR NAME</div>
-            <div className="text-[8px] text-blue-500 mb-4">Job Title</div>
-            <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-            <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-            <div className="h-1 bg-slate-200 rounded w-4/5 mb-4"></div>
+          <div className="w-[65%] p-4 text-left">
+            <div className="text-[12px] font-black text-slate-900 uppercase leading-none mb-0.5">ALEX MORGAN</div>
+            <div className="text-[6.5px] text-blue-500 font-bold uppercase tracking-wider mb-2.5">Senior Software Engineer</div>
             
-            <div className="h-1.5 bg-slate-300 rounded w-1/3 mb-2"></div>
-            <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-            <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+            <div className="text-slate-600 mb-2.5 text-[4.8px] leading-normal">
+              Dynamic Senior Software Engineer with a solid background in designing high-quality user experiences and performant backend architectures.
+            </div>
+
+            <div className="text-[7px] font-bold text-slate-800 uppercase tracking-widest mb-1 pb-0.5 border-b border-slate-200">Experience</div>
+            <div className="font-semibold text-slate-900 text-[5px]">Senior Software Engineer • TechCorp</div>
+            <div className="text-slate-400 text-[4.2px] mb-0.5">2022 - Present | San Francisco, CA</div>
+            <div className="text-slate-600 mb-2 text-[4.5px] leading-tight">
+              • Engineered low-latency interfaces using React and GraphQL.<br/>
+              • Rebuilt data sync worker pipelines utilizing Go and Redis cache.
+            </div>
+
+            <div className="text-[7px] font-bold text-slate-800 uppercase tracking-widest mb-1 pb-0.5 border-b border-slate-200">Education</div>
+            <div className="font-semibold text-slate-900 text-[5px]">Stanford University</div>
+            <div className="text-slate-600 text-[4.5px]">B.S. in Computer Science (2015 - 2019)</div>
           </div>
         </div>
       )
@@ -149,20 +226,35 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['classic', 'ats'],
       component: (
-        <div className="w-full h-full bg-white flex flex-col p-6 shadow-sm border border-slate-200 text-center font-serif text-[6px]">
-          <div className="text-[14px] font-bold mb-1 uppercase">YOUR NAME</div>
-          <div className="text-[8px] text-slate-500 italic mb-4">Job Title</div>
+        <div className="w-full h-full bg-white flex flex-col p-5 shadow-sm border border-slate-200 text-center font-serif text-[5.5px] leading-relaxed">
+          <div className="text-[12px] font-bold mb-0.5 uppercase tracking-wide text-slate-900">ALEX MORGAN</div>
+          <div className="text-[6.5px] text-slate-500 italic mb-2">Senior Software Engineer</div>
+          <div className="flex justify-center gap-2 mb-3 text-[4.5px] text-slate-500">
+            <span>alex.morgan@email.com</span><span>•</span><span>(555) 019-2834</span><span>•</span><span>San Francisco, CA</span>
+          </div>
           
-          <div className="h-0.5 bg-slate-800 w-full mb-4"></div>
+          <div className="h-[1px] bg-slate-800 w-full mb-2.5"></div>
           
-          <div className="h-1.5 bg-slate-300 rounded w-1/3 mx-auto mb-2"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-4/5 mx-auto mb-4"></div>
+          <div className="text-[7.5px] font-bold uppercase tracking-widest text-slate-900 mb-1">Professional Summary</div>
+          <div className="text-slate-600 mb-2.5 text-[5px] text-justify leading-tight">
+            Accomplished Senior Software Engineer with over eight years of experience delivering robust web platforms. Expertise includes reactive UI development, distributed systems architecture, and strong software engineering best practices.
+          </div>
 
-          <div className="h-1.5 bg-slate-300 rounded w-1/3 mx-auto mb-2"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+          <div className="text-[7.5px] font-bold uppercase tracking-widest text-slate-900 mb-1">Experience</div>
+          <div className="flex justify-between font-bold text-slate-850 mb-0.5 text-left">
+            <span>Senior Software Engineer — TechCorp Inc.</span>
+            <span>2022 - Present</span>
+          </div>
+          <div className="text-left text-slate-605 mb-2 text-[4.8px] leading-tight">
+            • Directed the architecture of a high-throughput content management tool serving millions of users.<br/>
+            • Automated validation workflows using CI/CD pipelines, reducing manual deployment efforts by 80%.
+          </div>
+
+          <div className="text-[7.5px] font-bold uppercase tracking-widest text-slate-900 mb-1">Education</div>
+          <div className="flex justify-between text-slate-600 text-[5px] text-left">
+            <span>Stanford University — Bachelor of Science in Computer Science</span>
+            <span>2015 - 2019</span>
+          </div>
         </div>
       )
     },
@@ -173,23 +265,46 @@ export default function ChooseTemplate() {
       hasPhoto: true,
       tags: ['creative'],
       component: (
-        <div className="w-full h-full bg-white shadow-sm border border-slate-200 flex flex-col text-[6px]">
-          <div className="h-16 bg-red-50 flex items-center p-4 border-b-4 border-slate-900">
-            <div className="w-10 h-10 bg-slate-300 rounded-xl transform -rotate-6 border-2 border-white mr-4"></div>
+        <div className="w-full h-full bg-white shadow-sm border border-slate-200 flex flex-col text-[5.5px] font-sans">
+          <div className="h-14 bg-red-50/70 flex items-center p-3 border-b-[3px] border-slate-900">
+            <img src="/placeholder-user.jpg" alt="Alex Morgan" className="w-8 h-8 rounded-lg transform -rotate-6 border-2 border-white object-cover shadow-sm bg-slate-200 mr-3" />
             <div>
-              <div className="text-[14px] font-black">YOUR NAME</div>
-              <div className="text-[8px] text-red-500 font-bold">Job Title</div>
+              <div className="text-[12px] font-black text-slate-900 tracking-tight leading-none mb-0.5">ALEX MORGAN</div>
+              <div className="text-[6.5px] text-red-500 font-extrabold uppercase tracking-wide">Senior Software Engineer</div>
             </div>
           </div>
-          <div className="flex flex-1">
-            <div className="w-[35%] bg-slate-900 p-3">
-               <div className="h-1 bg-slate-700 rounded w-full mb-1"></div>
-               <div className="h-1 bg-slate-700 rounded w-4/5 mb-1"></div>
+          <div className="flex flex-1 overflow-hidden">
+            <div className="w-[35%] bg-slate-900 p-3 text-slate-300 text-left">
+              <div className="font-extrabold text-[6.5px] text-white uppercase tracking-wider mb-1.5">Contact</div>
+              <div className="space-y-1 text-[4.2px] leading-tight break-all mb-3 opacity-90">
+                <div>alex.morgan@email.com</div>
+                <div>(555) 019-2834</div>
+                <div>San Francisco, CA</div>
+              </div>
+              <div className="font-extrabold text-[6.5px] text-white uppercase tracking-wider mb-1.5">Skills</div>
+              <div className="flex flex-wrap gap-1 text-[4px] leading-none">
+                {['React', 'NextJS', 'TS', 'Node', 'Go', 'AWS'].map(s => (
+                  <span key={s} className="bg-slate-800 text-red-200 px-1 py-0.5 rounded-[2px]">{s}</span>
+                ))}
+              </div>
             </div>
-            <div className="w-[65%] p-4">
-               <div className="h-1.5 bg-slate-300 rounded w-1/3 mb-2 relative"><div className="absolute -bottom-1 left-0 w-full h-1 bg-yellow-200"></div></div>
-               <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-               <div className="h-1 bg-slate-200 rounded w-full mb-4"></div>
+            <div className="w-[65%] p-3.5 text-left leading-relaxed">
+              <div className="text-[6.5px] font-extrabold text-slate-900 uppercase tracking-wider mb-1 relative inline-block">
+                Profile
+                <div className="absolute -bottom-[2px] left-0 w-full h-[2px] bg-yellow-350"></div>
+              </div>
+              <div className="text-slate-600 mb-3 text-[4.8px] leading-tight">
+                Versatile and creative engineer focused on building interactive web experiences. Enthusiastic about design systems, animation, and front-end performance.
+              </div>
+              
+              <div className="text-[6.5px] font-extrabold text-slate-900 uppercase tracking-wider mb-1 relative inline-block">
+                Experience
+                <div className="absolute -bottom-[2px] left-0 w-full h-[2px] bg-yellow-350"></div>
+              </div>
+              <div className="font-bold text-slate-850 text-[5px]">Senior Engineer — TechCorp</div>
+              <div className="text-slate-600 text-[4.8px] leading-tight mb-1">
+                • Built modular UI libraries utilized across three corporate websites, boosting developers speed by 25%.
+              </div>
             </div>
           </div>
         </div>
@@ -202,17 +317,36 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['minimal'],
       component: (
-        <div className="w-full h-full bg-white shadow-sm border border-slate-200 p-6 text-[6px]">
-          <div className="text-[16px] font-light mb-1">Your Name</div>
-          <div className="text-[8px] text-slate-400 mb-6">Job Title</div>
+        <div className="w-full h-full bg-white shadow-sm border border-slate-200 p-5 text-[5.5px] font-sans text-left leading-relaxed">
+          <div className="text-[13px] font-light tracking-wide text-slate-800 leading-none mb-0.5">Alex Morgan</div>
+          <div className="text-[6.5px] text-slate-400 uppercase tracking-widest mb-4">Senior Software Engineer</div>
           
-          <div className="flex gap-4">
-            <div className="w-1/4 text-slate-400">2020 - Present</div>
-            <div className="w-3/4">
-               <div className="font-bold text-slate-800 mb-1">Company Name</div>
-               <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-               <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-               <div className="h-1 bg-slate-200 rounded w-4/5 mb-4"></div>
+          <div className="flex gap-3 mb-2.5">
+            <div className="w-[80px] text-slate-400 text-[4.8px] font-medium leading-normal">alex.morgan@email.com<br/>(555) 019-2834<br/>San Francisco, CA</div>
+            <div className="flex-1 text-slate-600 text-[4.8px] leading-tight">
+              Highly motivated Software Engineer specializing in modern frontend frameworks and simple, functional, client-centered layouts.
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 my-2"></div>
+
+          <div className="flex gap-3 mb-2.5">
+            <div className="w-[80px] text-slate-400 text-[4.8px] font-semibold">2022 - Present</div>
+            <div className="flex-1">
+              <div className="font-bold text-slate-800 text-[5px]">Senior Engineer — TechCorp Inc.</div>
+              <div className="text-slate-600 text-[4.8px] leading-tight">
+                Led frontend migration projects to Next.js framework, improving cumulative layout shift scores by 35%.
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <div className="w-[80px] text-slate-400 text-[4.8px] font-semibold">2019 - 2022</div>
+            <div className="flex-1">
+              <div className="font-bold text-slate-800 text-[5px]">Engineer — DevSolutions LLC</div>
+              <div className="text-slate-600 text-[4.8px] leading-tight">
+                Maintained internal developer portal using React, GraphQL, and micro-frontend structures.
+              </div>
             </div>
           </div>
         </div>
@@ -225,22 +359,29 @@ export default function ChooseTemplate() {
       hasPhoto: false,
       tags: ['executive'],
       component: (
-        <div className="w-full h-full bg-white shadow-sm border border-slate-200 p-6 font-serif text-[6px]">
-          <div className="border-b-2 border-slate-900 pb-4 mb-4 flex justify-between items-end">
+        <div className="w-full h-full bg-white shadow-sm border border-slate-200 p-5 font-serif text-[5.5px] text-left leading-relaxed">
+          <div className="border-b-[1.5px] border-slate-900 pb-2.5 mb-3 flex justify-between items-end">
              <div>
-                <div className="text-[16px] font-bold uppercase mb-1">YOUR NAME</div>
-                <div className="text-[8px] text-slate-600">Job Title</div>
+                <div className="text-[12px] font-bold uppercase tracking-wide text-slate-900">ALEX MORGAN</div>
+                <div className="text-[6.5px] text-slate-600 uppercase tracking-wider">Senior Software Engineer</div>
+             </div>
+             <div className="text-right text-[4.2px] text-slate-500 leading-normal font-sans">
+               SF, CA • alex.morgan@email.com • (555) 019-2834
              </div>
           </div>
           
-          <div className="h-1.5 bg-slate-800 rounded w-1/3 mb-2"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-4/5 mb-6"></div>
+          <div className="text-[7.5px] font-bold uppercase text-slate-800 tracking-wider mb-1.5">Executive Summary</div>
+          <div className="text-slate-600 mb-3 text-[5.2px] leading-tight text-justify">
+            Results-focused Senior Software Engineer with a record of delivery in building scalable consumer platforms. Dedicated to architectural integrity, operational efficiency, and cross-functional alignment.
+          </div>
           
-          <div className="h-1.5 bg-slate-800 rounded w-1/3 mb-2"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
-          <div className="h-1 bg-slate-200 rounded w-full mb-1"></div>
+          <div className="text-[7.5px] font-bold uppercase text-slate-800 tracking-wider mb-1.5">Professional Experience</div>
+          <div className="font-bold text-slate-900 text-[5.2px]">Senior Software Engineer | TechCorp Inc.</div>
+          <div className="text-slate-500 text-[4.5px] italic mb-1">2022 - Present | San Francisco, CA</div>
+          <div className="text-slate-600 text-[4.8px] leading-tight mb-2">
+            • Managed technical roadmap for core cloud migration, resulting in $180k annual savings.<br/>
+            • Oversaw delivery of 12 major features, aligning engineering outputs with product requirements.
+          </div>
         </div>
       )
     }
