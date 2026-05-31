@@ -161,8 +161,8 @@ export default function EditorPage() {
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
     { id: 'summary', label: 'Summary' },
-    { id: 'layout', label: 'Layout & Styling' },
     { id: 'additional', label: 'Add Section' },
+    { id: 'layout', label: 'Layout & Styling' },
   ];
 
   return (
