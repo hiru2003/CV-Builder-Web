@@ -29,13 +29,15 @@ import {
 export default function EditorPage() {
   const params = useParams();
   const router = useRouter();
-  const { setTemplate, reset, template, font, setFont } = useCVStore();
+  const { data, template, font, themeColor, spacing, fontSizeAdjust, setTemplate, reset, setFont } = useCVStore();
   const [activeTab, setActiveTab] = useState<'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'layout' | 'additional'>('personal');
   const [subView, setSubView] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [mobileView, setMobileView] = useState<'edit' | 'preview'>('edit');
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [hasLoadedFromDB, setHasLoadedFromDB] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
 
   useEffect(() => {
     if (params.templateId) {
@@ -51,7 +53,12 @@ export default function EditorPage() {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (!currentUser) {
+        setHasLoadedFromDB(false);
+        setSaveStatus('idle');
+      }
     });
 
     return () => {
@@ -59,7 +66,51 @@ export default function EditorPage() {
     };
   }, []);
 
-  const syncResumeToDatabase = async (currentUser: any, currentTemplate: string, cvData: any, currentFont: string) => {
+  // 1. Fetch saved resume from Supabase when user logs in
+  useEffect(() => {
+    if (user && !hasLoadedFromDB) {
+      const loadResume = async () => {
+        try {
+          const { data: savedResume, error } = await supabase
+            .from('resumes')
+            .select('*')
+            .eq('user_id', user.id)
+            .maybeSingle();
+
+          if (error) throw error;
+
+          if (savedResume) {
+            const { template: savedTemplate, data: payload } = savedResume;
+            const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
+            
+            useCVStore.setState({
+              data: cvData as any,
+              template: savedTemplate as any,
+              font: savedFont || 'inter',
+              themeColor: savedColor || '#00A3FF',
+              spacing: savedSpacing || 'normal',
+              fontSizeAdjust: savedSize || 'md'
+            });
+          }
+        } catch (err) {
+          console.error('Error loading saved resume:', err);
+        } finally {
+          setHasLoadedFromDB(true);
+        }
+      };
+      loadResume();
+    }
+  }, [user, hasLoadedFromDB]);
+
+  const syncResumeToDatabase = async (
+    currentUser: any, 
+    currentTemplate: string, 
+    cvData: any, 
+    currentFont: string,
+    themeColor: string,
+    spacing: string,
+    fontSizeAdjust: string
+  ) => {
     // Check if user already has a saved resume
     const { data: existingResumes, error: fetchError } = await supabase
       .from('resumes')
@@ -71,7 +122,10 @@ export default function EditorPage() {
 
     const payload = {
       ...cvData,
-      font: currentFont
+      font: currentFont,
+      themeColor,
+      spacing,
+      fontSizeAdjust
     };
 
     if (existingResumes && existingResumes.length > 0) {
@@ -100,6 +154,44 @@ export default function EditorPage() {
     }
   };
 
+  // 2. Auto-save changes to Supabase (debounced)
+  useEffect(() => {
+    if (!user || !hasLoadedFromDB) return;
+
+    setSaveStatus('saving');
+
+    const timer = setTimeout(async () => {
+      try {
+        const cvData = useCVStore.getState().data;
+        const currentTemplate = useCVStore.getState().template;
+        const currentFont = useCVStore.getState().font;
+        const currentThemeColor = useCVStore.getState().themeColor;
+        const currentSpacing = useCVStore.getState().spacing;
+        const currentFontSizeAdjust = useCVStore.getState().fontSizeAdjust;
+
+        await syncResumeToDatabase(
+          user,
+          currentTemplate,
+          cvData,
+          currentFont,
+          currentThemeColor,
+          currentSpacing,
+          currentFontSizeAdjust
+        );
+        setSaveStatus('saved');
+        
+        // Reset to idle after 2 seconds
+        const idleTimer = setTimeout(() => setSaveStatus('idle'), 2000);
+        return () => clearTimeout(idleTimer);
+      } catch (err) {
+        console.error('Auto-save error:', err);
+        setSaveStatus('idle');
+      }
+    }, 1500); // Trigger save 1.5s after typing stops
+
+    return () => clearTimeout(timer);
+  }, [data, template, font, themeColor, spacing, fontSizeAdjust, user, hasLoadedFromDB]);
+
   const handleExportPDF = async () => {
     const currentUser = user || (await supabase.auth.getUser()).data.user;
 
@@ -113,14 +205,21 @@ export default function EditorPage() {
       const cvData = useCVStore.getState().data;
       const currentTemplate = useCVStore.getState().template;
       const currentFont = useCVStore.getState().font;
+      const currentThemeColor = useCVStore.getState().themeColor;
+      const currentSpacing = useCVStore.getState().spacing;
+      const currentFontSizeAdjust = useCVStore.getState().fontSizeAdjust;
 
       // Sync database and trigger PDF export concurrently for maximum performance (no waiting for DB response to start PDF generation)
-      const dbSyncPromise = syncResumeToDatabase(currentUser, currentTemplate, cvData, currentFont);
+      const dbSyncPromise = syncResumeToDatabase(
+        currentUser, 
+        currentTemplate, 
+        cvData, 
+        currentFont,
+        currentThemeColor,
+        currentSpacing,
+        currentFontSizeAdjust
+      );
       
-      const themeColor = useCVStore.getState().themeColor;
-      const spacing = useCVStore.getState().spacing;
-      const fontSizeAdjust = useCVStore.getState().fontSizeAdjust;
-
       const exportPromise = fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -128,9 +227,9 @@ export default function EditorPage() {
           data: cvData, 
           template: currentTemplate,
           font: currentFont,
-          themeColor,
-          spacing,
-          fontSizeAdjust
+          themeColor: currentThemeColor,
+          spacing: currentSpacing,
+          fontSizeAdjust: currentFontSizeAdjust
         }),
       });
 
@@ -180,7 +279,36 @@ export default function EditorPage() {
           <div className="w-px h-6 bg-slate-200 hidden sm:block"></div>
           <h1 className="text-base font-extrabold text-slate-800 tracking-tight hidden lg:flex items-center gap-2">
             <span>CV Editor</span>
-            <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100/50 px-2 py-0.5 rounded-full uppercase tracking-wider">Workspace</span>
+            <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100/50 px-2 py-0.5 rounded-full uppercase tracking-wider font-sans">Workspace</span>
+            {user ? (
+              <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1.5 border border-slate-200 bg-slate-50 px-2.5 py-0.5 rounded-full font-sans transition-all duration-200 select-none">
+                {saveStatus === 'saving' && (
+                  <>
+                    <div className="w-1.5 h-1.5 border border-slate-400 border-t-transparent rounded-full animate-spin shrink-0"></div>
+                    <span>Saving...</span>
+                  </>
+                )}
+                {saveStatus === 'saved' && (
+                  <>
+                    <span className="text-green-500 font-bold shrink-0">✓</span>
+                    <span>Saved</span>
+                  </>
+                )}
+                {saveStatus === 'idle' && (
+                  <>
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                    <span>Synced</span>
+                  </>
+                )}
+              </span>
+            ) : (
+              <span 
+                onClick={() => setShowAuthModal(true)}
+                className="text-[10px] font-bold text-indigo-500 hover:text-indigo-600 cursor-pointer flex items-center gap-1 border border-indigo-100 bg-indigo-50/30 hover:bg-indigo-50 px-2.5 py-0.5 rounded-full font-sans transition-all duration-150 shrink-0 select-none"
+              >
+                ☁ Sync Active
+              </span>
+            )}
           </h1>
         </div>
         
