@@ -765,7 +765,7 @@ export default function Home() {
         <div className="max-w-[1300px] mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 font-bold text-2xl text-white mb-6">
-              <FileText size={28} className="text-[#00A3FF]" />
+              <img src="/logo.png" alt="CV Builder Logo" className="w-9 h-9 object-contain rounded-xl bg-white p-0.8 shrink-0 shadow-sm" />
               <span>CV Builder</span>
             </Link>
             <p className="text-base leading-relaxed max-w-sm mb-4">We help job seekers craft professional, ATS-optimized resumes that actually get them hired. Built with modern technology for the modern professional.</p>

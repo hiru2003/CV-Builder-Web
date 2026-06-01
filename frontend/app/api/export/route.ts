@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       });
     } else {
       // In production serverless (Vercel)
-      const chromium = (await import('@sparticuz/chromium')).default;
+      const chromium = (await import('@sparticuz/chromium')).default as any;
       browser = await puppeteer.launch({
         args: chromium.args,
         defaultViewport: chromium.defaultViewport,

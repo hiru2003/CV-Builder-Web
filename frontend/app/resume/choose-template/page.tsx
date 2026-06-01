@@ -411,9 +411,7 @@ function ChooseTemplateContent() {
       <header className="sticky top-0 z-50 border-b border-slate-200/60 backdrop-blur-md bg-white/75 shrink-0">
         <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-black text-xl text-slate-800 tracking-tight">
-            <div className="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-[#00A3FF] rounded-xl flex items-center justify-center shadow-md">
-              <FileCheck size={20} className="text-white" />
-            </div>
+            <img src="/logo.png" alt="CV Builder Logo" className="w-9 h-9 object-contain shrink-0" />
             <span>CV <span className="bg-gradient-to-r from-[#00A3FF] to-indigo-600 bg-clip-text text-transparent">Builder</span></span>
           </Link>
           
