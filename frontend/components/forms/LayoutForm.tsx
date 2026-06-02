@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useCVStore } from '@/store/useCVStore';
-import { Sliders, Palette, Layout, Sparkles, Check, HelpCircle } from 'lucide-react';
+import { Sliders, Palette, Layout, Sparkles, Check, HelpCircle, Type, LayoutTemplate } from 'lucide-react';
 import { SpacingType, FontSizeAdjustType } from '@/types/cv';
 
 export const LayoutForm = () => {
@@ -12,7 +12,11 @@ export const LayoutForm = () => {
     fontSizeAdjust, 
     setThemeColor, 
     setSpacing, 
-    setFontSizeAdjust 
+    setFontSizeAdjust,
+    font,
+    setFont,
+    template,
+    setTemplate
   } = useCVStore();
 
   const colorPresets = [
@@ -211,6 +215,97 @@ export const LayoutForm = () => {
                     {size === 'sm' ? '11px-12px text' : size === 'md' ? '13px-14px text' : '15px-16px text'}
                   </span>
                 </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 4. Document Font Selection */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-[0_4px_12px_rgba(0,0,0,0.01)] space-y-5 animate-fadeIn">
+        <div className="flex items-center gap-2.5 font-bold text-slate-800 text-sm pb-2 border-b border-slate-100">
+          <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
+            <Type size={15} className="text-indigo-500" />
+          </div>
+          <span>Document Font</span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { id: 'inter', name: 'Inter' },
+            { id: 'outfit', name: 'Outfit' },
+            { id: 'montserrat', name: 'Montserrat' },
+            { id: 'roboto', name: 'Roboto' },
+            { id: 'playfair', name: 'Playfair' },
+            { id: 'merriweather', name: 'Merriweather' },
+            { id: 'lora', name: 'Lora' },
+            { id: 'times', name: 'Times' },
+            { id: 'firacode', name: 'Fira Code' },
+          ].map((f) => {
+            const isActive = font === f.id;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setFont(f.id as any)}
+                className={`group flex flex-col items-center gap-2 p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                  isActive 
+                    ? 'border-indigo-500 bg-indigo-50/10 ring-2 ring-indigo-500/20 scale-[1.02] shadow-sm' 
+                    : 'border-slate-200 hover:border-slate-350 hover:bg-slate-50/40'
+                }`}
+              >
+                <div className={`w-8 h-8 rounded-lg border transition-all flex items-center justify-center bg-slate-50 border-slate-150 group-hover:bg-white`}>
+                  <span className={`text-sm font-black ${isActive ? 'text-indigo-600' : 'text-slate-400'}`}>Aa</span>
+                </div>
+                <span className={`text-[10px] font-extrabold truncate w-full ${isActive ? 'text-indigo-600 font-bold' : 'text-slate-650 font-semibold'}`}>
+                  {f.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 5. Template Selection */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-[0_4px_12px_rgba(0,0,0,0.01)] space-y-5 animate-fadeIn">
+        <div className="flex items-center gap-2.5 font-bold text-slate-800 text-sm pb-2 border-b border-slate-100">
+          <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
+            <LayoutTemplate size={15} className="text-indigo-500" />
+          </div>
+          <span>Template Style</span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { id: 'ats_simple', name: 'ATS Simple' },
+            { id: 'ats_professional', name: 'ATS Professional' },
+            { id: 'ats_modern', name: 'ATS Modern' },
+            { id: 'modern', name: 'Modern' },
+            { id: 'classic', name: 'Classic' },
+            { id: 'creative', name: 'Creative' },
+            { id: 'minimal', name: 'Minimal' },
+            { id: 'executive', name: 'Executive' },
+          ].map((t) => {
+            const isActive = template === t.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setTemplate(t.id as any)}
+                className={`group flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                  isActive 
+                    ? 'border-indigo-500 bg-indigo-50/10 ring-2 ring-indigo-500/20 scale-[1.02] shadow-sm' 
+                    : 'border-slate-200 hover:border-slate-350 hover:bg-slate-50/40'
+                }`}
+              >
+                <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-all ${
+                  isActive ? 'bg-indigo-650 border-indigo-650 text-white' : 'bg-slate-100 border-slate-200 text-transparent'
+                }`}>
+                  <Check size={10} className="stroke-[3px]" />
+                </div>
+                <span className={`text-[10px] font-extrabold truncate ${isActive ? 'text-indigo-600 font-bold' : 'text-slate-650 font-semibold'}`}>
+                  {t.name}
+                </span>
               </button>
             );
           })}

@@ -393,37 +393,38 @@ export default function EditorPage() {
         <div className="flex items-center gap-2.5 shrink-0 ml-4 sm:ml-0">
           <button 
             onClick={() => router.push('/resume/choose-template')}
-            className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm"
+            className="hidden md:flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm"
             title="Change Template"
           >
             <LayoutTemplate size={16} /> <span>Template</span>
           </button>
 
-          {/* Font Selector Dropdown */}
-          <Select value={font} onValueChange={setFont}>
-            <SelectTrigger 
-              className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 h-9 rounded-xl transition-all shadow-sm focus:ring-0 focus-visible:ring-0 focus-visible:border-indigo-200 outline-none cursor-pointer"
-            >
-              <Type size={16} className="text-slate-450 shrink-0" />
-              <span>Font:</span>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-white border border-slate-200/80 rounded-xl shadow-lg p-1 z-[100] min-w-[150px] max-h-[300px] overflow-y-auto">
-              <SelectItem value="inter" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Inter</SelectItem>
-              <SelectItem value="outfit" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Outfit</SelectItem>
-              <SelectItem value="montserrat" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Montserrat</SelectItem>
-              <SelectItem value="roboto" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Roboto</SelectItem>
-              <SelectItem value="merriweather" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Merriweather</SelectItem>
-              <SelectItem value="playfair" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Playfair</SelectItem>
-              <SelectItem value="lora" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Lora</SelectItem>
-              <SelectItem value="times" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Times New Roman</SelectItem>
-              <SelectItem value="firacode" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-mono">Fira Code</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="hidden md:block">
+            <Select value={font} onValueChange={setFont}>
+              <SelectTrigger 
+                className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 h-9 rounded-xl transition-all shadow-sm focus:ring-0 focus-visible:ring-0 focus-visible:border-indigo-200 outline-none cursor-pointer"
+              >
+                <Type size={16} className="text-slate-450 shrink-0" />
+                <span>Font:</span>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-slate-200/80 rounded-xl shadow-lg p-1 z-[100] min-w-[150px] max-h-[300px] overflow-y-auto">
+                <SelectItem value="inter" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Inter</SelectItem>
+                <SelectItem value="outfit" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Outfit</SelectItem>
+                <SelectItem value="montserrat" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Montserrat</SelectItem>
+                <SelectItem value="roboto" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Roboto</SelectItem>
+                <SelectItem value="merriweather" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Merriweather</SelectItem>
+                <SelectItem value="playfair" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Playfair</SelectItem>
+                <SelectItem value="lora" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Lora</SelectItem>
+                <SelectItem value="times" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Times New Roman</SelectItem>
+                <SelectItem value="firacode" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-mono">Fira Code</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           
           <button 
             onClick={reset}
-            className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-rose-600 bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-250 px-3 py-2 rounded-xl transition-all shadow-sm"
+            className="hidden md:flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-rose-600 bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-250 px-3 py-2 rounded-xl transition-all shadow-sm"
             title="Reset Data"
           >
             <RefreshCcw size={16} /> <span>Reset</span>
@@ -439,10 +440,10 @@ export default function EditorPage() {
                   await supabase.auth.signOut();
                   reset();
                 }}
-                className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-250 px-3 py-2 rounded-xl transition-all shadow-sm"
+                className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-250 p-2 sm:px-3 sm:py-2 rounded-xl transition-all shadow-sm"
                 title="Sign Out"
               >
-                <LogOut size={16} /> <span>Sign Out</span>
+                <LogOut size={16} /> <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           )}
@@ -450,7 +451,7 @@ export default function EditorPage() {
           <button 
             onClick={handleExportPDF}
             disabled={isExporting}
-            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white bg-gradient-to-r from-indigo-600 to-[#00A3FF] hover:from-indigo-700 hover:to-[#008AE6] disabled:from-blue-300 disabled:to-blue-400 px-4.5 py-2.5 rounded-xl transition-all shadow-[0_4px_12px_rgba(79,70,229,0.25)] hover:shadow-[0_6px_18px_rgba(79,70,229,0.35)] transform hover:-translate-y-0.5 active:translate-y-0"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white bg-gradient-to-r from-indigo-600 to-[#00A3FF] hover:from-indigo-700 hover:to-[#008AE6] disabled:from-blue-300 disabled:to-blue-400 px-3 py-2 sm:px-4.5 sm:py-2.5 rounded-xl transition-all shadow-[0_4px_12px_rgba(79,70,229,0.25)] hover:shadow-[0_6px_18px_rgba(79,70,229,0.35)] transform hover:-translate-y-0.5 active:translate-y-0"
           >
             {isExporting ? (
               <span className="flex items-center gap-2">

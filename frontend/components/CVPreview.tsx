@@ -30,14 +30,14 @@ export const CVPreview = () => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        // Mobile: container is 100% width minus padding
-        setScale(Math.min(0.7, (width - 32) / 794));
+        // Mobile: full width minus padding
+        setScale(Math.min(0.75, (width - 24) / 794));
       } else if (width < 1024) {
-        // Tablet/MD screens
-        setScale(Math.min(0.7, (width - 48) / 794));
+        // Tablet: full width minus padding
+        setScale(Math.min(0.8, (width - 48) / 794));
       } else {
-        // Desktop
-        setScale(0.7);
+        // Desktop: 55% of screen width minus padding
+        setScale(Math.min(0.85, (width * 0.55 - 48) / 794));
       }
     };
     
@@ -49,25 +49,35 @@ export const CVPreview = () => {
   const SelectedTemplate = templates[template] || ModernTemplate;
 
   return (
-    <div className="w-full h-full bg-slate-100 overflow-auto flex justify-center custom-scrollbar">
-      <div className="py-8">
+    <div className="w-full h-full bg-transparent overflow-auto flex justify-center custom-scrollbar">
+      <div className="py-8 flex justify-center w-full">
         <div 
-          className={`relative shadow-2xl transition-all duration-300 print:shadow-none print:m-0 bg-white font-${font}`}
           style={{
-            width: '210mm',
-            height: '297mm',
-            transform: `scale(${scale})`,
-            transformOrigin: 'top center',
-            marginBottom: `-${297 * (1 - scale)}mm`, // Compensate for scale zoom out
+            width: `${210 * scale}mm`,
+            height: `${297 * scale}mm`,
+            position: 'relative',
           }}
-          id="cv-preview-container"
         >
-          <SelectedTemplate 
-            data={data} 
-            themeColor={themeColor}
-            spacing={spacing}
-            fontSizeAdjust={fontSizeAdjust}
-          />
+          <div 
+            className={`relative shadow-2xl transition-all duration-300 print:shadow-none print:m-0 bg-white font-${font}`}
+            style={{
+              width: '210mm',
+              height: '297mm',
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+            }}
+            id="cv-preview-container"
+          >
+            <SelectedTemplate 
+              data={data} 
+              themeColor={themeColor}
+              spacing={spacing}
+              fontSizeAdjust={fontSizeAdjust}
+            />
+          </div>
         </div>
       </div>
     </div>
