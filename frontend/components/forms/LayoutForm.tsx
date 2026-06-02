@@ -277,6 +277,7 @@ export const LayoutForm = () => {
 
         <div className="grid grid-cols-2 gap-3">
           {[
+            { id: 'photo', name: 'With Photo' },
             { id: 'ats_simple', name: 'ATS Simple' },
             { id: 'ats_professional', name: 'ATS Professional' },
             { id: 'ats_modern', name: 'ATS Modern' },

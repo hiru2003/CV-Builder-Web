@@ -15,7 +15,7 @@ import { LanguagesForm } from '@/components/forms/LanguagesForm';
 import { CertificationsForm } from '@/components/forms/CertificationsForm';
 import { ProjectsForm } from '@/components/forms/ProjectsForm';
 import { LayoutForm } from '@/components/forms/LayoutForm';
-import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type } from 'lucide-react';
+import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
 import {
@@ -423,8 +423,141 @@ export default function EditorPage() {
           </div>
           
           <button 
+            onClick={() => {
+              useCVStore.setState({
+                data: {
+                  personal: {
+                    fullName: 'Richard Sanchez',
+                    jobTitle: 'Marketing Manager',
+                    email: 'hello@reallygreatsite.com',
+                    phone: '+123-456-7890',
+                    address: '123 Anywhere St., Any City',
+                    website: 'www.reallygreatsite.com',
+                    image: '', 
+                    linkedin: 'linkedin.com/in/richardsanchez',
+                    github: 'github.com/richardsanchez'
+                  },
+                  summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                  experience: [
+                    {
+                      id: '1',
+                      company: 'Borcelle Studio',
+                      position: 'Marketing Manager & Specialist',
+                      location: 'New York, NY',
+                      startDate: '2030',
+                      endDate: 'PRESENT',
+                      current: true,
+                      description: [
+                        'Develop and execute comprehensive marketing strategies and campaigns that align with the company\'s goals and objectives.',
+                        'Lead, mentor, and manage a high-performing marketing team, fostering a collaborative and results-driven work environment.',
+                        'Monitor brand consistency across marketing channels and materials.'
+                      ]
+                    },
+                    {
+                      id: '2',
+                      company: 'Fauget Studio',
+                      position: 'Marketing Manager & Specialist',
+                      location: 'Chicago, IL',
+                      startDate: '2025',
+                      endDate: '2029',
+                      current: false,
+                      description: [
+                        'Create and manage the marketing budget, ensuring efficient allocation of resources and optimizing ROI.',
+                        'Oversee market research to identify emerging trends, customer needs, and competitor strategies.',
+                        'Monitor brand consistency across marketing channels and materials.'
+                      ]
+                    },
+                    {
+                      id: '3',
+                      company: 'Studio Shodwe',
+                      position: 'Marketing Manager & Specialist',
+                      location: 'Los Angeles, CA',
+                      startDate: '2024',
+                      endDate: '2025',
+                      current: false,
+                      description: [
+                        'Develop and maintain strong relationships with partners, agencies, and vendors to support marketing initiatives.',
+                        'Monitor and maintain brand consistency across all marketing channels and materials.'
+                      ]
+                    }
+                  ],
+                  education: [
+                    {
+                      id: '1',
+                      institution: 'Wardiere University',
+                      degree: 'Master of Business Management',
+                      field: 'Business Management',
+                      startDate: '2029',
+                      endDate: '2030',
+                      current: false,
+                      score: '4.0'
+                    },
+                    {
+                      id: '2',
+                      institution: 'Wardiere University',
+                      degree: 'Bachelor of Business',
+                      field: 'Business',
+                      startDate: '2025',
+                      endDate: '2029',
+                      current: false,
+                      score: '3.8'
+                    }
+                  ],
+                  skills: [
+                    'Project Management',
+                    'Public Relations',
+                    'Teamwork',
+                    'Time Management',
+                    'Leadership',
+                    'Effective Communication',
+                    'Critical Thinking'
+                  ],
+                  projects: [
+                    {
+                      id: '1',
+                      name: 'Brand Alignment Campaign',
+                      description: 'Successfully rebranded three product lines leading to 24% increased customer engagement within six months.',
+                      technologies: ['Branding', 'Analytics', 'Social Media']
+                    },
+                    {
+                      id: '2',
+                      name: 'Digital Campaign Overhaul',
+                      description: 'Overhauled the main digital traffic acquisition pipeline, resulting in a 40% reduction in lead conversion cost.',
+                      technologies: ['SEO', 'Google Ads', 'Content Strategy']
+                    }
+                  ],
+                  certifications: [
+                    {
+                      id: '1',
+                      name: 'Google Digital Marketing Professional',
+                      issuer: 'Google',
+                      date: '2024'
+                    },
+                    {
+                      id: '2',
+                      name: 'Agile Marketing Leadership',
+                      issuer: 'Agile Alliance',
+                      date: '2025'
+                    }
+                  ],
+                  languages: [
+                    { id: '1', name: 'English', level: 'Fluent' },
+                    { id: '2', name: 'French', level: 'Fluent' },
+                    { id: '3', name: 'German', level: 'Basics' },
+                    { id: '4', name: 'Spanish', level: 'Intermediate' }
+                  ]
+                }
+              });
+            }}
+            className="hidden md:flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3 py-2 rounded-xl transition-all shadow-sm"
+            title="Load Sample Data"
+          >
+            <Sparkles size={16} /> <span>Demo Data</span>
+          </button>
+          
+          <button 
             onClick={reset}
-            className="hidden md:flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-rose-600 bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-250 px-3 py-2 rounded-xl transition-all shadow-sm"
+            className="hidden md:flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-655 hover:text-rose-605 bg-white hover:bg-rose-50 border border-slate-205 border-slate-200 hover:border-rose-250 px-3 py-2 rounded-xl transition-all shadow-sm"
             title="Reset Data"
           >
             <RefreshCcw size={16} /> <span>Reset</span>

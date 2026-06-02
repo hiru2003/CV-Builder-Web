@@ -183,6 +183,89 @@ function ChooseTemplateContent() {
       )
     },
     {
+      id: 'photo',
+      name: 'With Photo',
+      href: '/editor/photo',
+      hasPhoto: true,
+      tags: ['creative', 'modern'],
+      component: (
+        <div className="w-full h-full bg-white flex shadow-sm border border-slate-200 text-[5px] leading-relaxed">
+          <div className="w-[35%] bg-[#0A2540] text-slate-100 p-3 flex flex-col items-center text-center gap-2">
+            <div className="w-8 h-8 rounded-full border border-white bg-slate-300 flex items-center justify-center shrink-0 text-[6px] font-bold text-[#0A2540] uppercase">
+              RS
+            </div>
+            <div className="w-full">
+              <div className="font-extrabold text-white text-[6px] mb-1 uppercase tracking-wider border-b border-white/20 pb-0.5">Contact</div>
+              <div className="text-[4px] text-slate-300 space-y-0.5 break-all w-full text-center">
+                <div>+123-456-7890</div>
+                <div>hello@reallygreatsite.com</div>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="font-extrabold text-white text-[6px] mb-1 uppercase tracking-wider border-b border-white/20 pb-0.5">Education</div>
+              <div className="text-[4px] text-slate-300 text-center leading-tight">
+                <div className="font-semibold text-white">WARDIERE UNIVERSITY</div>
+                <div>Master of Business Management</div>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="font-extrabold text-white text-[6px] mb-1 uppercase tracking-wider border-b border-white/20 pb-0.5">Skills</div>
+              <div className="text-[4px] text-slate-300 flex flex-wrap justify-center gap-0.5">
+                {['Management', 'Relations', 'Teamwork'].map(s => (
+                  <span key={s} className="bg-white/10 px-0.8 py-0.1 rounded-[1px]">{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="w-[65%] p-4 text-left flex flex-col justify-start gap-1">
+            <div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-[9px] font-bold text-slate-800 uppercase tracking-wide">RICHARD</span>
+                <span className="text-[9px] font-light text-slate-600 uppercase tracking-wide">SANCHEZ</span>
+              </div>
+              <div className="text-[5.5px] text-[#0A2540] font-bold uppercase tracking-wider leading-none">MARKETING MANAGER</div>
+              <div className="w-6 h-[1px] bg-[#0A2540] mt-1"></div>
+            </div>
+            
+            <div>
+              <div className="font-bold text-[6px] text-slate-800 uppercase tracking-wider mb-0.5">Profile</div>
+              <div className="text-slate-600 text-[4.2px] leading-normal text-justify">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
+              </div>
+            </div>
+
+            <div>
+              <div className="font-bold text-[6px] text-slate-800 uppercase tracking-wider mb-0.5">Work Experience</div>
+              <div className="relative border-l border-slate-200 pl-2 ml-0.5 space-y-1">
+                <div>
+                  <div className="flex justify-between items-baseline font-bold text-slate-800 text-[4.8px]">
+                    <span>Borcelle Studio</span>
+                    <span className="text-[4px] font-semibold text-slate-400">2030 - PRESENT</span>
+                  </div>
+                  <div className="text-[4.2px] text-slate-500 font-semibold mb-0.5">Marketing Manager & Specialist</div>
+                  <div className="text-slate-600 text-[4px] leading-tight">• Develop and execute comprehensive marketing campaigns.</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto">
+              <div className="font-bold text-[5.5px] text-slate-800 uppercase tracking-wider mb-0.5">Reference</div>
+              <div className="grid grid-cols-2 gap-2 border-t border-slate-100 pt-0.5 text-[4px]">
+                <div>
+                  <div className="font-bold text-slate-800 leading-none">Estelle Darcy</div>
+                  <div className="text-slate-500 text-[3.8px]">Wardiere Inc. / CTO</div>
+                </div>
+                <div>
+                  <div className="font-bold text-slate-800 leading-none">Harper Richard</div>
+                  <div className="text-slate-500 text-[3.8px]">Wardiere Inc. / CEO</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
       id: 'modern',
       name: 'Modern',
       href: '/editor/modern',

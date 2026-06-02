@@ -463,32 +463,223 @@ export default function Home() {
             </div>
 
             {/* Foreground Main CV */}
-            <div className="relative w-[90%] sm:w-[75%] aspect-[1/1.4] bg-white rounded-lg shadow-2xl border border-slate-100 p-6 sm:p-8 z-10 transform translate-x-0 sm:translate-x-8 translate-y-0 sm:translate-y-8">
-              <div className="text-center border-b border-slate-200 pb-4 mb-5">
-                <div className="text-xl font-bold text-slate-800 mb-1">Jessie Smith</div>
-                <div className="text-[10px] text-slate-500">Human Resource Manager</div>
-                <div className="text-[8px] text-slate-400 mt-2">New York, USA • (555) 123-4567 • email@example.com</div>
-              </div>
-              
-              <div className="mb-4">
-                <div className="text-[9px] font-bold text-[#00A3FF] mb-2">Professional Summary</div>
-                <div className="text-[8px] text-slate-600 leading-relaxed text-justify">
-                  Human resources generalist with 8 years of experience in HR, including hiring and terminating, disciplining employees, and helping department managers improve employee performance. Worked with labor unions to negotiate compensation packages for workers.
+            <div className="relative w-[90%] sm:w-[75%] aspect-[1/1.4] bg-white rounded-lg shadow-2xl border border-slate-100 overflow-hidden z-10 transform translate-x-0 sm:translate-x-8 translate-y-0 sm:translate-y-8 flex">
+                         {/* Left Sidebar */}
+              <div className="w-[32%] bg-[#1E293B] text-white p-2 flex flex-col justify-start gap-1.5 shrink-0">
+                {/* Photo / Avatar Placeholder */}
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00A3FF] to-[#00F0FF] mx-auto border border-white/20 shadow-sm flex items-center justify-center font-bold text-[8px]">
+                  JS
+                </div>
+                
+                {/* Contact Info */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Contact</div>
+                  <p className="text-[4.5px] text-slate-355 truncate">jessie@email.com</p>
+                  <p className="text-[4.5px] text-slate-355">+1 (555) 123-4567</p>
+                  <p className="text-[4.5px] text-slate-355">New York, NY</p>
+                  <p className="text-[4.5px] text-slate-355 truncate">linkedin.com/in/jessie</p>
+                  <p className="text-[4.5px] text-slate-355 truncate">github.com/jessie-hr</p>
+                </div>
+                
+                {/* Core Strengths */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Strengths</div>
+                  <p className="text-[4.5px] text-slate-355 leading-tight">• Talent Acquisition</p>
+                  <p className="text-[4.5px] text-slate-355 leading-tight">• Employee Relations</p>
+                  <p className="text-[4.5px] text-slate-355 leading-tight">• HR Compliance</p>
+                  <p className="text-[4.5px] text-slate-355 leading-tight">• Diversity & Inclusion</p>
+                </div>
+                
+                {/* Skills Pills */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Skills</div>
+                  <div className="flex flex-wrap gap-0.5 justify-center">
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Recruiting</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">HRIS / ATS</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Compliance</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Relations</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Onboarding</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Agile HR</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Payroll</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Strategy</span>
+                    <span className="bg-white/10 text-white px-0.8 py-0.1 rounded text-[3.8px] font-bold">Analytics</span>
+                  </div>
+                </div>
+
+                {/* Software / Tools */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Software</div>
+                  <div className="flex flex-wrap gap-0.5 justify-center">
+                    <span className="bg-[#2D3748] text-slate-200 px-0.8 py-0.1 rounded text-[3.8px] font-medium">Workday</span>
+                    <span className="bg-[#2D3748] text-slate-200 px-0.8 py-0.1 rounded text-[3.8px] font-medium">Lever</span>
+                    <span className="bg-[#2D3748] text-slate-200 px-0.8 py-0.1 rounded text-[3.8px] font-medium">Greenhouse</span>
+                    <span className="bg-[#2D3748] text-slate-200 px-0.8 py-0.1 rounded text-[3.8px] font-medium">ADP</span>
+                    <span className="bg-[#2D3748] text-slate-200 px-0.8 py-0.1 rounded text-[3.8px] font-medium">Jira</span>
+                  </div>
+                </div>
+
+                {/* Certifications */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Certificates</div>
+                  <p className="text-[4.5px] text-slate-200 font-bold leading-tight">SHRM-CP • 2020</p>
+                  <p className="text-[4.5px] text-slate-200 font-bold leading-tight">PHR Cert. • 2018</p>
+                </div>
+
+                {/* Education */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Education</div>
+                  <p className="text-[4.5px] text-slate-200 font-bold leading-tight">B.S. Business Admin</p>
+                  <p className="text-[4px] text-slate-400">Univ. of Texas • GPA 3.8</p>
+                  <p className="text-[4.5px] text-slate-200 font-bold leading-tight mt-0.5">M.S. Human Resources</p>
+                  <p className="text-[4px] text-slate-400">NYU • GPA 3.9</p>
+                </div>
+
+                {/* Languages */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Languages</div>
+                  <p className="text-[4.5px] text-slate-355 font-bold text-center leading-tight">English (Native)</p>
+                  <p className="text-[4.5px] text-slate-355 font-bold text-center leading-tight">Spanish (Fluent)</p>
+                </div>
+
+                {/* Interests */}
+                <div className="space-y-0.5">
+                  <div className="text-[5.5px] font-extrabold tracking-widest text-[#00A3FF] uppercase border-b border-white/10 pb-0.2 mb-0.5 text-center">Interests</div>
+                  <p className="text-[4.5px] text-slate-400 text-center leading-tight">Tech Trends • Running • Mentoring</p>
                 </div>
               </div>
-
-              <div>
-                <div className="text-[9px] font-bold text-[#00A3FF] mb-2">Experience</div>
-                <div className="mb-3">
-                  <div className="flex justify-between">
-                    <div className="text-[9px] font-bold text-slate-800">Human Resource Manager</div>
-                    <div className="text-[8px] text-slate-400">01/2016 to Present</div>
+              
+              {/* Right Content Column */}
+              <div className="flex-1 p-3 flex flex-col justify-start gap-1.5 bg-white text-left overflow-hidden">
+                {/* Header */}
+                <div className="border-b border-slate-100 pb-0.5">
+                  <h3 className="text-xs font-extrabold text-[#1E293B] tracking-tight leading-none mb-0.5">Jessie Smith</h3>
+                  <p className="text-[7px] font-extrabold text-[#00A3FF] uppercase tracking-wider">Human Resource Manager</p>
+                </div>
+                
+                {/* Summary */}
+                <div>
+                  <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Professional Summary</h4>
+                  <p className="text-[5px] text-slate-500 leading-normal text-justify">
+                    Dynamic, SHRM-certified HR Manager with 8+ years of experience directing full-cycle recruitment, optimizing automated onboarding pipelines, and managing labor compliance standards. Proven track record of boosting retention and driving organizational excellence.
+                  </p>
+                </div>
+                
+                {/* Work Experience */}
+                <div className="flex flex-col gap-1">
+                  <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Work Experience</h4>
+                  
+                  {/* Job 1 */}
+                  <div className="relative pl-2 border-l border-slate-150">
+                    <div className="absolute -left-[3.5px] top-1 w-1.5 h-1.5 rounded-full bg-[#00A3FF]"></div>
+                    <div className="flex justify-between items-baseline mb-0.5">
+                      <span className="text-[6px] font-bold text-slate-800">Human Resource Manager</span>
+                      <span className="text-[4.5px] font-semibold text-slate-400">2019 - Present</span>
+                    </div>
+                    <p className="text-[5px] font-bold text-[#00A3FF] mb-0.5">Jim's Widget Factory • Plano, TX</p>
+                    <ul className="text-[4.8px] text-slate-500 list-disc list-inside space-y-0.2 leading-tight">
+                      <li>Revamped onboarding protocols, raising 90-day retention by 22%.</li>
+                      <li>Spearheaded integration of Lever ATS, cutting time-to-hire by 35%.</li>
+                      <li>Resolved labor relations grievances and oversaw payroll compliance for 200+ staff.</li>
+                      <li>Administered employee performance appraisals and compensation reviews.</li>
+                    </ul>
                   </div>
-                  <div className="text-[8px] font-semibold text-slate-600 mb-1">Jim's Widget Factory, Plano, TX</div>
-                  <ul className="text-[7.5px] text-slate-500 list-disc list-inside space-y-1">
-                    <li>Implement effective company policies to ensure that all practices comply.</li>
-                    <li>Increased employee retention rates by managing workplace satisfaction.</li>
-                  </ul>
+
+                  {/* Job 2 */}
+                  <div className="relative pl-2 border-l border-slate-150">
+                    <div className="absolute -left-[3.5px] top-1 w-1.5 h-1.5 rounded-full bg-[#00A3FF]"></div>
+                    <div className="flex justify-between items-baseline mb-0.5">
+                      <span className="text-[6px] font-bold text-slate-800">Junior HR Generalist</span>
+                      <span className="text-[4.5px] font-semibold text-slate-400">2016 - 2019</span>
+                    </div>
+                    <p className="text-[5px] font-bold text-[#00A3FF] mb-0.5">Innovate Systems • Austin, TX</p>
+                    <ul className="text-[4.8px] text-slate-500 list-disc list-inside space-y-0.2 leading-tight">
+                      <li>Administered monthly payroll processing, benefits, and HR audit compliance records.</li>
+                      <li>Coordinated performance reviews and onboarding seminars for 150+ staff.</li>
+                    </ul>
+                  </div>
+
+                  {/* Job 3 */}
+                  <div className="relative pl-2 border-l border-slate-150">
+                    <div className="absolute -left-[3.5px] top-1 w-1.5 h-1.5 rounded-full bg-[#00A3FF]"></div>
+                    <div className="flex justify-between items-baseline mb-0.5">
+                      <span className="text-[6px] font-bold text-slate-800">HR Assistant</span>
+                      <span className="text-[4.5px] font-semibold text-slate-400">2014 - 2016</span>
+                    </div>
+                    <p className="text-[5px] font-bold text-[#00A3FF] mb-0.5">Apex Retail Corp • Dallas, TX</p>
+                    <ul className="text-[4.8px] text-slate-500 list-disc list-inside space-y-0.2 leading-tight">
+                      <li>Maintained employee databases and screened candidate resumes.</li>
+                      <li>Coordinated interview schedules and processed background checks.</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                {/* Projects */}
+                <div>
+                  <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Key Projects</h4>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <div>
+                      <span className="text-[5.5px] font-bold text-slate-700 block">HR Portal Launch</span>
+                      <span className="text-[4.8px] text-slate-500 block leading-tight">Designed digital directory saving 20+ hours of manual updates weekly.</span>
+                    </div>
+                    <div>
+                      <span className="text-[5.5px] font-bold text-slate-700 block">ATS Migration</span>
+                      <span className="text-[4.8px] text-slate-500 block leading-tight">Unified databases across 4 state offices, reducing fees by 15%.</span>
+                    </div>
+                    <div>
+                      <span className="text-[5.5px] font-bold text-slate-700 block">Compliance Audit</span>
+                      <span className="text-[4.8px] text-slate-500 block leading-tight">Overhauled audit protocols to achieve zero-penalty labor checks.</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Publications & Affiliations */}
+                <div className="grid grid-cols-2 gap-2 border-t border-slate-100 pt-1">
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Publications</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">Recruiting Trends 2024</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Keynote speaker at National NY HR Conference.</span>
+                  </div>
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Affiliations</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">SHRM Board Member</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Member of National HR Recruiters Association.</span>
+                  </div>
+                </div>
+
+                {/* Honors & Volunteering */}
+                <div className="grid grid-cols-2 gap-2 border-t border-slate-100 pt-1">
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Honors & Awards</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">SHRM Excellence Award</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Recruiter of the Year nominee (2021).</span>
+                  </div>
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Leadership</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">UT Career Mentor</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Volunteer career adviser for UT Network.</span>
+                  </div>
+                </div>
+
+                {/* Professional Development */}
+                <div className="grid grid-cols-2 gap-2 border-t border-slate-100 pt-1">
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Training</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">Agile HR Leadership</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Agile Alliance certificate course (2023).</span>
+                  </div>
+                  <div>
+                    <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">Conferences</h4>
+                    <span className="text-[5.5px] font-bold text-slate-700 block">HR Tech Expo 2025</span>
+                    <span className="text-[4.8px] text-slate-500 block leading-tight">Panel speaker on AI recruitment tools.</span>
+                  </div>
+                </div>
+
+                {/* References */}
+                <div className="border-t border-slate-100 pt-1">
+                  <h4 className="text-[6px] font-extrabold text-slate-800 uppercase tracking-widest mb-0.5">References</h4>
+                  <p className="text-[4.8px] text-slate-500 leading-tight">
+                    Professional and managerial references are available immediately upon request.
+                  </p>
                 </div>
               </div>
             </div>
