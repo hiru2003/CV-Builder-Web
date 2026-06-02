@@ -343,7 +343,7 @@ export default function EditorPage() {
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-white overflow-hidden font-sans">
+    <div className="h-screen h-[100dvh] flex flex-col bg-white overflow-hidden font-sans">
       {/* Top Navbar */}
       <header className="sticky top-0 z-50 h-auto min-h-[68px] py-3 sm:py-0 border-b border-slate-200/50 backdrop-blur-md bg-white/80 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.01)]">
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
@@ -469,7 +469,7 @@ export default function EditorPage() {
       </header>
 
       {/* Mobile Toggle Control */}
-      <div className="lg:hidden p-3 bg-slate-50 border-b border-slate-200/50">
+      <div className="lg:hidden p-3 bg-slate-50 border-b border-slate-200/50 shrink-0">
         <div className="flex p-1 bg-slate-200/60 rounded-xl max-w-sm mx-auto w-full border border-slate-200/50">
           <button
             onClick={() => setMobileView('edit')}
@@ -498,7 +498,7 @@ export default function EditorPage() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         
         {/* Left Side: Forms */}
-        <div className={`w-full lg:w-[45%] ${mobileView === 'edit' ? 'flex' : 'hidden lg:flex'} flex-col bg-white border-r border-slate-200 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]`}>
+        <div className={`w-full lg:w-[45%] ${mobileView === 'edit' ? 'flex flex-1 min-h-0' : 'hidden lg:flex'} flex-col bg-white border-r border-slate-200 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]`}>
           {/* Form Tabs Navigation */}
           <div className="p-3 bg-slate-50/50 border-b border-slate-200/50 shrink-0">
             <div className="flex gap-0.5 bg-slate-200/50 p-1 rounded-xl border border-slate-200/40 w-full overflow-x-auto hide-scrollbar">
@@ -519,7 +519,7 @@ export default function EditorPage() {
           </div>
 
           {/* Form Content Area */}
-          <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-white custom-scrollbar editor-form-container">
+          <div className="flex-1 overflow-y-auto p-6 pb-24 md:p-8 bg-white custom-scrollbar editor-form-container">
             <div className="max-w-2xl mx-auto">
               {activeTab === 'personal' && <PersonalInfoForm />}
               {activeTab === 'experience' && <ExperienceForm />}
@@ -555,7 +555,7 @@ export default function EditorPage() {
         </div>
 
         {/* Right Side: Live Preview (Figma-style dark workbench with dot grid) */}
-        <div className={`${mobileView === 'preview' ? 'flex w-full' : 'hidden'} lg:flex lg:w-[55%] bg-[#0B0F19] overflow-hidden relative bg-dot-grid`}>
+        <div className={`${mobileView === 'preview' ? 'flex w-full flex-1 min-h-0' : 'hidden'} lg:flex lg:w-[55%] bg-[#0B0F19] overflow-hidden relative bg-dot-grid`}>
           <div className="absolute top-4 right-4 z-10 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.8 rounded-xl text-[9px] font-extrabold uppercase tracking-widest text-slate-350 border border-white/5 shadow-2xl flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
             <span>Live Previewing</span>
