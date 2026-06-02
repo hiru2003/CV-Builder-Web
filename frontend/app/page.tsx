@@ -103,7 +103,7 @@ export default function Home() {
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
           
           {/* Left Column - Content */}
-          <div className="max-w-2xl z-10">
+          <div className="max-w-2xl z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex items-center gap-2 mb-8 animate-fade-in-up delay-100">
               <span className="flex h-3 w-3 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -121,7 +121,7 @@ export default function Home() {
               </span>
             </h1>
             
-            <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-[500px] animate-fade-in-up delay-300">
+            <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-[500px] mx-auto lg:mx-0 animate-fade-in-up delay-300">
               The first step to a better job? A better CV. Only 2% of CVs win interviews, and yours will be one of them. Build it now!
             </p>
             
@@ -508,7 +508,7 @@ export default function Home() {
 
           {/* Right Timeline */}
           <div className="pl-0 lg:pl-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D3748] mb-12 leading-[1.2] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D3748] mb-12 leading-[1.2] tracking-tight text-center lg:text-left w-full">
               Create your job-winning <span className="text-[#00A3FF]">CV in<br className="hidden md:block"/> 3 simple steps</span>
             </h2>
             
