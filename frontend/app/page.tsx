@@ -114,7 +114,7 @@ export default function Home() {
               </span>
             </div>
             
-            <h1 className="text-5xl lg:text-[64px] font-extrabold text-[#1E293B] mb-6 leading-[1.1] tracking-tight animate-fade-in-up delay-200">
+            <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-extrabold text-[#1E293B] mb-6 leading-[1.1] tracking-tight animate-fade-in-up delay-200">
               Create your CV with an <br className="hidden lg:block"/>
               <span className="bg-gradient-to-r from-[#00A3FF] to-[#00F0FF] bg-clip-text text-transparent pb-2 inline-block">
                 AI-powered CV maker
@@ -420,7 +420,7 @@ export default function Home() {
 
         {/* Logos Section */}
         <div className="mt-20 pt-10 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-8 w-full max-w-[1200px] mx-auto z-10 relative animate-fade-in-up delay-600">
-          <p className="text-slate-500 font-bold tracking-wide uppercase text-sm whitespace-nowrap">Our customers have been hired at:</p>
+          <p className="text-slate-500 font-bold tracking-wide uppercase text-sm text-center md:text-left whitespace-normal sm:whitespace-nowrap">Our customers have been hired at:</p>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-12 gap-y-6 items-center w-full grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" className="h-7 object-contain" />
             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" className="h-5 object-contain" />
@@ -445,7 +445,7 @@ export default function Home() {
             </svg>
 
             {/* Background Minimal CV */}
-            <div className="absolute left-12 top-12 w-[65%] aspect-[1/1.4] bg-white rounded-lg shadow-sm border border-slate-100 p-6 opacity-70 transform -rotate-3 transition-transform hover:-rotate-6">
+            <div className="hidden sm:block absolute left-12 top-12 w-[65%] aspect-[1/1.4] bg-white rounded-lg shadow-sm border border-slate-100 p-6 opacity-70 transform -rotate-3 transition-transform hover:-rotate-6">
               <div className="flex gap-3 mb-6">
                 <div className="w-10 h-10 bg-slate-200 rounded-full"></div>
                 <div>
@@ -463,7 +463,7 @@ export default function Home() {
             </div>
 
             {/* Foreground Main CV */}
-            <div className="relative w-[75%] aspect-[1/1.4] bg-white rounded-lg shadow-2xl border border-slate-100 p-8 z-10 transform translate-x-8 translate-y-8">
+            <div className="relative w-[90%] sm:w-[75%] aspect-[1/1.4] bg-white rounded-lg shadow-2xl border border-slate-100 p-6 sm:p-8 z-10 transform translate-x-0 sm:translate-x-8 translate-y-0 sm:translate-y-8">
               <div className="text-center border-b border-slate-200 pb-4 mb-5">
                 <div className="text-xl font-bold text-slate-800 mb-1">Jessie Smith</div>
                 <div className="text-[10px] text-slate-500">Human Resource Manager</div>
@@ -494,13 +494,13 @@ export default function Home() {
             </div>
 
             {/* Badge */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#2D3748] text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-4 z-20 font-bold whitespace-nowrap border-4 border-white transform hover:-translate-y-1 transition-transform">
-              <div className="bg-white/10 p-2 rounded-lg text-[#00A3FF]">
-                <TrendingUp size={24} />
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#2D3748] text-white px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-xl flex items-center gap-3 sm:gap-4 z-20 font-bold whitespace-nowrap border-4 border-white transform hover:-translate-y-1 transition-transform">
+              <div className="bg-white/10 p-1.5 sm:p-2 rounded-lg text-[#00A3FF]">
+                <TrendingUp size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg leading-tight">Get the job</span>
-                <span className="text-[#00A3FF] text-lg leading-tight">2x faster</span>
+                <span className="text-sm sm:text-lg leading-tight">Get the job</span>
+                <span className="text-[#00A3FF] text-sm sm:text-lg leading-tight">2x faster</span>
               </div>
             </div>
 
@@ -508,7 +508,7 @@ export default function Home() {
 
           {/* Right Timeline */}
           <div className="pl-0 lg:pl-10">
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-[#2D3748] mb-12 leading-[1.2] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D3748] mb-12 leading-[1.2] tracking-tight">
               Create your job-winning <span className="text-[#00A3FF]">CV in<br className="hidden md:block"/> 3 simple steps</span>
             </h2>
             
@@ -553,8 +553,8 @@ export default function Home() {
               </div>
 
               {/* CTA Button */}
-              <div className="pt-6 ml-20">
-                <Link href="/resume/choose-template?new=true" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
+              <div className="pt-6 ml-0 sm:ml-20 flex justify-center sm:justify-start">
+                <Link href="/resume/choose-template?new=true" className="inline-block px-8 py-4 sm:px-10 sm:py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20 text-center">
                   Create My CV Now
                 </Link>
               </div>
@@ -566,7 +566,7 @@ export default function Home() {
       {/* --- REVIEWS SECTION: Trustpilot Style --- */}
       <section className="bg-[#F4FAFF] py-28">
         <div className="max-w-[1400px] mx-auto px-6">
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-[#2D3748] mb-20 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-[#2D3748] mb-20 tracking-tight">
             What our customers are <span className="text-[#00A3FF]">saying about us</span>
           </h2>
           
@@ -649,7 +649,7 @@ export default function Home() {
 
       {/* --- FEATURES SECTION: Why use CV Builder --- */}
       <section className="py-28 max-w-[1300px] mx-auto px-6">
-        <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-[#2D3748] mb-20 tracking-tight">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-[#2D3748] mb-20 tracking-tight">
           Why use CV Builder's CV builder?
         </h2>
         
