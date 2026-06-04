@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
 import { 
   ArrowRight, FileText, Sparkles, MessageSquare, 
   FolderOpen, Edit3, DownloadCloud, TrendingUp, Star, CheckCircle, Briefcase, GraduationCap, Code
@@ -951,42 +952,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
-      <footer className="bg-[#2D3748] text-slate-400 py-16 border-t border-slate-800">
-        <div className="max-w-[1300px] mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 font-bold text-2xl text-white mb-6">
-              <img src="/logo.png" alt="CV Builder Logo" className="w-9 h-9 object-contain rounded-xl bg-white p-0.8 shrink-0 shadow-sm" />
-              <span>CV Builder</span>
-            </Link>
-            <p className="text-base leading-relaxed max-w-sm mb-4">We help job seekers craft professional, ATS-optimized resumes that actually get them hired. Built with modern technology for the modern professional.</p>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">CV Builder</h4>
-            <ul className="space-y-3 text-base">
-              <li><Link href="/resume/choose-template?new=true" className="hover:text-white transition-colors">Resume Templates</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Cover Letters</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Examples</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Support</h4>
-            <ul className="space-y-3 text-base">
-              <li><Link href="#" className="hover:text-white transition-colors">FAQ</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-[1300px] mx-auto px-6 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>© {new Date().getFullYear()} CV Builder. All rights reserved.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <span>Built with React & Next.js</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
     </div>
   );
