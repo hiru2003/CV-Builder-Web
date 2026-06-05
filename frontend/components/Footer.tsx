@@ -143,7 +143,7 @@ export function Footer() {
                 { name: 'FAQ & Help', href: '#' },
                 { name: 'Contact Us', href: '#' },
                 { name: 'Terms of Use', href: '#' },
-                { name: 'Privacy Policy', href: '#' }
+                { name: 'Privacy Policy', href: '/privacy' }
               ].map((link, idx) => (
                 <li key={idx}>
                   <Link 
