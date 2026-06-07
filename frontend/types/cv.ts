@@ -65,7 +65,7 @@ export interface CVData {
   languages: Language[];
 }
 
-export type TemplateType = 'modern' | 'classic' | 'creative' | 'minimal' | 'executive' | 'ats_simple' | 'ats_professional' | 'ats_modern' | 'photo';
+export type TemplateType = 'modern' | 'classic' | 'creative' | 'minimal' | 'executive' | 'ats_simple' | 'ats_professional' | 'ats_modern' | 'photo' | 'professional';
 
 export type SpacingType = 'compact' | 'normal' | 'loose';
 export type FontSizeAdjustType = 'sm' | 'md' | 'lg';

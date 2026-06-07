@@ -476,6 +476,68 @@ function ChooseTemplateContent() {
           </div>
         </div>
       )
+    },
+    {
+      id: 'professional',
+      name: 'Professional Sidebar',
+      href: '/editor/professional',
+      hasPhoto: false,
+      tags: ['modern', 'executive'],
+      component: (
+        <div className="w-full h-full bg-white flex shadow-sm border border-slate-200 text-[5px] leading-relaxed">
+          <div className="w-[65%] p-4 text-left flex flex-col gap-1.5 border-r border-slate-100">
+            <div>
+              <div className="text-[10px] font-black text-slate-900 uppercase leading-none mb-0.5">ALEX MORGAN</div>
+              <div className="text-[5.5px] text-[#1e3a8a] font-bold uppercase tracking-wider">Senior Software Engineer</div>
+              <div className="w-6 h-[1.5px] bg-[#1e3a8a] mt-1"></div>
+            </div>
+            <div>
+              <div className="text-[5.5px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-0.5 mb-1">Profile</div>
+              <p className="text-slate-600 text-[4.2px] leading-normal text-justify">
+                Detail-oriented Senior Software Engineer with a passion for designing resilient software architectures. Expert in TypeScript and microservices.
+              </p>
+            </div>
+            <div>
+              <div className="text-[5.5px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-0.5 mb-1">Experience</div>
+              <div className="relative border-l border-slate-200 pl-2 ml-0.5 space-y-1">
+                <div>
+                  <div className="flex justify-between items-baseline font-bold text-slate-800 text-[4.8px]">
+                    <span>Senior Software Engineer</span>
+                    <span className="text-[4px] font-semibold text-slate-400">2022 - PRESENT</span>
+                  </div>
+                  <div className="text-[4px] text-slate-500 font-semibold mb-0.5">TechCorp Inc.</div>
+                  <div className="text-slate-600 text-[4.2px] leading-tight">• Replatformed core API service to Go/gRPC, boosting speed by 35%.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-[35%] bg-slate-50 p-3 flex flex-col gap-2.5 text-left">
+            <div>
+              <div className="text-[5.5px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-0.5 mb-1.5">Contact</div>
+              <div className="text-[4.2px] text-slate-600 space-y-0.8 break-all">
+                <div>alex.morgan@email.com</div>
+                <div>(555) 019-2834</div>
+                <div>San Francisco, CA</div>
+              </div>
+            </div>
+            <div>
+              <div className="text-[5.5px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-0.5 mb-1.5">Education</div>
+              <div className="text-[4.2px] text-slate-600">
+                <div className="font-bold text-slate-800">Stanford University</div>
+                <div>B.S. in Computer Science</div>
+              </div>
+            </div>
+            <div>
+              <div className="text-[5.5px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-0.5 mb-1.5">Skills</div>
+              <div className="flex flex-wrap gap-0.8">
+                {['React', 'TypeScript', 'Node.js', 'Go', 'AWS'].map(s => (
+                  <span key={s} className="bg-white border border-slate-200 px-1 py-0.2 rounded-[1.5px] text-[3.8px] font-bold text-slate-700">{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     }
   ];
 

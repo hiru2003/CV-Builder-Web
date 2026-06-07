@@ -11,6 +11,7 @@ import { ATSSimpleTemplate } from './templates/ATSSimpleTemplate';
 import { ATSProfessionalTemplate } from './templates/ATSProfessionalTemplate';
 import { ATSModernTemplate } from './templates/ATSModernTemplate';
 import { PhotoTemplate } from './templates/PhotoTemplate';
+import { ProfessionalTemplate } from './templates/ProfessionalTemplate';
 
 const templates = {
   modern: ModernTemplate,
@@ -22,6 +23,7 @@ const templates = {
   ats_professional: ATSProfessionalTemplate,
   ats_modern: ATSModernTemplate,
   photo: PhotoTemplate,
+  professional: ProfessionalTemplate,
 };
 
 export const CVPreview = () => {

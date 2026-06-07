@@ -12,6 +12,7 @@ import { ATSSimpleTemplate } from '@/components/templates/ATSSimpleTemplate';
 import { ATSProfessionalTemplate } from '@/components/templates/ATSProfessionalTemplate';
 import { ATSModernTemplate } from '@/components/templates/ATSModernTemplate';
 import { PhotoTemplate } from '@/components/templates/PhotoTemplate';
+import { ProfessionalTemplate } from '@/components/templates/ProfessionalTemplate';
 
 const templates = {
   modern: ModernTemplate,
@@ -23,6 +24,7 @@ const templates = {
   ats_professional: ATSProfessionalTemplate,
   ats_modern: ATSModernTemplate,
   photo: PhotoTemplate,
+  professional: ProfessionalTemplate,
 };
 
 function PrintPreviewContent() {
