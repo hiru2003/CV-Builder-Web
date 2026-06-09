@@ -87,3 +87,94 @@ export function hexToRGBA(hex: string, alpha: number): string {
   
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+// Custom Date Parser for resume date strings (e.g. "Jan 2020", "2022", "Present")
+interface ParsedDate {
+  year: number;
+  month: number;
+}
+
+export function parseResumeDate(dateStr: string, isCurrent: boolean = false): ParsedDate {
+  if (isCurrent || !dateStr) {
+    return { year: 9999, month: 12 }; // Future date for current positions
+  }
+
+  const cleaned = dateStr.trim().toLowerCase();
+  
+  if (cleaned.includes('present') || cleaned.includes('current') || cleaned === 'now') {
+    return { year: 9999, month: 12 };
+  }
+
+  // Find 4 digit year
+  const yearMatch = cleaned.match(/\b\d{4}\b/);
+  const year = yearMatch ? parseInt(yearMatch[0], 10) : 1970;
+
+  // Find month
+  const monthMap: Record<string, number> = {
+    jan: 1, january: 1,
+    feb: 2, february: 2,
+    mar: 3, march: 3,
+    apr: 4, april: 4,
+    may: 5,
+    jun: 6, june: 6,
+    jul: 7, july: 7,
+    aug: 8, august: 8,
+    sep: 9, september: 9, sept: 9,
+    oct: 10, october: 10,
+    nov: 11, november: 11,
+    dec: 12, december: 12
+  };
+
+  let month = 1;
+  for (const [key, val] of Object.entries(monthMap)) {
+    if (cleaned.includes(key)) {
+      month = val;
+      break;
+    }
+  }
+
+  return { year, month };
+}
+
+/**
+ * Stable Insertion Sort algorithm.
+ * Stable sorting preserves the original order of items when their sort keys are equal.
+ * This is perfect for CVs where experiences starting at the same time should maintain user's relative order.
+ * 
+ * Time Complexity:
+ * - Best Case: O(n) when array is already sorted
+ * - Average/Worst Case: O(n^2)
+ * Space Complexity: O(1) in-place sorting (we copy the array first for react immutability).
+ */
+export function insertionSort<T>(arr: T[], compare: (a: T, b: T) => number): T[] {
+  const result = [...arr];
+  for (let i = 1; i < result.length; i++) {
+    const key = result[i];
+    let j = i - 1;
+    
+    // Shift elements of result[0..i-1] that are "greater" (according to comparator) than key
+    while (j >= 0 && compare(result[j], key) > 0) {
+      result[j + 1] = result[j];
+      j = j - 1;
+    }
+    result[j + 1] = key;
+  }
+  return result;
+}
+
+// Comparator to sort experience/education in REVERSE chronological order (most recent first)
+export function compareDatesReverse(
+  aDate: { year: number; month: number }, 
+  bDate: { year: number; month: number }
+): number {
+  if (aDate.year !== bDate.year) {
+    // We want higher year first, so b.year - a.year
+    // Note: insertionSort shifts when compare(j, key) > 0.
+    // If we want reverse chronological order, we consider "older" to be "greater than" (needs to be shifted down)
+    return aDate.year < bDate.year ? 1 : -1;
+  }
+  if (aDate.month !== bDate.month) {
+    return aDate.month < bDate.month ? 1 : -1;
+  }
+  return 0;
+}

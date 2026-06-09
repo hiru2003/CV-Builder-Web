@@ -6,11 +6,14 @@ import { useCVStore } from '@/store/useCVStore';
 import { CVData } from '@/types/cv';
 import { Plus, Trash2, Check } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
+import { useToast } from '@/hooks/use-toast';
+import { insertionSort, parseResumeDate, compareDatesReverse } from '@/lib/templateUtils';
 
 export const EducationForm = () => {
   const { data, setEducation } = useCVStore();
   
-  const { register, control, watch, formState: { errors, touchedFields } } = useForm<{ education: CVData['education'] }>({
+  const { toast } = useToast();
+  const { register, control, watch, setValue, formState: { errors, touchedFields } } = useForm<{ education: CVData['education'] }>({
     defaultValues: {
       education: data.education.length > 0 ? data.education : [{
         id: uuidv4(),
@@ -32,6 +35,32 @@ export const EducationForm = () => {
   });
 
   const formValues = watch();
+
+  const sortEducation = () => {
+    const list = watch('education');
+    if (!list || list.length <= 1) return;
+
+    const sorted = insertionSort(list, (a, b) => {
+      // Sort by end date (most recent first)
+      const aEnd = parseResumeDate(a.endDate, a.current);
+      const bEnd = parseResumeDate(b.endDate, b.current);
+      const endCompare = compareDatesReverse(aEnd, bEnd);
+      if (endCompare !== 0) return endCompare;
+
+      // If end dates are equal, sort by start date
+      const aStart = parseResumeDate(a.startDate);
+      const bStart = parseResumeDate(b.startDate);
+      return compareDatesReverse(aStart, bStart);
+    });
+
+    // Replace the fields in react-hook-form
+    setValue('education', sorted, { shouldDirty: true, shouldValidate: true });
+    
+    toast({
+      title: 'Sorted Successfully',
+      description: 'Your education records have been sorted in reverse-chronological order (most recent first) using stable Insertion Sort!',
+    });
+  };
 
   const isValidAndNotEmpty = (index: number, fieldName: 'institution' | 'degree' | 'field' | 'startDate' | 'endDate' | 'score') => {
     const list = formValues.education;
@@ -57,13 +86,24 @@ export const EducationForm = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold text-slate-800">Education</h2>
-        <button
-          type="button"
-          onClick={() => append({ id: uuidv4(), institution: '', degree: '', field: '', startDate: '', endDate: '', current: false, score: '' })}
-          className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-md transition-colors"
-        >
-          <Plus size={16} /> Add Education
-        </button>
+        <div className="flex gap-2">
+          {fields.length > 1 && (
+            <button
+              type="button"
+              onClick={sortEducation}
+              className="flex items-center gap-1.5 text-sm font-semibold text-indigo-650 hover:text-indigo-750 bg-indigo-55 bg-indigo-50 hover:bg-indigo-100 border border-indigo-150 px-3 py-1.5 rounded-md transition-colors shadow-xs cursor-pointer"
+            >
+              Sort Chronologically
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => append({ id: uuidv4(), institution: '', degree: '', field: '', startDate: '', endDate: '', current: false, score: '' })}
+            className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-md transition-colors"
+          >
+            <Plus size={16} /> Add Education
+          </button>
+        </div>
       </div>
       
       <div className="space-y-8">
