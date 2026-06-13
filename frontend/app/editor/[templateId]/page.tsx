@@ -15,16 +15,9 @@ import { LanguagesForm } from '@/components/forms/LanguagesForm';
 import { CertificationsForm } from '@/components/forms/CertificationsForm';
 import { ProjectsForm } from '@/components/forms/ProjectsForm';
 import { LayoutForm } from '@/components/forms/LayoutForm';
-import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Type, Sparkles } from 'lucide-react';
+import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -148,8 +141,8 @@ export default function EditorPage() {
               setTimeout(() => setSaveStatus('idle'), 2000);
             }
           }
-        } catch (err) {
-          console.error('Error loading saved resume:', err);
+        } catch (err: any) {
+          console.error('Error loading saved resume:', err?.message || err?.details || err);
         } finally {
           setHasLoadedFromDB(true);
         }
@@ -192,8 +185,8 @@ export default function EditorPage() {
         );
         setSaveStatus('saved');
         setTimeout(() => setSaveStatus('idle'), 2000);
-      } catch (err) {
-        console.error('Error syncing local state on conflict resolution:', err);
+      } catch (err: any) {
+        console.error('Error syncing local state on conflict resolution:', err?.message || err?.details || err);
         setSaveStatus('idle');
       }
     }
@@ -261,8 +254,8 @@ export default function EditorPage() {
         // Reset to idle after 2 seconds
         const idleTimer = setTimeout(() => setSaveStatus('idle'), 2000);
         return () => clearTimeout(idleTimer);
-      } catch (err) {
-        console.error('Auto-save error:', err);
+      } catch (err: any) {
+        console.error('Auto-save error details:', err?.message || err?.details || err);
         setSaveStatus('idle');
       }
     }, 1500); // Trigger save 1.5s after typing stops
@@ -399,28 +392,7 @@ export default function EditorPage() {
             <LayoutTemplate size={16} /> <span>Template</span>
           </button>
 
-          <div className="hidden md:block">
-            <Select value={font} onValueChange={setFont}>
-              <SelectTrigger 
-                className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 px-3 py-2 h-9 rounded-xl transition-all shadow-sm focus:ring-0 focus-visible:ring-0 focus-visible:border-indigo-200 outline-none cursor-pointer"
-              >
-                <Type size={16} className="text-slate-450 shrink-0" />
-                <span>Font:</span>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-white border border-slate-200/80 rounded-xl shadow-lg p-1 z-[100] min-w-[150px] max-h-[300px] overflow-y-auto">
-                <SelectItem value="inter" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Inter</SelectItem>
-                <SelectItem value="outfit" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Outfit</SelectItem>
-                <SelectItem value="montserrat" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Montserrat</SelectItem>
-                <SelectItem value="roboto" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650">Roboto</SelectItem>
-                <SelectItem value="merriweather" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Merriweather</SelectItem>
-                <SelectItem value="playfair" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Playfair</SelectItem>
-                <SelectItem value="lora" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Lora</SelectItem>
-                <SelectItem value="times" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-serif">Times New Roman</SelectItem>
-                <SelectItem value="firacode" className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-indigo-650 rounded-lg cursor-pointer py-1.5 focus:bg-slate-50 focus:text-indigo-650 font-mono">Fira Code</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+
           
           <button 
             onClick={() => {
@@ -687,9 +659,9 @@ export default function EditorPage() {
           </div>
         </div>
 
-        {/* Right Side: Live Preview (Figma-style dark workbench with dot grid) */}
-        <div className={`${mobileView === 'preview' ? 'flex w-full flex-1 min-h-0' : 'hidden'} lg:flex lg:w-[55%] bg-[#0B0F19] overflow-hidden relative bg-dot-grid`}>
-          <div className="absolute top-4 right-4 z-10 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.8 rounded-xl text-[9px] font-extrabold uppercase tracking-widest text-slate-350 border border-white/5 shadow-2xl flex items-center gap-2">
+        {/* Right Side: Live Preview (Figma-style light workbench with dot grid) */}
+        <div className={`${mobileView === 'preview' ? 'flex w-full flex-1 min-h-0' : 'hidden'} lg:flex lg:w-[55%] bg-slate-100/70 overflow-hidden relative bg-dot-grid`}>
+          <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-md px-3.5 py-1.8 rounded-xl text-[9px] font-extrabold uppercase tracking-widest text-slate-500 border border-slate-200/80 shadow-sm flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
             <span>Live Previewing</span>
           </div>

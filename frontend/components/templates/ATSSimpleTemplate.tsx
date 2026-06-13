@@ -16,6 +16,13 @@ export const ATSSimpleTemplate = ({
   const f = fontSizeMap[fontSizeAdjust];
   const s = spacingMap[spacing];
 
+  // Strip borders and padding classes from font sectionHeader for a clean modern borderless look
+  const sectionHeaderClass = f.sectionHeader
+    .replace('border-b-2', '')
+    .replace('pb-1.5', '')
+    .replace('pb-1', '')
+    .trim();
+
   return (
     <div className={`w-[210mm] h-[297mm] bg-white overflow-hidden shadow-sm font-sans text-slate-800 ${f.body} ${s.padding}`}>
       {/* Header */}
@@ -61,7 +68,7 @@ export const ATSSimpleTemplate = ({
       {/* Summary */}
       {data.summary && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Professional Summary
           </h2>
           <p className="text-slate-700 text-justify mt-1.5">
@@ -73,7 +80,7 @@ export const ATSSimpleTemplate = ({
       {/* Experience */}
       {data.experience.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Work Experience
           </h2>
           <div className={`${s.sectionSpace} mt-2.5`}>
@@ -102,7 +109,7 @@ export const ATSSimpleTemplate = ({
       {/* Projects */}
       {data.projects.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Key Projects
           </h2>
           <div className="space-y-3 mt-2.5">
@@ -134,7 +141,7 @@ export const ATSSimpleTemplate = ({
       {/* Education */}
       {data.education.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Education
           </h2>
           <div className="space-y-2 mt-2.5">
@@ -156,7 +163,7 @@ export const ATSSimpleTemplate = ({
       {/* Skills */}
       {data.skills.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Skills
           </h2>
           <p className="text-slate-700 mt-1.5">
@@ -168,7 +175,7 @@ export const ATSSimpleTemplate = ({
       {/* Certifications */}
       {data.certifications.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Certifications
           </h2>
           <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-slate-700 mt-1.5">
@@ -193,7 +200,7 @@ export const ATSSimpleTemplate = ({
       {/* Languages */}
       {data.languages.length > 0 && (
         <section>
-          <h2 className={`${f.sectionHeader} text-slate-900`} style={{ borderColor: themeColor }}>
+          <h2 className={`${sectionHeaderClass} text-slate-900 mb-2.5`}>
             Languages
           </h2>
           <p className="text-slate-700 mt-1.5">

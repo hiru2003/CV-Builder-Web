@@ -72,15 +72,20 @@ export const CVPreview = () => {
               position: 'absolute',
               left: 0,
               top: 0,
+              border: 'none',
+              borderWidth: '0px',
+              outline: 'none',
             }}
             id="cv-preview-container"
           >
-            <SelectedTemplate 
-              data={data} 
-              themeColor={themeColor}
-              spacing={spacing}
-              fontSizeAdjust={fontSizeAdjust}
-            />
+            <div style={{ border: 'none', borderWidth: '0px', outline: 'none', width: '100%', height: '100%' }}>
+              <SelectedTemplate 
+                data={data} 
+                themeColor={themeColor}
+                spacing={spacing}
+                fontSizeAdjust={fontSizeAdjust}
+              />
+            </div>
           </div>
         </div>
       </div>

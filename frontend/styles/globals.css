@@ -117,9 +117,22 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: var(--ring);
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Premium borderless styling and custom shadow for scaled live preview */
+#cv-preview-container {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12) !important;
+}
+
+#cv-preview-container > div {
+  border: none !important;
+  box-shadow: none !important;
 }

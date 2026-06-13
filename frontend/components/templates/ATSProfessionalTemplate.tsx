@@ -44,7 +44,7 @@ export const ATSProfessionalTemplate = ({
       {/* Summary */}
       {data.summary && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-2" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2.5">
             Professional Summary
           </h2>
           <p className="text-slate-750 text-justify">
@@ -56,7 +56,7 @@ export const ATSProfessionalTemplate = ({
       {/* Experience */}
       {data.experience.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-3" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3.5">
             Professional Experience
           </h2>
           <div className={s.sectionSpace}>
@@ -86,7 +86,7 @@ export const ATSProfessionalTemplate = ({
       {/* Projects */}
       {data.projects.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-3" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3.5">
             Projects
           </h2>
           <div className="space-y-3">
@@ -118,7 +118,7 @@ export const ATSProfessionalTemplate = ({
       {/* Education */}
       {data.education.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-3" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3.5">
             Education
           </h2>
           <div className="space-y-2">
@@ -140,7 +140,7 @@ export const ATSProfessionalTemplate = ({
       {/* Skills */}
       {data.skills.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-2" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2.5">
             Areas of Expertise
           </h2>
           <p className="text-slate-700">
@@ -152,7 +152,7 @@ export const ATSProfessionalTemplate = ({
       {/* Certifications */}
       {data.certifications.length > 0 && (
         <section className={s.sectionMargin}>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-2" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2.5">
             Certifications & Licenses
           </h2>
           <div className="space-y-1 text-slate-700">
@@ -171,7 +171,7 @@ export const ATSProfessionalTemplate = ({
       {/* Languages */}
       {data.languages.length > 0 && (
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b-2 pb-0.5 mb-2" style={{ borderColor: themeColor }}>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2.5">
             Languages
           </h2>
           <p className="text-slate-700 font-sans">
