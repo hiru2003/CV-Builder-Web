@@ -18,16 +18,7 @@ import { LayoutForm } from '@/components/forms/LayoutForm';
 import { Download, ChevronLeft, LayoutTemplate, Settings, RefreshCcw, LogOut, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { AuthModal } from '@/components/AuthModal';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+
 
 export default function EditorPage() {
   const params = useParams();
@@ -41,8 +32,7 @@ export default function EditorPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasLoadedFromDB, setHasLoadedFromDB] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
-  const [showConflictDialog, setShowConflictDialog] = useState(false);
-  const [pendingCloudResume, setPendingCloudResume] = useState<any>(null);
+
 
   useEffect(() => {
     if (params.templateId) {
@@ -85,34 +75,17 @@ export default function EditorPage() {
           if (error) throw error;
 
           if (savedResume) {
-            const localStore = useCVStore.getState();
-            const hasLocalEdits = 
-              localStore.data.personal.fullName !== '' ||
-              localStore.data.personal.email !== '' ||
-              localStore.data.summary !== '' ||
-              localStore.data.experience.length > 0 ||
-              localStore.data.education.length > 0 ||
-              localStore.data.skills.length > 0 ||
-              localStore.data.projects.length > 0 ||
-              localStore.data.certifications.length > 0 ||
-              localStore.data.languages.length > 0;
-
-            if (hasLocalEdits) {
-              setPendingCloudResume(savedResume);
-              setShowConflictDialog(true);
-            } else {
-              const { template: savedTemplate, data: payload } = savedResume;
-              const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
-              
-              useCVStore.setState({
-                data: cvData as any,
-                template: savedTemplate as any,
-                font: savedFont || 'inter',
-                themeColor: savedColor || '#00A3FF',
-                spacing: savedSpacing || 'normal',
-                fontSizeAdjust: savedSize || 'md'
-              });
-            }
+            const { template: savedTemplate, data: payload } = savedResume;
+            const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
+            
+            useCVStore.setState({
+              data: cvData as any,
+              template: savedTemplate as any,
+              font: savedFont || 'inter',
+              themeColor: savedColor || '#00A3FF',
+              spacing: savedSpacing || 'normal',
+              fontSizeAdjust: savedSize || 'md'
+            });
           } else {
             // No cloud resume exists. If the user has guest edits, sync them to the database immediately
             const localStore = useCVStore.getState();
@@ -150,49 +123,6 @@ export default function EditorPage() {
       loadResume();
     }
   }, [user, hasLoadedFromDB]);
-
-  const handleLoadCloud = () => {
-    if (pendingCloudResume) {
-      const { template: savedTemplate, data: payload } = pendingCloudResume;
-      const { font: savedFont, themeColor: savedColor, spacing: savedSpacing, fontSizeAdjust: savedSize, ...cvData } = payload;
-      
-      useCVStore.setState({
-        data: cvData as any,
-        template: savedTemplate as any,
-        font: savedFont || 'inter',
-        themeColor: savedColor || '#00A3FF',
-        spacing: savedSpacing || 'normal',
-        fontSizeAdjust: savedSize || 'md'
-      });
-    }
-    setShowConflictDialog(false);
-    setPendingCloudResume(null);
-  };
-
-  const handleKeepLocal = async () => {
-    if (user) {
-      try {
-        setSaveStatus('saving');
-        const store = useCVStore.getState();
-        await syncResumeToDatabase(
-          user,
-          store.template,
-          store.data,
-          store.font,
-          store.themeColor,
-          store.spacing,
-          store.fontSizeAdjust
-        );
-        setSaveStatus('saved');
-        setTimeout(() => setSaveStatus('idle'), 2000);
-      } catch (err: any) {
-        console.error('Error syncing local state on conflict resolution:', err?.message || err?.details || err);
-        setSaveStatus('idle');
-      }
-    }
-    setShowConflictDialog(false);
-    setPendingCloudResume(null);
-  };
 
   const syncResumeToDatabase = async (
     currentUser: any, 
@@ -670,32 +600,7 @@ export default function EditorPage() {
         
       </div>
 
-      <AlertDialog open={showConflictDialog} onOpenChange={setShowConflictDialog}>
-        <AlertDialogContent className="bg-white border border-slate-200 shadow-2xl rounded-2xl max-w-md p-6">
-          <AlertDialogHeader className="space-y-3">
-            <AlertDialogTitle className="text-xl font-extrabold text-slate-800 tracking-tight">
-              Sync Conflict Detected
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-500 text-sm leading-relaxed">
-              We found an existing saved CV in your cloud account. Do you want to load the cloud version or overwrite it with your current unsaved edits?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="flex flex-col sm:flex-row gap-2 mt-6">
-            <AlertDialogCancel 
-              onClick={handleLoadCloud}
-              className="w-full sm:w-auto h-11 border-slate-200 hover:border-slate-350 hover:bg-slate-50 font-bold rounded-xl text-slate-700 transition-all text-xs uppercase tracking-wider cursor-pointer"
-            >
-              Load Cloud Version
-            </AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={handleKeepLocal}
-              className="w-full sm:w-auto h-11 bg-gradient-to-r from-indigo-600 to-[#00A3FF] hover:from-indigo-700 hover:to-[#008AE6] text-white font-extrabold rounded-xl transition-all shadow-[0_4px_12px_rgba(79,70,229,0.15)] text-xs uppercase tracking-widest cursor-pointer"
-            >
-              Keep My Edits
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+
 
       <AuthModal
         isOpen={showAuthModal}
