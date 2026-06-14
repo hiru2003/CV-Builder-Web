@@ -74,7 +74,14 @@ export const useCVStore = create<CVState>()(
       setThemeColor: (themeColor) => set({ themeColor }),
       setSpacing: (spacing) => set({ spacing }),
       setFontSizeAdjust: (fontSizeAdjust) => set({ fontSizeAdjust }),
-      reset: () => set({ data: initialCVData, template: 'modern', font: 'inter', themeColor: '#00A3FF', spacing: 'normal', fontSizeAdjust: 'md' }),
+      reset: () => set((state) => ({ 
+        data: initialCVData, 
+        template: state.template, 
+        font: 'inter', 
+        themeColor: '#00A3FF', 
+        spacing: 'normal', 
+        fontSizeAdjust: 'md' 
+      })),
     }),
     {
       name: 'cv-storage',
