@@ -1,15 +1,61 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { 
   ArrowRight, FileText, Sparkles, MessageSquare, 
   FolderOpen, Edit3, DownloadCloud, TrendingUp, Star, CheckCircle, Briefcase, GraduationCap, Code,
-  Mail, Phone, MapPin, Linkedin, Github, Award
+  Mail, Phone, MapPin, Linkedin, Github, Award, ChevronDown
 } from 'lucide-react';
 
 export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "What is this CV builder?",
+      answer: "This is an online resume builder that helps you create a professional, ATS-friendly resume in just minutes. You'll get structured templates, AI writing support, and tools that help your resume get noticed by employers."
+    },
+    {
+      question: "Do I need any design or writing experience?",
+      answer: "Not at all. The CV builder guides you step-by-step with intuitive tools and smart suggestions. You don't need design skills or writing expertise. Fill in your details, and we'll help with the rest."
+    },
+    {
+      question: "What does ATS-friendly mean?",
+      answer: "ATS stands for Applicant Tracking Systems. It's software that many companies use to scan resumes before a recruiter sees them. An ATS-friendly resume is formatted so the system can read your experience correctly and pass it on to a recruiter."
+    },
+    {
+      question: "Why do I need an ATS-friendly resume?",
+      answer: "If your resume isn't optimized for ATS, it might never be seen by a human recruiter. Many companies use ATS to scan and rank resumes before they reach hiring managers. An ATS-friendly resume increases your chances of getting noticed and landing an interview."
+    },
+    {
+      question: "Can I customize the resume templates?",
+      answer: "Yes, all templates are fully customizable! You can edit the layout, font, sections, and content to fit your personal style and the job you're targeting."
+    },
+    {
+      question: "Is there help available for writing my resume?",
+      answer: "Absolutely. Our AI-powered suggestions, built-in keyword optimization, and ready-to-use content help you write clear, impactful descriptions tailored to the job you want. You can edit or use them as-is."
+    },
+    {
+      question: "Can I create a cover letter too?",
+      answer: "Yes. With this builder, you can write cover letters that match your resume's content and the job description with just a few clicks."
+    },
+    {
+      question: "Is it free to use?",
+      answer: "You can build and customize your resume for free. If you want advanced features, you can upgrade to a paid plan."
+    },
+    {
+      question: "Can I download my resume?",
+      answer: "You can download your resume in PDF or DOCX format anytime. DOCX is best if you want to ensure full compatibility with ATS."
+    },
+    {
+      question: "Is my data safe?",
+      answer: "Your privacy is our priority. We use advanced technology to protect your personal information and never share your data without your permission."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white font-sans relative overflow-hidden">
       
@@ -987,6 +1033,55 @@ export default function Home() {
           <Link href="/resume/choose-template?new=true" className="inline-block px-10 py-5 bg-[#00A3FF] text-white font-bold text-lg rounded-xl hover:bg-[#008AE6] transition-colors shadow-lg shadow-[#00A3FF]/20">
             Build a CV for Free
           </Link>
+        </div>
+      </section>
+
+      {/* --- FAQ SECTION --- */}
+      <section className="bg-gradient-to-b from-white to-[#F8FAFC] py-28 border-t border-slate-100">
+        <div className="max-w-[900px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D3748] mb-4 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto">
+              Got questions? We've got answers. Learn more about how the CV builder can help you land your dream job.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div 
+                key={index} 
+                className="bg-white rounded-2xl border border-slate-200/60 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <button
+                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                  className="w-full flex justify-between items-center px-6 py-5 sm:px-8 sm:py-6 text-left hover:bg-slate-50/40 transition-colors"
+                >
+                  <span className="text-lg sm:text-xl font-bold text-slate-800 leading-tight pr-4">
+                    {faq.question}
+                  </span>
+                  <span className={`transform transition-transform duration-300 text-[#00A3FF] shrink-0 ${
+                    openFaqIndex === index ? 'rotate-180' : ''
+                  }`}>
+                    <ChevronDown size={22} />
+                  </span>
+                </button>
+                
+                <div 
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                    openFaqIndex === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 sm:px-8 sm:pb-8 text-base sm:text-lg text-slate-600 leading-relaxed border-t border-slate-100/60 pt-4">
+                      {faq.answer}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
