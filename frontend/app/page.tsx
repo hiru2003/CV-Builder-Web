@@ -386,25 +386,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* AI Ideas Box (Floats on top right) */}
-              <div className="absolute top-[10%] right-[-10%] bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,163,255,0.3)] border border-blue-50 p-5 w-[360px] animate-float-delayed">
-                <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-3">
-                  <div className="bg-blue-100 p-1.5 rounded-lg">
-                    <Sparkles size={20} className="text-[#00A3FF]" fill="#00A3FF" />
-                  </div>
-                  <span className="font-bold text-slate-800 text-base">AI Magic Writer</span>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex gap-4 items-start hover:bg-[#F4F9FF] p-3 rounded-xl transition-colors">
-                    <div className="mt-1 bg-gradient-to-r from-[#00A3FF] to-[#00F0FF] text-white rounded-full p-1 shadow-sm shrink-0"><ArrowRight size={14} /></div>
-                    <p className="text-[14px] text-slate-600 leading-relaxed font-medium">"Architected a real-time data processing pipeline using Kafka..."</p>
-                  </div>
-                  <div className="flex justify-between items-center mt-2 px-3">
-                    <span className="text-xs text-green-500 font-bold flex items-center gap-1"><TrendingUp size={12}/> High Impact Phrase</span>
-                    <button className="text-xs font-bold text-white bg-slate-900 px-3 py-1.5 rounded-full hover:bg-slate-800">Apply</button>
-                  </div>
-                </div>
-              </div>
 
               {/* Color Picker (Floats on left middle) */}
               <div className="absolute top-[40%] -left-16 bg-white rounded-full p-3 shadow-xl border border-slate-100 flex flex-col gap-3 animate-float delay-500">
