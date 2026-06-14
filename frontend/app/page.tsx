@@ -5,7 +5,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { 
   ArrowRight, FileText, Sparkles, MessageSquare, 
-  FolderOpen, Edit3, DownloadCloud, TrendingUp, Star, CheckCircle, Briefcase, GraduationCap, Code
+  FolderOpen, Edit3, DownloadCloud, TrendingUp, Star, CheckCircle, Briefcase, GraduationCap, Code,
+  Mail, Phone, MapPin, Linkedin, Github, Award
 } from 'lucide-react';
 
 export default function Home() {
@@ -51,33 +52,6 @@ export default function Home() {
         .animate-slide-in-cv1 { animation: slide-in-cv1-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-slide-in-cv2 { animation: slide-in-cv2-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        .cv-main-inner {
-          transform: scale(0.6) rotate(-2deg);
-          transform-origin: right center;
-          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
-        }
-        .cv-main-inner:hover {
-          transform: scale(0.64) rotate(0deg);
-          box-shadow: 0 45px 90px -15px rgba(0, 163, 255, 0.3);
-        }
-
-        .cv-1-inner {
-          transform: scale(0.5) rotate(-12deg);
-          transform-origin: right center;
-          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .cv-1-inner:hover {
-          transform: scale(0.55) rotate(-8deg);
-        }
-
-        .cv-2-inner {
-          transform: scale(0.55) rotate(6deg);
-          transform-origin: right center;
-          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .cv-2-inner:hover {
-          transform: scale(0.6) rotate(3deg);
-        }
         
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
@@ -163,35 +137,50 @@ export default function Home() {
           <div className="relative hidden lg:block h-full min-h-[700px] w-full perspective-1000">
             
             {/* Background CV 1 (Minimalist Stacked) */}
-            <div className="absolute right-12 top-1/2 -translate-y-1/2 z-0 w-[550px] h-[780px] origin-right animate-slide-in-cv1 opacity-0" style={{ animationDelay: '200ms' }}>
+            <div className="absolute right-12 top-1/2 -translate-y-1/2 z-0 w-[275px] h-[390px] animate-slide-in-cv1 opacity-0" style={{ animationDelay: '200ms' }}>
               <div className="w-full h-full animate-float-delayed">
-                <div className="cv-1-inner w-full h-full bg-slate-50 shadow-xl border border-slate-200 opacity-60 rounded-sm p-12 flex flex-col gap-8">
-                  <div className="flex gap-6 items-center border-b-2 border-slate-200 pb-8">
-                     <div className="w-24 h-24 bg-slate-300 rounded-full"></div>
-                     <div>
-                       <div className="w-56 h-8 bg-slate-300 rounded mb-4"></div>
-                       <div className="w-40 h-5 bg-slate-200 rounded"></div>
-                     </div>
-                  </div>
-                  <div className="space-y-5 mt-4">
-                    <div className="w-full h-4 bg-slate-200 rounded"></div>
-                    <div className="w-5/6 h-4 bg-slate-200 rounded"></div>
-                    <div className="w-full h-4 bg-slate-200 rounded"></div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-10 mt-10">
-                    <div className="space-y-5">
-                      <div className="w-32 h-5 bg-slate-300 rounded mb-8"></div>
-                      <div className="w-full h-4 bg-slate-200 rounded"></div>
-                      <div className="w-4/5 h-4 bg-slate-200 rounded"></div>
-                      <div className="w-full h-4 bg-slate-200 rounded mt-6"></div>
-                      <div className="w-3/4 h-4 bg-slate-200 rounded"></div>
+                <div className="w-[550px] h-[780px] origin-top-left scale-[0.5] hover:scale-[0.55] transition-all duration-500 hover:rotate-[-8deg] rotate-[-12deg] bg-slate-50 shadow-xl border border-slate-200 opacity-60 rounded-sm p-12 flex flex-col gap-8 text-left">
+                  <div className="flex justify-between items-start border-b border-slate-200 pb-6">
+                    <div>
+                      <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight mb-1">Emily Carter</h2>
+                      <div className="text-base font-semibold text-slate-500 uppercase tracking-wider">Creative Director</div>
                     </div>
-                    <div className="space-y-5">
-                      <div className="w-32 h-5 bg-slate-300 rounded mb-8"></div>
-                      <div className="w-full h-4 bg-slate-200 rounded"></div>
-                      <div className="w-5/6 h-4 bg-slate-200 rounded"></div>
-                      <div className="w-full h-4 bg-slate-200 rounded mt-6"></div>
-                      <div className="w-4/5 h-4 bg-slate-200 rounded"></div>
+                    <div className="text-right text-xs text-slate-500 space-y-1 font-medium">
+                      <p>emily.carter@design.com</p>
+                      <p>New York, NY</p>
+                      <p>emilycarter.design</p>
+                    </div>
+                  </div>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">About Me</h3>
+                      <p className="text-sm text-slate-605 leading-relaxed">
+                        Award-winning Creative Director with 10+ years of experience leading cross-functional teams to build immersive brand identities, visual design systems, and innovative digital products.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-[1.2fr_1fr] gap-8">
+                      <div>
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Experience</h3>
+                        <div className="space-y-4">
+                          <div>
+                            <div className="text-sm font-bold text-slate-800">Design Director</div>
+                            <div className="text-xs text-slate-500">Vanguard Studio • 2021 - Pres.</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-bold text-slate-800">Senior Art Director</div>
+                            <div className="text-xs text-slate-500">Pixel & Co • 2017 - 2021</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Skills</h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          <span className="bg-slate-200/60 text-slate-700 px-2.5 py-1 rounded text-xs font-medium">Brand Strategy</span>
+                          <span className="bg-slate-200/60 text-slate-700 px-2.5 py-1 rounded text-xs font-medium">UI/UX Design</span>
+                          <span className="bg-slate-200/60 text-slate-700 px-2.5 py-1 rounded text-xs font-medium">Art Direction</span>
+                          <span className="bg-slate-200/60 text-slate-700 px-2.5 py-1 rounded text-xs font-medium">Typography</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -199,31 +188,56 @@ export default function Home() {
             </div>
 
             {/* Background CV 2 (Creative Stacked) */}
-            <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 z-0 w-[550px] h-[780px] origin-right animate-slide-in-cv2 opacity-0" style={{ animationDelay: '400ms' }}>
+            <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 z-0 w-[303px] h-[429px] animate-slide-in-cv2 opacity-0" style={{ animationDelay: '400ms' }}>
               <div className="w-full h-full animate-float">
-                <div className="cv-2-inner w-full h-full bg-white shadow-xl border border-slate-200 opacity-80 flex rounded-sm overflow-hidden">
-                  <div className="w-1/3 bg-[#00A3FF] h-full p-8 flex flex-col items-center">
-                     <div className="w-24 h-24 bg-white/20 rounded-full mb-10 mt-8"></div>
-                     <div className="space-y-4 w-full">
-                       <div className="w-full h-3 bg-white/30 rounded"></div>
-                       <div className="w-4/5 h-3 bg-white/30 rounded"></div>
-                       <div className="w-full h-3 bg-white/30 rounded mt-10"></div>
-                       <div className="w-3/4 h-3 bg-white/30 rounded"></div>
-                       <div className="w-5/6 h-3 bg-white/30 rounded"></div>
-                     </div>
+                <div className="w-[550px] h-[780px] origin-top-left scale-[0.55] hover:scale-[0.6] transition-all duration-500 hover:rotate-[3deg] rotate-[6deg] bg-white shadow-xl border border-slate-200 opacity-80 flex rounded-sm overflow-hidden text-left">
+                  <div className="w-1/3 bg-[#0A2540] text-white h-full p-6 flex flex-col justify-between shrink-0">
+                    <div>
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#00A3FF] to-indigo-500 mb-6 border border-white/20"></div>
+                      <h3 className="text-lg font-bold tracking-tight mb-4 leading-tight">Marcus Sterling</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Contact</div>
+                          <p className="text-[11px] text-slate-300 truncate">marcus@product.com</p>
+                          <p className="text-[11px] text-slate-300">Chicago, IL</p>
+                        </div>
+                        <div>
+                          <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Skills</div>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-white/10 text-white px-1.5 py-0.5 rounded text-[9px]">Agile</span>
+                            <span className="bg-white/10 text-white px-1.5 py-0.5 rounded text-[9px]">Roadmapping</span>
+                            <span className="bg-white/10 text-white px-1.5 py-0.5 rounded text-[9px]">SQL</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-[10px] text-slate-400 border-t border-white/10 pt-2">
+                      Modern Template
+                    </div>
                   </div>
-                  <div className="w-2/3 p-10 mt-8">
-                     <div className="w-48 h-8 bg-slate-800 rounded mb-4"></div>
-                     <div className="w-32 h-5 bg-slate-300 rounded mb-12"></div>
-                     <div className="space-y-5 mb-12">
-                        <div className="w-full h-4 bg-slate-200 rounded"></div>
-                        <div className="w-full h-4 bg-slate-200 rounded"></div>
-                        <div className="w-3/4 h-4 bg-slate-200 rounded"></div>
-                     </div>
-                     <div className="space-y-5">
-                        <div className="w-32 h-5 bg-slate-300 rounded mb-6"></div>
-                        <div className="w-full h-4 bg-slate-200 rounded"></div>
-                        <div className="w-5/6 h-4 bg-slate-200 rounded"></div>
+                  <div className="w-2/3 p-8 flex flex-col justify-between">
+                     <div>
+                       <div className="text-xs font-bold text-[#00A3FF] uppercase tracking-widest mb-1">Product Leader</div>
+                       <h2 className="text-2xl font-bold text-slate-800 mb-6 leading-tight">Senior Product Manager</h2>
+                       
+                       <div className="space-y-6">
+                          <div>
+                             <div className="flex justify-between items-baseline mb-1">
+                                <h4 className="text-sm font-bold text-slate-800">Lead PM, Growth</h4>
+                                <span className="text-[10px] text-slate-400 font-semibold shrink-0">2021 - Present</span>
+                             </div>
+                             <div className="text-xs text-slate-500 font-medium mb-2">FinTech Corp</div>
+                             <p className="text-xs text-slate-600 leading-relaxed">Drove Stripe integration project boosting checkout conversion by 24% and monthly recurring revenue by $85k.</p>
+                          </div>
+                          <div>
+                             <div className="flex justify-between items-baseline mb-1">
+                                <h4 className="text-sm font-bold text-slate-800">Product Manager</h4>
+                                <span className="text-[10px] text-slate-400 font-semibold shrink-0">2018 - 2021</span>
+                             </div>
+                             <div className="text-xs text-slate-500 font-medium mb-2">SaaS Inc</div>
+                             <p className="text-xs text-slate-605 leading-relaxed">Launched mobile dashboard, acquiring 50k+ active users within first three months post-launch.</p>
+                          </div>
+                       </div>
                      </div>
                   </div>
                 </div>
@@ -231,118 +245,161 @@ export default function Home() {
             </div>
 
             {/* The Main CV Document (Scaled to fit) */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[600px] h-[848px] origin-right animate-slide-in-main opacity-0">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[360px] h-[509px] animate-slide-in-main opacity-0">
               <div className="w-full h-full animate-float">
-                <div className="cv-main-inner w-full h-full bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] border border-slate-100 rounded-sm">
+                <div className="w-[600px] h-[848px] origin-top-left scale-[0.6] hover:scale-[0.64] transition-all duration-500 hover:rotate-0 rotate-[-2deg] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_-15px_rgba(0,163,255,0.3)] border border-slate-100 rounded-sm bg-white flex flex-col text-left">
                   
                   {/* CV Header: Executive Style */}
-                  <div className="bg-[#1E293B] text-white p-10 flex justify-between items-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+                  <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] text-white p-8 flex justify-between items-center relative overflow-hidden border-b-4 border-[#00A3FF] shrink-0">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#00A3FF]/10 rounded-full blur-3xl"></div>
                     <div className="z-10">
-                      <h2 className="text-5xl font-black tracking-tighter mb-2 uppercase text-white">Alexander<br/><span className="text-[#00A3FF]">Wright</span></h2>
-                      <div className="text-xl font-medium tracking-widest text-slate-300 uppercase">Senior Full-Stack Engineer</div>
+                      <div className="inline-block bg-[#00A3FF]/20 text-[#00A3FF] text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full mb-2">
+                        Executive Template
+                      </div>
+                      <h2 className="text-4xl font-extrabold tracking-tight leading-none mb-2 text-white">Alexander Wright</h2>
+                      <div className="text-base font-medium tracking-wide text-slate-300">Lead Full-Stack Architect</div>
                     </div>
-                    <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-[#00A3FF] shadow-lg z-10 bg-slate-800">
-                      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-white/20 shadow-xl z-10 bg-slate-800 transform rotate-1 shrink-0">
+                      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" alt="Professional Portrait" className="w-full h-full object-cover" />
                     </div>
                   </div>
 
                   {/* CV Body Grid */}
-                  <div className="grid grid-cols-[1fr_2.5fr] h-[calc(100%-192px)]">
+                  <div className="grid grid-cols-[1.1fr_2.4fr] flex-1">
                     
                     {/* Left Sidebar */}
-                    <div className="bg-slate-50 p-8 border-r border-slate-100 h-full flex flex-col gap-8">
+                    <div className="bg-[#F8FAFC] p-6 border-r border-slate-100 h-full flex flex-col gap-6 text-left">
                       {/* Contact */}
                       <div>
-                        <div className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-4">Contact</div>
-                        <ul className="text-sm text-slate-600 space-y-3 font-medium">
-                          <li>alex.wright@email.com</li>
-                          <li>+1 (415) 555-0198</li>
-                          <li>San Francisco, CA</li>
-                          <li className="text-[#00A3FF]">linkedin.com/in/alexw</li>
-                          <li className="text-[#00A3FF]">github.com/alexwright</li>
+                        <div className="text-[11px] font-bold text-slate-800 uppercase tracking-wider border-b-2 border-slate-200 pb-1.5 mb-3">Contact</div>
+                        <ul className="text-xs text-slate-600 space-y-2.5 font-medium">
+                          <li className="flex items-center gap-2">
+                            <Mail size={12} className="text-slate-400 shrink-0" />
+                            <span className="truncate">alex.wright@email.com</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Phone size={12} className="text-slate-400 shrink-0" />
+                            <span>+1 (415) 555-0198</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <MapPin size={12} className="text-slate-400 shrink-0" />
+                            <span>San Francisco, CA</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Linkedin size={12} className="text-[#00A3FF] shrink-0" />
+                            <span className="truncate">linkedin.com/in/alexw</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Github size={12} className="text-slate-800 shrink-0" />
+                            <span className="truncate">github.com/alexwright</span>
+                          </li>
                         </ul>
                       </div>
 
-                      {/* Skills */}
+                      {/* Tech Stack */}
                       <div>
-                        <div className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-4">Core Skills</div>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="bg-[#1E293B] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-sm">React/Next.js</span>
-                          <span className="bg-[#1E293B] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-sm">TypeScript</span>
-                          <span className="bg-[#1E293B] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-sm">Node.js</span>
-                          <span className="bg-[#1E293B] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-sm">Python</span>
-                          <span className="bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-md text-xs font-semibold">AWS/Docker</span>
-                          <span className="bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-md text-xs font-semibold">PostgreSQL</span>
-                          <span className="bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-md text-xs font-semibold">System Design</span>
+                        <div className="text-[11px] font-bold text-slate-800 uppercase tracking-wider border-b-2 border-slate-200 pb-1.5 mb-3">Tech Stack</div>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="text-[9px] font-bold text-slate-400 uppercase mb-1">Frontend</div>
+                            <div className="flex flex-wrap gap-1">
+                              <span className="bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">React</span>
+                              <span className="bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">Next.js</span>
+                              <span className="bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">TypeScript</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[9px] font-bold text-slate-400 uppercase mb-1">Backend & Cloud</div>
+                            <div className="flex flex-wrap gap-1">
+                              <span className="bg-[#1E293B] text-white px-2 py-0.5 rounded text-[10px] font-semibold">Node.js</span>
+                              <span className="bg-[#1E293B] text-white px-2 py-0.5 rounded text-[10px] font-semibold">Python</span>
+                              <span className="bg-[#1E293B] text-white px-2 py-0.5 rounded text-[10px] font-semibold">AWS</span>
+                              <span className="bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">Docker</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Certifications */}
+                      <div>
+                        <div className="text-[11px] font-bold text-slate-800 uppercase tracking-wider border-b-2 border-slate-200 pb-1.5 mb-3">Certifications</div>
+                        <div className="space-y-2 text-xs font-semibold text-slate-705">
+                          <div className="flex items-start gap-1.5">
+                            <Award size={13} className="text-[#00A3FF] shrink-0 mt-0.5" />
+                            <div>AWS Solutions Architect</div>
+                          </div>
+                          <div className="flex items-start gap-1.5">
+                            <Award size={13} className="text-[#00A3FF] shrink-0 mt-0.5" />
+                            <div>Certified Kubernetes Admin</div>
+                          </div>
                         </div>
                       </div>
 
                       {/* Education */}
                       <div>
-                        <div className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-4">Education</div>
-                        <div className="mb-4">
-                          <div className="text-sm font-bold text-slate-800">M.S. Computer Science</div>
-                          <div className="text-xs text-[#00A3FF] font-medium mb-1">Stanford University</div>
-                          <div className="text-xs text-slate-500 italic">2014 - 2016</div>
-                        </div>
-                        <div>
-                          <div className="text-sm font-bold text-slate-800">B.S. Software Engineering</div>
-                          <div className="text-xs text-[#00A3FF] font-medium mb-1">MIT</div>
-                          <div className="text-xs text-slate-500 italic">2010 - 2014</div>
+                        <div className="text-[11px] font-bold text-slate-800 uppercase tracking-wider border-b-2 border-slate-200 pb-1.5 mb-3">Education</div>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="text-xs font-bold text-slate-800">M.S. Computer Science</div>
+                            <div className="text-[11px] text-[#00A3FF] font-medium">Stanford University</div>
+                            <div className="text-[10px] text-slate-400">2014 - 2016</div>
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-slate-800">B.S. Software Eng.</div>
+                            <div className="text-[11px] text-[#00A3FF] font-medium">MIT</div>
+                            <div className="text-[10px] text-slate-400">2010 - 2014</div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     {/* Right Main Content */}
-                    <div className="p-8 h-full bg-white flex flex-col gap-8">
-                      {/* Profile */}
+                    <div className="p-6 h-full bg-white flex flex-col justify-between text-left">
+                      {/* Profile Summary */}
                       <div>
-                        <div className="flex items-center gap-2 text-lg font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-4">
-                          <span className="text-[#00A3FF]"><Star size={20} fill="currentColor" /></span>
-                          Professional Profile
+                        <div className="flex items-center gap-1.5 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-1.5 mb-2.5">
+                          <Star size={14} className="text-[#00A3FF]" fill="#00A3FF" />
+                          Executive Summary
                         </div>
-                        <p className="text-[15px] text-slate-600 leading-relaxed text-justify">
-                          Results-driven Senior Full-Stack Engineer with over 8 years of experience architecting scalable web applications and distributed systems. Proven track record of leading high-performance engineering teams, optimizing cloud infrastructure, and delivering mission-critical enterprise solutions that drive business growth.
+                        <p className="text-[12.5px] text-slate-600 leading-relaxed font-medium">
+                          High-performing Lead Full-Stack Architect with 8+ years of expertise designing microservice platforms and distributed systems. Expert at modern web technologies, performance optimization, and building highly scalable, resilient cloud-native architectures that drive operational efficiency.
                         </p>
                       </div>
 
                       {/* Experience */}
                       <div>
-                        <div className="flex items-center gap-2 text-lg font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-6">
-                          <span className="text-[#00A3FF]"><Briefcase size={20} /></span>
-                          Work Experience
+                        <div className="flex items-center gap-1.5 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-1.5 mb-3.5">
+                          <Briefcase size={14} className="text-[#00A3FF]" />
+                          Professional History
                         </div>
                         
-                        {/* Job 1 */}
-                        <div className="mb-6 relative">
-                          <div className="absolute -left-3 top-2 w-2 h-2 rounded-full bg-[#00A3FF]"></div>
-                          <div className="pl-4 border-l-2 border-slate-100">
-                            <div className="flex justify-between items-baseline mb-1">
-                              <h3 className="text-lg font-bold text-slate-800">Lead Engineering Manager</h3>
-                              <span className="text-sm font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">2020 - Present</span>
+                        <div className="space-y-4">
+                          {/* Job 1 */}
+                          <div className="relative pl-3 border-l border-slate-200">
+                            <div className="absolute -left-[4.5px] top-1 w-2 h-2 rounded-full bg-[#00A3FF]"></div>
+                            <div className="flex justify-between items-baseline mb-0.5">
+                              <h3 className="text-xs font-extrabold text-slate-800">Lead Engineering Architect</h3>
+                              <span className="text-[9.5px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">2020 - Pres.</span>
                             </div>
-                            <div className="text-base font-semibold text-[#00A3FF] mb-3">TechCorp Solutions • San Francisco</div>
-                            <ul className="space-y-2 text-[14px] text-slate-600 list-disc list-inside">
-                              <li>Spearheaded the migration of a legacy monolith to a microservices architecture, improving system uptime by 99.99%.</li>
-                              <li>Managed a cross-functional team of 12 engineers, fostering an agile culture and reducing deployment cycles by 40%.</li>
-                              <li>Architected a real-time data processing pipeline using Kafka and AWS Lambda, handling 1M+ events per minute.</li>
+                            <div className="text-xs font-bold text-[#00A3FF] mb-1.5">TechCorp Solutions • San Francisco</div>
+                            <ul className="space-y-1 text-[11px] text-slate-600 list-disc list-inside">
+                              <li>Migrated legacy monolithic systems to robust AWS microservices, enhancing system scalability and maintaining 99.999% SLA.</li>
+                              <li>Introduced automated CI/CD and container orchestration pipelines, accelerating product delivery speeds by 45%.</li>
+                              <li>Engineered a high-throughput event processing platform using Apache Kafka to ingest over 1.2M daily data logs.</li>
                             </ul>
                           </div>
-                        </div>
 
-                        {/* Job 2 */}
-                        <div className="relative">
-                          <div className="absolute -left-3 top-2 w-2 h-2 rounded-full bg-[#00A3FF]"></div>
-                          <div className="pl-4 border-l-2 border-slate-100">
-                            <div className="flex justify-between items-baseline mb-1">
-                              <h3 className="text-lg font-bold text-slate-800">Senior Full-Stack Developer</h3>
-                              <span className="text-sm font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">2016 - 2020</span>
+                          {/* Job 2 */}
+                          <div className="relative pl-3 border-l border-slate-200">
+                            <div className="absolute -left-[4.5px] top-1 w-2 h-2 rounded-full bg-[#00A3FF]"></div>
+                            <div className="flex justify-between items-baseline mb-0.5">
+                              <h3 className="text-xs font-extrabold text-slate-800">Senior Full-Stack Engineer</h3>
+                              <span className="text-[9.5px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">2016 - 2020</span>
                             </div>
-                            <div className="text-base font-semibold text-[#00A3FF] mb-3">Innovate Systems • Austin, TX</div>
-                            <ul className="space-y-2 text-[14px] text-slate-600 list-disc list-inside">
-                              <li>Developed a highly interactive enterprise dashboard using React and Redux, adopted by 50+ Fortune 500 clients.</li>
-                              <li>Optimized database queries in PostgreSQL, reducing average API response times from 1.2s to 200ms.</li>
+                            <div className="text-xs font-bold text-[#00A3FF] mb-1.5">Innovate Systems • Austin, TX</div>
+                            <ul className="space-y-1 text-[11px] text-slate-605 list-disc list-inside">
+                              <li>Designed a custom React UI library adopted enterprise-wide, improving developer productivity by 30%.</li>
+                              <li>Optimized complex PostgreSQL query execution plans, slashing average API request latency by 80%.</li>
                             </ul>
                           </div>
                         </div>
@@ -350,18 +407,18 @@ export default function Home() {
 
                       {/* Projects */}
                       <div>
-                        <div className="flex items-center gap-2 text-lg font-bold text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2 mb-4">
-                          <span className="text-[#00A3FF]"><Code size={20} /></span>
-                          Key Projects
+                        <div className="flex items-center gap-1.5 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-[#F1F5F9] pb-1.5 mb-2.5">
+                          <Code size={14} className="text-[#00A3FF]" />
+                          Key Contributions
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                          <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <div className="font-bold text-slate-800 mb-1">NexusFlow CRM</div>
-                            <div className="text-[13px] text-slate-600">Built a multi-tenant SaaS CRM scaling to 10k active users using Next.js and Supabase.</div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <div className="font-extrabold text-slate-800 text-[11.5px] mb-0.5">NexusFlow CRM Platform</div>
+                            <div className="text-[10px] text-slate-600 leading-relaxed">Built Next.js backend architecture supporting 12,000+ active business customers.</div>
                           </div>
-                          <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <div className="font-bold text-slate-800 mb-1">AI Data Parser</div>
-                            <div className="text-[13px] text-slate-600">Implemented an OpenAI-powered document parser saving 500+ manual hours monthly.</div>
+                          <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <div className="font-extrabold text-slate-800 text-[11.5px] mb-0.5">AI Engine Integration</div>
+                            <div className="text-[10px] text-slate-600 leading-relaxed">Implemented OpenAI parser pipelines reducing manual documentation tasks by 40%.</div>
                           </div>
                         </div>
                       </div>
