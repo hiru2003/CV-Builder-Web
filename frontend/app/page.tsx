@@ -134,7 +134,7 @@ export default function Home() {
           </div>
           
           {/* Right Column - Visual Mockup */}
-          <div className="relative hidden lg:block h-full min-h-[700px] w-full perspective-1000">
+          <div className="relative hidden lg:block h-[700px] w-full perspective-1000">
             
             {/* Background CV 1 (Minimalist Stacked) */}
             <div className="absolute right-12 top-1/2 -translate-y-1/2 z-0 w-[275px] h-[390px] animate-slide-in-cv1 opacity-0" style={{ animationDelay: '200ms' }}>
