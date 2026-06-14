@@ -28,16 +28,16 @@ export default function Home() {
           to { opacity: 1; transform: translateY(0); }
         }
         @keyframes slide-in-main-fade {
-          from { opacity: 0; transform: translateY(-50%) translateX(80px); }
-          to { opacity: 1; transform: translateY(-50%) translateX(0); }
+          from { opacity: 0; transform: translate(-50%, -50%) translateX(80px); }
+          to { opacity: 1; transform: translate(-50%, -50%); }
         }
         @keyframes slide-in-cv1-fade {
-          from { opacity: 0; transform: translateY(-50%) translateX(100px); }
-          to { opacity: 1; transform: translateY(-50%) translateX(0); }
+          from { opacity: 0; transform: translate(-50%, -50%) translateX(100px); }
+          to { opacity: 1; transform: translate(-50%, -50%); }
         }
         @keyframes slide-in-cv2-fade {
-          from { opacity: 0; transform: translateY(-50%) translateX(60px); }
-          to { opacity: 1; transform: translateY(-50%) translateX(0); }
+          from { opacity: 0; transform: translate(-50%, -50%) translateX(60px); }
+          to { opacity: 1; transform: translate(-50%, -50%); }
         }
         @keyframes pulse-soft {
           0%, 100% { opacity: 1; transform: scale(1); }
@@ -134,12 +134,12 @@ export default function Home() {
           </div>
           
           {/* Right Column - Visual Mockup */}
-          <div className="relative hidden lg:block h-[700px] w-full perspective-1000">
+          <div className="relative hidden lg:block h-[750px] w-full perspective-1000">
             
             {/* Background CV 1 (Minimalist Stacked) */}
-            <div className="absolute right-12 top-1/2 -translate-y-1/2 z-0 w-[275px] h-[390px] animate-slide-in-cv1 opacity-0" style={{ animationDelay: '200ms' }}>
+            <div className="absolute left-[calc(50%-80px)] top-1/2 z-0 w-[358px] h-[507px] animate-slide-in-cv1 opacity-0" style={{ animationDelay: '200ms' }}>
               <div className="w-full h-full animate-float-delayed">
-                <div className="w-[550px] h-[780px] origin-top-left scale-[0.5] hover:scale-[0.55] transition-all duration-500 hover:rotate-[-8deg] rotate-[-12deg] bg-slate-50 shadow-xl border border-slate-200 opacity-60 rounded-sm p-12 flex flex-col gap-8 text-left">
+                <div className="w-[550px] h-[780px] origin-top-left scale-[0.65] hover:scale-[0.7] transition-all duration-500 hover:rotate-[-8deg] rotate-[-12deg] bg-slate-50 shadow-xl border border-slate-200 opacity-60 rounded-sm p-12 flex flex-col gap-8 text-left">
                   <div className="flex justify-between items-start border-b border-slate-200 pb-6">
                     <div>
                       <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight mb-1">Emily Carter</h2>
@@ -188,9 +188,9 @@ export default function Home() {
             </div>
 
             {/* Background CV 2 (Creative Stacked) */}
-            <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 z-0 w-[303px] h-[429px] animate-slide-in-cv2 opacity-0" style={{ animationDelay: '400ms' }}>
+            <div className="absolute left-[calc(50%+80px)] top-1/2 z-0 w-[385px] h-[546px] animate-slide-in-cv2 opacity-0" style={{ animationDelay: '400ms' }}>
               <div className="w-full h-full animate-float">
-                <div className="w-[550px] h-[780px] origin-top-left scale-[0.55] hover:scale-[0.6] transition-all duration-500 hover:rotate-[3deg] rotate-[6deg] bg-white shadow-xl border border-slate-200 opacity-80 flex rounded-sm overflow-hidden text-left">
+                <div className="w-[550px] h-[780px] origin-top-left scale-[0.7] hover:scale-[0.75] transition-all duration-500 hover:rotate-[3deg] rotate-[6deg] bg-white shadow-xl border border-slate-200 opacity-80 flex rounded-sm overflow-hidden text-left">
                   <div className="w-1/3 bg-[#0A2540] text-white h-full p-6 flex flex-col justify-between shrink-0">
                     <div>
                       <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#00A3FF] to-indigo-500 mb-6 border border-white/20"></div>
@@ -245,9 +245,9 @@ export default function Home() {
             </div>
 
             {/* The Main CV Document (Scaled to fit) */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[360px] h-[509px] animate-slide-in-main opacity-0">
+            <div className="absolute left-1/2 top-1/2 z-10 w-[450px] h-[636px] animate-slide-in-main opacity-0">
               <div className="w-full h-full animate-float">
-                <div className="w-[600px] h-[848px] origin-top-left scale-[0.6] hover:scale-[0.64] transition-all duration-500 hover:rotate-0 rotate-[-2deg] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_-15px_rgba(0,163,255,0.3)] border border-slate-100 rounded-sm bg-white flex flex-col text-left">
+                <div className="w-[600px] h-[848px] origin-top-left scale-[0.75] hover:scale-[0.78] transition-all duration-500 hover:rotate-0 rotate-[-2deg] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_-15px_rgba(0,163,255,0.3)] border border-slate-100 rounded-sm bg-white flex flex-col text-left">
                   
                   {/* CV Header: Executive Style */}
                   <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] text-white p-8 flex justify-between items-center relative overflow-hidden border-b-4 border-[#00A3FF] shrink-0">
