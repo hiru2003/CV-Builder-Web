@@ -1,0 +1,43 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/CV-Builder-Web
+            git pull origin main
+            cd frontend
+            
+            # Rebuild with the latest environment secrets
+            docker build \
+              --build-arg NEXT_PUBLIC_SUPABASE_URL="${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" \
+              --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" \
+              -t cv-builder .
+            
+            docker stop cv-app-container || true
+            docker rm cv-app-container || true
+            
+            docker run -d \
+              --name cv-app-container \
+              -p 3000:3000 \
+              --restart always \
+              cv-builder
+              
+            # Clean up old build cache to avoid running out of space
+            docker system prune -f
