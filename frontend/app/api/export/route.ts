@@ -32,14 +32,24 @@ export async function POST(request: Request) {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
     } else {
-      // In production serverless (Vercel)
-      const chromium = (await import('@sparticuz/chromium')).default as any;
-      browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
-        headless: chromium.headless,
-      });
+      // In production
+      if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+        // If we are in a Docker container with native Chromium installed
+        browser = await puppeteer.launch({
+          executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+          headless: true,
+        });
+      } else {
+        // In production serverless (Vercel)
+        const chromium = (await import('@sparticuz/chromium')).default as any;
+        browser = await puppeteer.launch({
+          args: chromium.args,
+          defaultViewport: chromium.defaultViewport,
+          executablePath: await chromium.executablePath(),
+          headless: chromium.headless,
+        });
+      }
     }
     const page = await browser.newPage();
 
