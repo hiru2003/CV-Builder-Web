@@ -81,7 +81,12 @@ export async function POST(request: Request) {
     // Get the base URL (localhost for dev, actual domain for prod)
     const protocol = request.headers.get('x-forwarded-proto') || 'http';
     const host = request.headers.get('host');
-    const baseUrl = `${protocol}://${host}`;
+    let baseUrl = `${protocol}://${host}`;
+
+    // If running in a Docker container, bypass loopback firewalls by loading from localhost
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+      baseUrl = 'http://localhost:3000';
+    }
 
 
 

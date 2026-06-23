@@ -210,7 +210,7 @@ export default function EditorPage() {
       const currentSpacing = useCVStore.getState().spacing;
       const currentFontSizeAdjust = useCVStore.getState().fontSizeAdjust;
 
-      // Sync database and trigger PDF export concurrently for maximum performance (no waiting for DB response to start PDF generation)
+      // Sync database and trigger PDF export concurrently for maximum performance
       const dbSyncPromise = syncResumeToDatabase(
         currentUser, 
         currentTemplate, 
@@ -219,7 +219,10 @@ export default function EditorPage() {
         currentThemeColor,
         currentSpacing,
         currentFontSizeAdjust
-      );
+      ).catch(err => {
+        console.error("Database sync failed:", err);
+        throw new Error(`Database save failed: ${err.message || err.details || 'Unknown database error'}`);
+      });
       
       const exportPromise = fetch('/api/export', {
         method: 'POST',
@@ -232,11 +235,15 @@ export default function EditorPage() {
           spacing: currentSpacing,
           fontSizeAdjust: currentFontSizeAdjust
         }),
+      }).then(async res => {
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(`PDF generation failed: ${errData.error || res.statusText}`);
+        }
+        return res;
       });
 
       const [_, response] = await Promise.all([dbSyncPromise, exportPromise]);
-
-      if (!response.ok) throw new Error('Failed to generate PDF');
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -247,9 +254,9 @@ export default function EditorPage() {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Export/Save error:', error);
-      alert('Failed to save your CV to the cloud or generate PDF.');
+      alert(error.message || 'Failed to save your CV to the cloud or generate PDF.');
     } finally {
       setIsExporting(false);
     }
